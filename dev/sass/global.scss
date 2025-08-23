@@ -1,0 +1,18 @@
+html {
+   font-size: 16px; /* 1rem = 16px */
+   box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+   box-sizing: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit; // Наследовать шрифт от body
+  color: inherit; // Наследовать цвет от body
+}
