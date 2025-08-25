@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 html {
    font-size: 16px; /* 1rem = 16px */
    box-sizing: border-box;
@@ -9,10 +11,121 @@ html {
    box-sizing: inherit;
 }
 
+img,
+.icon-svg {
+  width: 100%;
+  height: auto;
+}
+
+body {
+   max-width: 1619px;
+   min-height: 100vh;
+   font-family: $font-primary;
+   color: $primary-color;
+   line-height: 1.5;
+   background-color: #fff;
+   margin: 0 auto;
+}
+
 button,
 input,
 select,
 textarea {
   font-family: inherit; // Наследовать шрифт от body
   color: inherit; // Наследовать цвет от body
+}
+
+a {
+   text-decoration: none;
+   transition: 0.3s;
+ 
+   &:hover {
+     color: #000;
+   }
+}
+
+h1 {
+   font-size: 72px;
+   font-weight: 700;
+   line-height: 1.22;
+}
+
+h2 {
+   font-size: 64px;
+   font-weight: 700;
+}
+
+h3 {
+   font-size: 40px;
+}
+
+h4 {
+   font-size: 36px;
+}
+
+h5 {
+   font-size: 30px;
+}
+
+h6 {
+   font-size: 24px;
+   line-height: 1.33;
+}
+
+.container {
+   width: 100%;
+   max-width: 100%;
+   margin: 0 auto;
+   padding: 0 12px;
+}
+
+.logotype {
+   width: 174px;
+   height: 56px;
+   display: flex;
+   align-items: center;
+   border-radius: 32px;
+
+   &:hover {
+      background-color: $grey-blue30;
+   }
+   
+   img {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+   }
+   
+   .name {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.33;
+      color: $primary-color;
+   }
+}
+
+.btn {
+   display: inline-block;
+   font-size: 20px;
+   font-weight: 500;
+   line-height: 1.5;
+   color: #434A54;
+   background-color: #fff;
+   text-decoration: none;
+   white-space: nowrap;
+   border: none;
+   border-radius: 60px;
+   cursor: pointer;
+   // transition: 0.3s;
+
+   &:hover {
+      background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+      color: #fff;
+      outline: none;
+   }
+ 
+   &:focus,
+   &:active:focus {
+     box-shadow: none;
+   }
 }
