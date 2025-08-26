@@ -1,0 +1,387 @@
+@charset "UTF-8";
+/*
+Theme Name: CustomTheme
+Theme URI: https://wordpress.org/themes/CustomTheme/
+Author: the Rost team
+Author URI: http://rost.com.ua/
+Description: CustomTheme brings your site to life with immersive featured images and subtle animations. Our default theme works great in many languages, for any abilities, and on any device.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: CustomTheme
+Tags: custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+@font-face {
+  font-family: "Montserrat";
+  src: url(assets/fonts/Montserrat-Regular.ttf) format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url(assets/fonts/Montserrat-Medium.ttf) format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url(assets/fonts/Montserrat-SemiBold.ttf) format("truetype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url(assets/fonts/Montserrat-Bold.ttf) format("truetype");
+  font-weight: 700;
+}
+html {
+  font-size: 16px;
+  /* 1rem = 16px */
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+img,
+.icon-svg {
+  width: 100%;
+  height: auto;
+}
+
+body {
+  max-width: 1619px;
+  min-height: 100vh;
+  font-family: "Montserrat";
+  color: #333840;
+  line-height: 1.5;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s;
+}
+a:hover {
+  color: #000;
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.22;
+}
+
+h2 {
+  font-size: 64px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 40px;
+}
+
+h4 {
+  font-size: 36px;
+}
+
+h5 {
+  font-size: 30px;
+  line-height: 1.27;
+  color: #707A8A;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+.logo {
+  width: 174px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-radius: 32px;
+}
+.logo:hover {
+  background-color: #DDE3ED;
+}
+.logo img {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+.logo .name {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.33;
+  color: #333840;
+}
+
+.btn {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #114599;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+}
+.btn:hover {
+  background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+  color: #fff;
+  outline: none;
+}
+.btn:focus, .btn:active:focus {
+  box-shadow: none;
+}
+
+.text {
+  font-size: 24px;
+  line-height: 1.33;
+  color: #707A8A;
+}
+
+.small-text {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #707A8A;
+}
+
+header {
+  height: 0;
+  padding: 0;
+  background: #fff;
+}
+
+.lending header {
+  width: 100%;
+  height: 136px;
+  padding: 40px;
+  margin-bottom: 104px;
+}
+.lending header nav {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lending header nav .btns {
+  height: 100%;
+  display: flex;
+  gap: 24px;
+}
+.lending header nav .btns .btn {
+  padding: 13px 37px;
+}
+.lending .service {
+  margin-bottom: 240px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 40px;
+}
+.lending .service .description,
+.lending .service .picture {
+  flex: 1;
+}
+.lending .service .description .subtitle {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 8px 31px;
+  margin-bottom: 24px;
+}
+.lending .service .description .subtitle img {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+.lending .service .description .subtitle .subtext {
+  font-size: 16px;
+  color: #114599;
+}
+.lending .service .description h1 {
+  margin-bottom: 16px;
+}
+.lending .service .description h1 span {
+  color: #114599;
+}
+.lending .service .description .text {
+  margin-bottom: 40px;
+}
+.lending .service .description .btn {
+  padding: 16px 30px;
+}
+.lending .service .description .btn img {
+  width: 24px;
+  height: 24px;
+  margin: 0 4px 3px 0;
+}
+.lending .service .picture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lending .service .picture img {
+  max-height: 377px;
+}
+.lending .statistics {
+  width: 100%;
+  height: 256px;
+  color: #fff;
+  background-color: #114599;
+  padding: 80px 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 240px;
+}
+.lending .statistics .block {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 8px;
+}
+.lending .statistics .block .quantity {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.lending .statistics .block .indicator {
+  font-size: 20px;
+}
+.lending .career {
+  margin-bottom: 180px;
+}
+.lending .career .header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.lending .career .header h2 {
+  margin-bottom: 24px;
+}
+.lending .career .table {
+  display: flex;
+}
+.lending .career .table .part {
+  text-align: center;
+  padding: 60px 24px;
+}
+.lending .career .table .part .icon {
+  margin-bottom: 24px;
+}
+.lending .career .table .part .icon img {
+  width: 70px;
+  height: 70px;
+}
+.lending .career .table .part h3 {
+  margin-bottom: 16px;
+}
+.lending .how-works {
+  max-width: 881px;
+  text-align: center;
+  margin: 0 auto 228px;
+}
+.lending .how-works h2 {
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.lending .how-works .text {
+  margin-bottom: 60px;
+}
+.lending .how-works .instraction .step {
+  width: 100%;
+  height: 108px;
+  background-color: #114599;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  margin-bottom: 40px;
+}
+.lending .how-works .instraction .step:hover {
+  background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+}
+.lending .how-works .instraction .step .number {
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  line-height: 1.67;
+  background-color: #fff;
+  border-radius: 50%;
+  padding-top: 5px;
+  margin-right: 24px;
+}
+.lending .how-works .instraction .step h5 {
+  color: #fff;
+}
+.lending .free-registration {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 240px;
+}
+.lending .free-registration h2 {
+  max-width: 935px;
+  margin-bottom: 24px;
+}
+.lending .free-registration h2 span {
+  color: #114599;
+}
+.lending .free-registration .text {
+  max-width: 732px;
+  margin-bottom: 40px;
+}
+.lending .free-registration .btn {
+  padding: 16px 31px;
+}
+
+.main-page .container img {
+  width: 66px;
+  height: 66px;
+}
+
+footer {
+  height: 110px;
+  font-size: 20px;
+  background: #fff;
+  margin-top: auto;
+}
+footer .logotipe {
+  text-align: center;
+  margin-bottom: 16px;
+}
+footer .logotipe .logo {
+  margin: 0 auto;
+}
+footer .copyright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer .copyright img {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+/*должен подключаться последним*/
+/*# sourceMappingURL=style.css.map */
