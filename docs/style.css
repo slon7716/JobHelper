@@ -86,6 +86,7 @@ h1 {
 h2 {
   font-size: 64px;
   font-weight: 700;
+  line-height: 1.22;
 }
 
 h3 {
@@ -94,6 +95,8 @@ h3 {
 
 h4 {
   font-size: 36px;
+  font-weight: 700;
+  line-height: 1.22;
 }
 
 h5 {
@@ -110,14 +113,15 @@ h5 {
 }
 
 .logo {
-  width: 174px;
-  height: 56px;
+  width: 206px;
+  height: 48px;
   display: flex;
   align-items: center;
-  border-radius: 32px;
+  border-radius: 48px;
+  padding: 8px 16px;
 }
 .logo:hover {
-  background-color: #DDE3ED;
+  background-color: #F0F5FC;
 }
 .logo img {
   width: 32px;
@@ -136,18 +140,29 @@ h5 {
   font-size: 20px;
   font-weight: 500;
   line-height: 1.5;
-  color: #fff;
-  background-color: #114599;
   text-decoration: none;
   white-space: nowrap;
-  border: none;
-  border-radius: 60px;
+  border-radius: 56px;
   cursor: pointer;
 }
-.btn:hover {
-  background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+.btn.btn-primary {
+  border: none;
   color: #fff;
+  background-color: #114599;
+}
+.btn.btn-primary:hover {
+  background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
   outline: none;
+}
+.btn.btn-secondary {
+  color: #333840;
+  background-color: inherit;
+  border: 0.5px solid;
+  border-color: #707A8A;
+}
+.btn.btn-secondary:hover {
+  outline: none;
+  border: 2px solid #1D5BBF;
 }
 .btn:focus, .btn:active:focus {
   box-shadow: none;
@@ -166,11 +181,9 @@ h5 {
 }
 
 header {
-  height: 0;
-  padding: 0;
+  padding: 40px 0 57px 24px;
   background: #fff;
 }
-
 .lending header {
   width: 100%;
   height: 136px;
@@ -190,6 +203,12 @@ header {
 }
 .lending header nav .btns .btn {
   padding: 13px 37px;
+}
+.lending header nav .btns .btn.btn-secondary {
+  width: 190px;
+}
+.lending header nav .btns .btn.btn-secondary:hover {
+  padding: 12px 36px;
 }
 .lending .service {
   margin-bottom: 240px;
@@ -279,10 +298,15 @@ header {
 }
 .lending .career .table {
   display: flex;
+  justify-content: center;
 }
 .lending .career .table .part {
   text-align: center;
+  border-radius: 60px;
   padding: 60px 24px;
+}
+.lending .career .table .part:hover {
+  background-color: #F0F5FC;
 }
 .lending .career .table .part .icon {
   margin-bottom: 24px;
@@ -317,7 +341,9 @@ header {
   margin-bottom: 40px;
 }
 .lending .how-works .instraction .step:hover {
-  background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+  height: 120px;
+  background: linear-gradient(to right, #75AAFF 4%, #2D71DF 28%, #0D4CB1 52%, #001F51 100%);
+  transition: 0.4s;
 }
 .lending .how-works .instraction .step .number {
   width: 60px;
@@ -354,6 +380,64 @@ header {
   padding: 16px 31px;
 }
 
+.registration {
+  max-width: 523px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.registration h4 {
+  margin-bottom: 80px;
+}
+.registration form fieldset {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+.registration form fieldset div {
+  text-align: left;
+  margin-bottom: 4px;
+}
+.registration form fieldset input {
+  width: 100%;
+  font-size: 24px;
+  line-height: 1.33;
+  border: 1px solid #8E99AB;
+  border-radius: 20px;
+  padding: 18px 24px 18px 56px;
+  cursor: pointer;
+}
+.registration form fieldset input::placeholder {
+  font-family: "Montserrat";
+  font-size: 24px;
+  color: #8E99AB;
+}
+.registration form fieldset input:hover {
+  border: 1px solid #1D5BBF;
+}
+.registration form fieldset input:focus {
+  border: 2px solid #1D5BBF;
+}
+.registration form fieldset input:focus::placeholder {
+  font-size: 20px;
+  color: #8E99AB;
+}
+.registration form fieldset input.name {
+  background: url("assets/img/person.svg") no-repeat 24px center;
+  margin-bottom: 24px;
+}
+.registration form fieldset input.phone {
+  background: url("assets/img/pencil.svg") no-repeat 24px center;
+}
+.registration form .btn.btn-primary {
+  background-color: #1D5BBF;
+  opacity: 0.7;
+  pointer-events: none;
+  padding: 16px 73px;
+}
+
 .main-page .container img {
   width: 66px;
   height: 66px;
@@ -363,24 +447,10 @@ footer {
   height: 110px;
   font-size: 20px;
   background: #fff;
-  margin-top: auto;
-}
-footer .logotipe {
-  text-align: center;
-  margin-bottom: 16px;
-}
-footer .logotipe .logo {
-  margin: 0 auto;
-}
-footer .copyright {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-footer .copyright img {
-  width: 24px;
-  height: 24px;
-  margin-left: 8px;
+  margin-top: auto;
 }
 
 /*должен подключаться последним*/
