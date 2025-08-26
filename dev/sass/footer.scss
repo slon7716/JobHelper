@@ -2,15 +2,27 @@ footer {
     height: 110px;
     font-size: 20px;
     background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-top: auto;
+    
+    .logotipe {
+        text-align: center;
+        margin-bottom: 16px;
+        
+        .logo {
+            margin: 0 auto;
+        }
+    }
+    
+    .copyright {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    img {
-        width: 24px;
-        height: 24px;
-        margin-left: 8px;
+        img {
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+        }
     }
 }
 

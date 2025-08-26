@@ -30,14 +30,14 @@
       display: flex;
       justify-content: space-between;
       gap: 20px;
+      padding: 0 40px;
 
-      .text,
+      .description,
       .picture {
          flex: 1; // обидва займуть однакову ширину
       }
 
-      .text {
-         
+      .description {         
          .subtitle {
             height: 40px;
             display: flex;
@@ -65,8 +65,7 @@
             }
          }
          
-         h6 {
-            color: $secondary-color;
+         .text {
             margin-bottom: 40px;
          }
 
@@ -105,7 +104,7 @@
       .block {
          display: flex;
          flex-direction: column;
-         align-items: center;
+         text-align: center;
          gap: 8px;
 
          .quantity {
@@ -121,7 +120,7 @@
    }
 
    .career {
-      margin-bottom: 140px;
+      margin-bottom: 180px;
 
       .header {
          text-align: center;
@@ -151,11 +150,88 @@
             h3 {
                margin-bottom: 16px;
             }
+         }
+      }
+   }
 
-            .text {
-               color: $secondary-color;
+   .how-works {
+      max-width: 881px;
+      text-align: center;
+      margin: 0 auto 228px;
+
+      h2 {
+         font-weight: 600;
+         margin-bottom: 24px;
+      }
+
+      .text {
+         margin-bottom: 60px;
+      }
+
+      .instraction {
+         .step {
+            width: 100%;
+            height: 108px;
+            background-color: $blue80;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            padding: 40px;
+            margin-bottom: 40px;
+
+            &:hover {
+               background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+            }
+
+            .number {
+               width: 60px;
+               height: 60px;
+               font-size: 30px;
+               line-height: 1.67;
+               background-color: #fff;
+               border-radius: 50%;
+               padding-top: 5px;
+               margin-right: 24px;
+            }
+
+            h5 {
+               color: #fff;
             }
          }
       }
    }
+
+   .free-registration {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 240px;
+
+      h2 {
+         max-width: 935px;
+         margin-bottom: 24px;
+
+         span {
+            color: $blue80;
+         }
+      }
+
+      .text {
+         max-width: 732px;
+         margin-bottom: 40px;
+      }
+
+      .btn {
+         padding: 16px 31px;
+      }
+   }
+
+   // .logotipe {
+   //    text-align: center;
+      
+   //    .logo {
+   //       margin: 0 auto 16px;
+   //    }
+   // }
 }
