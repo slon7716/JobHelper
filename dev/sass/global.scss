@@ -54,6 +54,7 @@ h1 {
 h2 {
    font-size: 64px;
    font-weight: 700;
+   line-height: 1.22;
 }
 
 h3 {
@@ -62,6 +63,8 @@ h3 {
 
 h4 {
    font-size: 36px;
+   font-weight: 700;
+   line-height: 1.22;
 }
 
 h5 {
@@ -78,14 +81,15 @@ h5 {
 }
 
 .logo {
-   width: 174px;
-   height: 56px;
+   width: 206px;
+   height: 48px;
    display: flex;
    align-items: center;
-   border-radius: 32px;
+   border-radius: 48px;
+   padding: 8px 16px;
 
    &:hover {
-      background-color: $grey-blue30;
+      background-color: $blue20;
    }
 
    img {
@@ -107,19 +111,32 @@ h5 {
    font-size: 20px;
    font-weight: 500;
    line-height: 1.5;
-   color: #fff;
-   background-color: $blue80;
    text-decoration: none;
    white-space: nowrap;
-   border: none;
-   border-radius: 60px;
+   border-radius: 56px;
    cursor: pointer;
-   // transition: 0.3s;
-
-   &:hover {
-      background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+   
+   &.btn-primary {
+      border: none;
       color: #fff;
-      outline: none;
+      background-color: $blue80;
+
+      &:hover {
+         background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+         outline: none;
+      }
+   }
+
+   &.btn-secondary {
+      color: $primary-color;
+      background-color: inherit;
+      border: 0.5px solid;
+      border-color: $secondary-color;
+
+      &:hover {
+         outline: none;
+         border: 2px solid $blue70;
+      }
    }
 
    &:focus,

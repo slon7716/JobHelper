@@ -20,6 +20,15 @@
 
             .btn {
                padding: 13px 37px;
+
+               &.btn-secondary {
+                  width: 190px;
+                  
+                  &:hover {
+                     padding: 12px 36px;
+                  }
+               }
+
             }
          }
       }
@@ -133,10 +142,16 @@
 
       .table {
          display: flex;
+         justify-content: center;
          
          .part {
             text-align: center;
+            border-radius: 60px;
             padding: 60px 24px;
+
+            &:hover {
+               background-color: $blue20;
+            }
 
             .icon {
                margin-bottom: 24px;
@@ -180,7 +195,9 @@
             margin-bottom: 40px;
 
             &:hover {
-               background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+               height: 120px;
+               background: linear-gradient(to right, #75AAFF 4%, #2D71DF 28%, #0D4CB1 52%, #001F51 100%);
+               transition: 0.4s;
             }
 
             .number {
@@ -226,12 +243,4 @@
          padding: 16px 31px;
       }
    }
-
-   // .logotipe {
-   //    text-align: center;
-      
-   //    .logo {
-   //       margin: 0 auto 16px;
-   //    }
-   // }
 }
