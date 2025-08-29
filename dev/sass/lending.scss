@@ -15,6 +15,7 @@
 
          .btns {
             height: 100%;
+            text-align: center;
             display: flex;
             gap: 24px;
 
@@ -81,10 +82,11 @@
          .btn {
             padding: 16px 30px;
 
-            img {
+            svg {
                width: 24px;
                height: 24px;
-               margin: 0 4px 3px 0;
+               vertical-align: middle;
+               margin: 0 4px 2px 0;
             }
          }
       }

@@ -102,7 +102,6 @@ h4 {
 h5 {
   font-size: 30px;
   line-height: 1.27;
-  color: #707A8A;
 }
 
 .container {
@@ -181,9 +180,36 @@ h5 {
 }
 
 header {
-  padding: 40px 0 57px 24px;
-  background: #fff;
+  padding: 56px 0;
 }
+header .container .header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 106px;
+}
+header .container .pages {
+  display: flex;
+  gap: 40px;
+}
+header .container .pages .page {
+  display: flex;
+  align-items: center;
+}
+header .container .pages .page img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+header .container .pages .page.active {
+  background-color: #DDE3ED;
+  border-radius: 60px;
+  padding: 16px 24px;
+}
+header .container .pages .page:hover .text {
+  font-weight: 600;
+}
+
 .lending header {
   width: 100%;
   height: 136px;
@@ -198,6 +224,7 @@ header {
 }
 .lending header nav .btns {
   height: 100%;
+  text-align: center;
   display: flex;
   gap: 24px;
 }
@@ -249,10 +276,11 @@ header {
 .lending .service .description .btn {
   padding: 16px 30px;
 }
-.lending .service .description .btn img {
+.lending .service .description .btn svg {
   width: 24px;
   height: 24px;
-  margin: 0 4px 3px 0;
+  vertical-align: middle;
+  margin: 0 4px 2px 0;
 }
 .lending .service .picture {
   display: flex;
@@ -380,27 +408,137 @@ header {
   padding: 16px 31px;
 }
 
-.registration {
+.enter-the-site .logo {
+  margin: 40px 0 40px 40px;
+}
+.enter-the-site h4 {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.enter-the-site form {
   max-width: 523px;
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
 }
+.enter-the-site form fieldset {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
+}
+.enter-the-site form fieldset .field {
+  width: 100%;
+}
+.enter-the-site form fieldset .field .small-text {
+  text-align: left;
+  margin-bottom: 4px;
+}
+.enter-the-site form fieldset .field .email {
+  margin-bottom: 24px;
+}
+.enter-the-site form fieldset .field .password {
+  margin-bottom: 8px;
+}
+.enter-the-site form fieldset .field input {
+  width: 100%;
+  font-size: 24px;
+  line-height: 1.33;
+  border: 1px solid #8E99AB;
+  border-radius: 20px;
+  padding: 18px 24px;
+  cursor: pointer;
+}
+.enter-the-site form fieldset .field input::placeholder {
+  font-family: "Montserrat";
+  font-size: 24px;
+  color: #8E99AB;
+}
+.enter-the-site form fieldset .field input:hover {
+  border: 1px solid #1D5BBF;
+}
+.enter-the-site form fieldset .field input:focus {
+  border: 2px solid #1D5BBF;
+}
+.enter-the-site form fieldset .field input:focus::placeholder {
+  font-size: 20px;
+  color: #8E99AB;
+}
+.enter-the-site form fieldset .field input.password {
+  background: url("assets/img/eye.svg") no-repeat right 24px center;
+}
+.enter-the-site form fieldset .incorrect {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.enter-the-site form fieldset .incorrect img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+.enter-the-site form fieldset .incorrect .small-text {
+  font-size: 16px;
+  color: #DE1B1B;
+  text-align: left;
+}
+.enter-the-site form fieldset .incorrect .forgot-password {
+  text-decoration: underline;
+  display: flex;
+  justify-content: right;
+  margin-left: auto;
+}
+.enter-the-site form .no-account {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+.enter-the-site form .no-account .small-text {
+  margin-right: 8px;
+}
+.enter-the-site form .no-account a {
+  font-size: 20px;
+  color: #333840;
+}
+.enter-the-site .btn.btn-primary {
+  background-color: #1D5BBF;
+  opacity: 0.7;
+  pointer-events: none;
+  padding: 16px 128px;
+}
+
+.registration .logo {
+  margin: 40px 0 40px 40px;
+}
 .registration h4 {
+  text-align: center;
   margin-bottom: 80px;
+}
+.registration form {
+  max-width: 523px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
 }
 .registration form fieldset {
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px;
+  margin-bottom: 36px;
 }
-.registration form fieldset div {
+.registration form fieldset .field {
+  margin-bottom: 24px;
+}
+.registration form fieldset .field .small-text {
   text-align: left;
   margin-bottom: 4px;
 }
-.registration form fieldset input {
+.registration form fieldset .field input {
   width: 100%;
   font-size: 24px;
   line-height: 1.33;
@@ -409,27 +547,57 @@ header {
   padding: 18px 24px 18px 56px;
   cursor: pointer;
 }
-.registration form fieldset input::placeholder {
+.registration form fieldset .field input::placeholder {
   font-family: "Montserrat";
   font-size: 24px;
   color: #8E99AB;
 }
-.registration form fieldset input:hover {
+.registration form fieldset .field input:hover {
   border: 1px solid #1D5BBF;
 }
-.registration form fieldset input:focus {
+.registration form fieldset .field input:focus {
   border: 2px solid #1D5BBF;
 }
-.registration form fieldset input:focus::placeholder {
+.registration form fieldset .field input:focus::placeholder {
   font-size: 20px;
   color: #8E99AB;
 }
-.registration form fieldset input.name {
+.registration form fieldset .field input.name {
   background: url("assets/img/person.svg") no-repeat 24px center;
-  margin-bottom: 24px;
 }
-.registration form fieldset input.phone {
+.registration form fieldset .field input.phone {
   background: url("assets/img/pencil.svg") no-repeat 24px center;
+}
+.registration form fieldset .field input.password {
+  background: url("assets/img/lock.svg") no-repeat 24px center, url("assets/img/eye.svg") no-repeat right 24px center;
+  margin-bottom: 8px;
+}
+.registration form fieldset .field .info-lock {
+  font-size: 12px;
+}
+.registration form fieldset .field .info-symbols .title {
+  display: flex;
+  margin-left: 3px;
+}
+.registration form fieldset .field .info-symbols .title img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+.registration form fieldset .field .info-symbols .list {
+  text-align: left;
+  padding-left: 3px;
+}
+.registration form fieldset .field .info-symbols .list .item {
+  margin: 0 0 8px 3px;
+}
+.registration form fieldset .field .info-symbols .list .item img {
+  width: 10px;
+  height: 10px;
+  margin-right: 14px;
+}
+.registration form fieldset .field .info-symbols .list .item:last-child {
+  margin-bottom: 0;
 }
 .registration form .btn.btn-primary {
   background-color: #1D5BBF;
@@ -438,9 +606,46 @@ header {
   padding: 16px 73px;
 }
 
-.main-page .container img {
-  width: 66px;
-  height: 66px;
+.main-page .greeting {
+  margin: 36px 40px 60px;
+}
+.main-page .greeting .title {
+  display: flex;
+  margin-bottom: 16px;
+}
+.main-page .greeting .title img {
+  width: 60px;
+  height: 60px;
+  margin: -16px 0 0 11px;
+}
+.main-page .activities {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 40px 60px;
+}
+.main-page .activities .item {
+  width: 277px;
+  text-align: center;
+}
+.main-page .activities .item .number {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.22;
+  color: #114599;
+}
+.main-page .activities .item .activity {
+  color: #58606E;
+}
+.main-page .recent-vacancies {
+  margin: 0 0 100px 40px;
+}
+.main-page .recent-vacancies h5 {
+  margin-bottom: 12px;
+}
+.main-page .recent-vacancies .works {
+  font-size: 18px;
+  line-height: 1.56;
+  margin-bottom: 24px;
 }
 
 footer {

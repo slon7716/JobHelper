@@ -1,0 +1,30 @@
+@@include('templates/head.html')
+<div class="enter-the-site">
+   <a class="logo" href="index.html">
+      <img src="assets/img/briefcase.svg" alt="briefcase">
+      <div class="name">JobHelper</div>
+  </a>
+   <h4>Увійти на сайт</h4>
+   <form action="#">
+      <fieldset>
+         <div class="field">
+            <div class="small-text">Email</div>
+            <input class="email" type="text" placeholder="Email" name="personal">
+         </div>
+         <div class="field">
+            <div class="small-text">Пароль</div>
+            <input class="password" type="text" placeholder="Пароль" name="personal">
+         </div>
+         <div class="incorrect">
+            <img src="assets/img/info-red.svg" alt="info">
+            <div class="small-text">Неправильний email або пароль</div>
+            <a class="forgot-password">Забули пароль?</a>
+         </div>
+      </fieldset>
+      <div class="no-account">
+         <div class="small-text">Немає акаунта?</div>
+         <a href="registration.html">Зареєструватися</a>
+      </div>
+      <button class="btn btn-primary">Увійти</button>
+   </form>
+</div>

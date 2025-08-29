@@ -1,8 +1,54 @@
+@use 'variables' as *;
+
 .main-page {
-   .container {
-      img {
-         width: 66px;
-         height: 66px;
+   .greeting {
+      margin: 36px 40px 60px;
+
+      .title {
+         display: flex;
+         margin-bottom: 16px;
+
+         img {
+            width: 60px;
+            height: 60px;
+            margin: -16px 0 0 11px;
+         }
+      }
+   }
+
+   .activities {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 0 40px 60px;
+      
+      .item {
+         width: 277px;
+         text-align: center;
+
+         .number {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.22;
+            color: $blue80;
+         }
+
+         .activity {
+            color: $grey-blue80;
+         }
+      }
+   }
+
+   .recent-vacancies {
+      margin: 0 0 100px 40px;
+
+      h5 {
+         margin-bottom: 12px;
+      }
+
+      .works {
+         font-size: 18px;
+         line-height: 1.56;
+         margin-bottom: 24px;
       }
    }
 }

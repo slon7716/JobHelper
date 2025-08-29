@@ -1,8 +1,32 @@
+@@include('templates/head.html')
 @@include('templates/header.html')
 <div class="main-page">
    <div class="container">
-      <h1>Вітаємо, друже!</h1>
-      <img src="dev/assets/img/waving-hand.svg" alt="hand">    
+      <div class="greeting">
+         <div class="title">
+            <h4>Вітаємо, друже!</h4>
+            <img src="assets/img/waving-hand.svg" alt="hand">
+         </div>
+         <div class="small-text">Сьогодні чудовий день для пошуку нових можливостей</div>
+      </div>
+      <div class="activities">
+         <div class="item">
+            <div class="number">12</div>
+            <div class="activity small-text">Активних заявок</div>
+         </div>
+         <div class="item">
+            <div class="number">3</div>
+            <div class="activity small-text">Співбесіди</div>
+         </div>
+         <div class="item">
+            <div class="number">85%</div>
+            <div class="activity small-text">Заповнення профілю</div>
+         </div>
+      </div>
+      <div class="recent-vacancies">
+         <h5>Нещодавні вакансії</h5>
+         <div class="works">Роботи, які можуть вас зацікавити</div>
+      </div>
    </div>
 </div>
 @@include('templates/footer.html')

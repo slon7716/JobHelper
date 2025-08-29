@@ -1,69 +1,119 @@
 @use 'variables' as *;
 
 .registration {
-    max-width: 523px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-
+    .logo {
+        margin: 40px 0 40px 40px;
+    }
+    
     h4 {
+        text-align: center;
         margin-bottom: 80px;
     }
-
+    
     form {
+        max-width: 523px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
 
         fieldset {
             display: flex;
             flex-direction: column;
-            margin-bottom: 60px;
+            margin-bottom: 36px;
 
-            div {
-                text-align: left;
-                margin-bottom: 4px;
-            }
+            .field {
+                margin-bottom: 24px;
 
-            input {
-                width: 100%;
-                font-size: 24px;
-                line-height: 1.33;
-                border: 1px solid $grey-blue60;
-                border-radius: 20px;
-                padding: 18px 24px 18px 56px;
-                cursor: pointer;
-                // transition: 0.3s;
-             
-                &::placeholder {
-                   font-family: $font-primary;
-                   font-size: 24px;
-                   color: $grey-blue60;
+                .small-text {
+                    text-align: left;
+                    margin-bottom: 4px;
                 }
-             
-                &:hover {
-                   border: 1px solid $blue70;
-                }
-             
-                // &:active {
-                //    border: 1px solid $accent-hover;
-                // }
-             
-                &:focus {
-                    border: 2px solid $blue70;
-             
+
+                input {
+                    width: 100%;
+                    font-size: 24px;
+                    line-height: 1.33;
+                    border: 1px solid $grey-blue60;
+                    border-radius: 20px;
+                    padding: 18px 24px 18px 56px;
+                    cursor: pointer;
+                    // transition: 0.3s;
+                 
                     &::placeholder {
-                      font-size: 20px;
-                      color: $grey-blue60;
+                       font-family: $font-primary;
+                       font-size: 24px;
+                       color: $grey-blue60;
+                    }
+                 
+                    &:hover {
+                       border: 1px solid $blue70;
+                    }
+                 
+                    // &:active {
+                    //    border: 1px solid $accent-hover;
+                    // }
+                 
+                    &:focus {
+                        border: 2px solid $blue70;
+                 
+                        &::placeholder {
+                          font-size: 20px;
+                          color: $grey-blue60;
+                        }
+                    }
+                    
+                    &.name {
+                        background: url("assets/img/person.svg") no-repeat 24px center;
+                    }
+                    
+                    &.phone {
+                        background: url("assets/img/pencil.svg") no-repeat 24px center;
+                    }
+                    
+                    &.password {
+                        background: url("assets/img/lock.svg") no-repeat 24px center,
+                        url("assets/img/eye.svg") no-repeat right 24px center;
+                        margin-bottom: 8px;
                     }
                 }
 
-                &.name {
-                    background: url("assets/img/person.svg") no-repeat 24px center;
-                    margin-bottom: 24px;
+                .info-lock {
+                    font-size: 12px;
                 }
 
-                &.phone {
-                    background: url("assets/img/pencil.svg") no-repeat 24px center;
+                .info-symbols{
+                    .title {
+                        display: flex;
+                        margin-left: 3px;
+
+                        img {
+                            width: 24px;
+                            height: 24px;
+                            margin-right: 8px;
+                        }
+                    }
+
+                    .list {
+                        text-align: left;
+                        padding-left: 3px;
+
+                        .item {
+                            margin: 0 0 8px 3px;
+
+                            img {
+                                width: 10px;
+                                height: 10px;
+                                margin-right: 14px;
+                            }
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
                 }
             }
         }

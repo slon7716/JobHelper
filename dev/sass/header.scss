@@ -1,7 +1,42 @@
-header{
-	padding: 40px 0 57px 24px;
-	background: #fff;
-	
-	.logo {
+@use 'variables' as *;
+
+header {
+	padding: 56px 0;
+
+	.container {
+		.header-nav {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 106px;
+		}
+
+		.pages {
+			display: flex;
+			gap: 40px;
+
+			.page {
+				display: flex;
+				align-items: center;
+
+				img {
+					width: 24px;
+					height: 24px;
+					margin-right: 8px;
+				}
+
+				&.active {
+					background-color: $grey-blue30;
+					border-radius: 60px;
+					padding: 16px 24px;
+				}
+
+				&:hover {
+					.text {
+						font-weight: 600;
+					}
+				}
+			}
+		}
 	}
 }
