@@ -48,7 +48,144 @@
       .works {
          font-size: 18px;
          line-height: 1.56;
+         color: $secondary-color;
          margin-bottom: 24px;
+      }
+
+      .vacancy-slider {
+         .swiper {
+            width: 100%;
+            // height: auto;
+
+            .swiper-wrapper {
+               margin-bottom: 24px;
+            }
+            
+            .swiper-slide {
+               width: 332px;
+               background-color: $grey-blue30;
+               border-radius: 40px;
+               padding: 20px 12px;
+
+               .job-title {
+                  background-color: #fff;
+                  border-radius: 32px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                  padding: 23px 24px;
+                  margin-bottom: 16px;
+                  
+                  .position {
+                     font-size: 16px;
+                     font-weight: 600;
+                  }
+
+                  .job-details {
+                     display: flex;
+                     gap: 25px;
+
+                     .items {
+                        display: flex;
+                        align-items: center;
+
+                        img {
+                           width: 16px;
+                           margin-right: 4px;
+                        }
+
+                        .item {
+                           font-size: 14px;
+                           line-height: 1.43;
+                           color: $secondary-color;
+                        }
+                     }
+                  }
+
+                  .match {
+                     width: 96px;
+                     // height: 28px;
+                     font-size: 14px;
+                     line-height: 1.43;
+                     color: $secondary-color;
+                     text-align: center;
+                     border: 0.5px solid $blue70;
+                     border-radius: 28px;
+                     padding: 3px 12px;
+                  }
+               }
+
+               .required-skills {
+                  padding: 0 24px;
+                  margin-bottom: 16px;
+
+                  .title {
+                     font-size: 14px;
+                     font-weight: 600;
+                     line-height: 1.43;
+                     color: $grey-blue80;
+                     margin-bottom: 12px;
+                  }
+
+                  .required-skills-list {
+                     .required-skills-item {
+                        font-size: 14px;
+                        line-height: 1.43;
+                        color: $secondary-color;
+                        display: flex;
+                        margin-bottom: 8px;
+   
+                        img {
+                           width: 4px;
+                           margin-right: 8px;
+                        }
+                     }
+                  }
+               }
+
+               .btns {
+                  text-align: center;
+
+                  .btn {
+                     font-size: 14px;
+                     line-height: 1.43;
+                     padding: 10px 23px;
+
+                     &.btn-secondary {
+                        background-color: #fff;
+                        padding: 9px 19px;
+                        margin-right: 40px;
+                     }
+                  }
+               }
+            }
+         }
+
+         &-navigation {
+            height: 30px;
+            // margin-top: 0;
+            // margin-bottom: 103px;
+            // margin-left: calc(50% - 83px);
+      
+            .swiper-button-prev,
+            .swiper-button-next {
+               top: 414px;
+               width: 30px;
+               height: 30px;
+
+               &::after {
+                  display: none;
+               }
+            }
+
+            .swiper-button-prev {
+               left: 40%;
+            }
+         
+            .swiper-button-next {
+               right: 40%;
+            }
+         }
       }
    }
 }

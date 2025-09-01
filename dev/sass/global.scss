@@ -118,7 +118,7 @@ h5 {
    &.btn-primary {
       border: none;
       color: #fff;
-      background-color: $blue80;
+      background-color: $blue70;
 
       &:hover {
          background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
@@ -127,7 +127,7 @@ h5 {
    }
 
    &.btn-secondary {
-      color: $primary-color;
+      color: $grey-blue90;
       background-color: inherit;
       border: 0.5px solid;
       border-color: $secondary-color;
