@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="assets/css/reset.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="assets/css/nice-select.css" type="text/css"/> -->
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="shortcut icon" href="assets/img/briefcase.svg" type="image/x-icon">
     <title>JobHelper</title>
@@ -34,13 +35,61 @@
                 <div class="incorrect">
                     <img src="assets/img/info-red.svg" alt="info">
                     <div class="small-text">Неправильний email або пароль</div>
-                    <a class="forgot-password">Забули пароль?</a>
+                    <a href="#" class="forgot-password">Забули пароль?</a>
                 </div>
             </fieldset>
             <div class="no-account">
-                <div class="small-text">Немає акаунта?</div>
+                <p class="small-text">Немає акаунта?</p>
                 <a href="registration.html">Зареєструватися</a>
             </div>
-            <button class="btn btn-primary">Увійти</button>
+            <button class="btn btn-primary" disabled>Увійти</button>
         </form>
     </div>
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal step-email active" role="dialog" aria-modal="true" aria-labelledby="modalTitleEmail">
+            <button class="modal-close">
+                <img src="assets/img/close.svg" alt="button">
+            </button>
+            <div class="modal-header">
+                <h4 id="modalTitleEmail">Відновлення паролю</h4>
+                <p>Введіть ваш email та отримайте код для відновлення доступу</p>
+            </div>
+            <form class="modal-form">
+                <label for="resetEmail" class="small-text">Email</label>
+                <input type="email" id="resetEmail" placeholder="email@example.com" required>
+                <div class="no-account">
+                    <p class="small-text">Немає акаунта?</p>
+                    <a href="registration.html">Зареєструватися</a>
+                </div>
+                <button type="submit" class="btn btn-primary" disabled>Отримати код</button>
+            </form>
+        </div>
+        <div class="modal step-code">
+            <button class="modal-close">
+                <img src="assets/img/close.svg" alt="button">
+            </button>
+            <div class="modal-header">
+                <h4>Відновлення паролю</h4>
+                <p>Ми надіслали код на email@example.com. Введіть його нижче, щоб підтвердити вашу особу. </p>
+            </div>
+            <form class="modal-form">
+                <label for="confirmationCode" class="small-text">Код підтвердження</label>
+                <input type="text" id="confirmationCode" placeholder="Код підтвердження" required>
+                <div class="no-account">
+                    <p class="small-text">Не отримали код?</p>
+                    <a href="#" id="resendCode">Надіслати ще раз</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Підтвердити</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+    </footer>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/modal.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+
+</html>

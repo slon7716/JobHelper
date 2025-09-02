@@ -147,17 +147,22 @@ h5 {
 .btn.btn-primary {
   border: none;
   color: #fff;
-  background-color: #114599;
+  background-color: #1D5BBF;
 }
 .btn.btn-primary:hover {
   background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
   outline: none;
 }
+.btn.btn-primary:disabled {
+  background-color: #1D5BBF;
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .btn.btn-secondary {
-  color: #333840;
+  color: #434A54;
   background-color: inherit;
-  border: 0.5px solid;
-  border-color: #707A8A;
+  border: 0.5px solid #707A8A;
 }
 .btn.btn-secondary:hover {
   outline: none;
@@ -407,6 +412,14 @@ header .container .pages .page:hover .text {
 .lending .free-registration .btn {
   padding: 16px 31px;
 }
+.lending .copyright {
+  height: 110px;
+  font-size: 20px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .enter-the-site .logo {
   margin: 40px 0 40px 40px;
@@ -422,7 +435,7 @@ header .container .pages .page:hover .text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 auto 230px;
 }
 .enter-the-site form fieldset {
   width: 100%;
@@ -447,7 +460,7 @@ header .container .pages .page:hover .text {
   width: 100%;
   font-size: 24px;
   line-height: 1.33;
-  border: 1px solid #8E99AB;
+  border: 0.5px solid #8E99AB;
   border-radius: 20px;
   padding: 18px 24px;
   cursor: pointer;
@@ -486,10 +499,16 @@ header .container .pages .page:hover .text {
   text-align: left;
 }
 .enter-the-site form fieldset .incorrect .forgot-password {
+  color: #707A8A;
   text-decoration: underline;
   display: flex;
   justify-content: right;
   margin-left: auto;
+}
+.enter-the-site form fieldset .incorrect .forgot-password:hover {
+  font-weight: 500;
+  color: #333840;
+  cursor: pointer;
 }
 .enter-the-site form .no-account {
   display: flex;
@@ -497,17 +516,116 @@ header .container .pages .page:hover .text {
   margin-bottom: 60px;
 }
 .enter-the-site form .no-account .small-text {
+  font-weight: 500;
   margin-right: 8px;
 }
 .enter-the-site form .no-account a {
   font-size: 20px;
+  font-weight: 500;
   color: #333840;
 }
+.enter-the-site form .no-account a:hover {
+  font-weight: 600;
+}
 .enter-the-site .btn.btn-primary {
-  background-color: #1D5BBF;
-  opacity: 0.7;
-  pointer-events: none;
   padding: 16px 128px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(112, 122, 138, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.modal-overlay .modal {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 800px;
+  width: 80%;
+  text-align: center;
+  position: relative;
+}
+.modal-overlay .modal .modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 21px;
+  cursor: pointer;
+}
+.modal-overlay .modal .modal-header {
+  margin-bottom: 40px;
+}
+.modal-overlay .modal .modal-header h4 {
+  margin-bottom: 16px;
+}
+.modal-overlay .modal .modal-header p {
+  font-size: 18px;
+  line-height: 1.56;
+  color: #8E99AB;
+}
+.modal-overlay .modal .modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modal-overlay .modal .modal-form label {
+  margin-bottom: 4px;
+}
+.modal-overlay .modal .modal-form input {
+  width: 523px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #434A54;
+  border-radius: 20px;
+  border: 0.5px solid #8E99AB;
+  padding: 13px 24px;
+  margin-bottom: 40px;
+}
+.modal-overlay .modal .modal-form input::placeholder {
+  font-family: "Montserrat";
+  font-size: 20px;
+  color: #8E99AB;
+}
+.modal-overlay .modal .modal-form input:hover {
+  border: 1px solid #1D5BBF;
+}
+.modal-overlay .modal .modal-form input:focus {
+  border: 2px solid #1D5BBF;
+}
+.modal-overlay .modal .modal-form .btn-primary {
+  padding: 16px 88px;
+}
+.modal-overlay .modal .modal-form .no-account {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+.modal-overlay .modal .modal-form .no-account .small-text {
+  font-weight: 500;
+  margin-right: 8px;
+}
+.modal-overlay .modal .modal-form .no-account a {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333840;
+}
+.modal-overlay .modal .modal-form .no-account a:hover {
+  font-weight: 600;
+}
+.modal-overlay .modal.step-email, .modal-overlay .modal.step-code {
+  display: none;
+}
+.modal-overlay .modal.active {
+  display: block;
 }
 
 .registration .logo {
@@ -524,7 +642,7 @@ header .container .pages .page:hover .text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 auto 230px;
 }
 .registration form fieldset {
   display: flex;
@@ -600,9 +718,6 @@ header .container .pages .page:hover .text {
   margin-bottom: 0;
 }
 .registration form .btn.btn-primary {
-  background-color: #1D5BBF;
-  opacity: 0.7;
-  pointer-events: none;
   padding: 16px 73px;
 }
 
@@ -645,16 +760,149 @@ header .container .pages .page:hover .text {
 .main-page .recent-vacancies .works {
   font-size: 18px;
   line-height: 1.56;
+  color: #707A8A;
   margin-bottom: 24px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper {
+  width: 100%;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-wrapper {
+  margin-bottom: 24px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide {
+  width: 332px;
+  background-color: #EBEFF5;
+  border-radius: 40px;
+  padding: 20px 12px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title {
+  background-color: #fff;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 23px 24px;
+  margin-bottom: 16px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .position {
+  font-size: 16px;
+  font-weight: 600;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details {
+  display: flex;
+  gap: 25px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items {
+  display: flex;
+  align-items: center;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items img {
+  width: 16px;
+  margin-right: 4px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items .item {
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .match {
+  width: 96px;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+  text-align: center;
+  border: 0.5px solid #1D5BBF;
+  border-radius: 28px;
+  padding: 3px 12px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills {
+  padding: 0 24px;
+  margin-bottom: 16px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.43;
+  color: #58606E;
+  margin-bottom: 12px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .required-skills-list .required-skills-item {
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+  display: flex;
+  margin-bottom: 8px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .required-skills-list .required-skills-item img {
+  width: 4px;
+  margin-right: 8px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns {
+  text-align: center;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns .btn {
+  font-size: 14px;
+  line-height: 1.43;
+  padding: 10px 23px;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns .btn.btn-secondary {
+  background-color: #fff;
+  padding: 9px 19px;
+  margin-right: 40px;
+}
+.main-page .recent-vacancies .vacancy-slider-navigation {
+  height: 30px;
+}
+.main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-prev,
+.main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-next {
+  top: 414px;
+  width: 30px;
+  height: 30px;
+}
+.main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-prev::after,
+.main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-next::after {
+  display: none;
+}
+.main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-prev {
+  left: 40%;
+}
+.main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-next {
+  right: 40%;
+}
+.main-page .feedback {
+  margin-bottom: 76px;
+  text-align: center;
+}
+.main-page .feedback h5 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.main-page .feedback label {
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+  display: block;
+  margin-bottom: 24px;
+}
+.main-page .feedback textarea {
+  width: 376px;
+  border-radius: 20px 20px 10px 20px;
+  padding: 24px 16px;
+  margin-bottom: 24px;
+  resize: vertical;
+}
+.main-page .feedback textarea::placeholder {
+  font-size: 16px;
+  color: #8E99AB;
+}
+.main-page .feedback textarea:hover, .main-page .feedback textarea:active, .main-page .feedback textarea:focus {
+  border: 2px solid #1D5BBF;
+}
+.main-page .feedback .btn {
+  padding: 16px 74px;
 }
 
 footer {
-  height: 110px;
-  font-size: 20px;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-top: auto;
 }
 
