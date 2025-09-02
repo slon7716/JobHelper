@@ -18,13 +18,15 @@
          <div class="incorrect">
             <img src="assets/img/info-red.svg" alt="info">
             <div class="small-text">Неправильний email або пароль</div>
-            <a class="forgot-password">Забули пароль?</a>
+            <a href="#" class="forgot-password">Забули пароль?</a>
          </div>
       </fieldset>
       <div class="no-account">
-         <div class="small-text">Немає акаунта?</div>
+         <p class="small-text">Немає акаунта?</p>
          <a href="registration.html">Зареєструватися</a>
       </div>
-      <button class="btn btn-primary">Увійти</button>
+      <button class="btn btn-primary" disabled>Увійти</button>
    </form>
 </div>
+@@include('templates/modal-overlay.html')
+@@include('templates/footer.html')

@@ -26,4 +26,4 @@ const carouselWeekly = new Swiper('.swiper', {
    //     spaceBetween: 40,
    //   },
    // },
- });
+});

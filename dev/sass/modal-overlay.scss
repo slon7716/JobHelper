@@ -1,0 +1,117 @@
+@use 'variables' as *;
+
+.modal-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(112,122,138,0.6);
+   display: none; // спочатку приховано
+   justify-content: center;
+   align-items: center;
+   z-index: 2;
+
+   .modal {
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 800px;
+      width: 80%;
+      text-align: center;
+      position: relative;
+
+      .modal-close {
+         position: absolute;
+         top: 15px;
+         right: 15px;
+         background: none;
+         border: none;
+         font-size: 21px;
+         cursor: pointer;
+      }
+
+      .modal-header {
+         margin-bottom: 40px;
+
+         h4 {
+            margin-bottom: 16px;
+         }
+   
+         p {
+            font-size: 18px;
+            line-height: 1.56;
+            color: $grey-blue60;
+         }
+      }
+
+      .modal-form {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+
+         label {
+            margin-bottom: 4px;
+         }
+
+         input {
+            width: 523px;
+            font-size: 20px;
+            line-height: 1.5;
+            color: $grey-blue90;
+            border-radius: 20px;
+            border: 0.5px solid $grey-blue60;
+            padding: 13px 24px;
+            margin-bottom: 40px;
+
+            &::placeholder {
+               font-family: $font-primary;
+               font-size: 20px;
+               color: $grey-blue60;
+            }
+            
+            &:hover {
+               border: 1px solid $blue70;
+            }
+
+            &:focus {
+               border: 2px solid $blue70;
+            }
+         }
+
+         .btn-primary {
+            padding: 16px 88px;
+         }
+
+         .no-account {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+   
+            .small-text {
+               font-weight: 500;
+               margin-right: 8px;
+            }
+   
+            a {
+               font-size: 20px;
+               font-weight: 500;
+               color: $primary-color;
+   
+               &:hover {
+                  font-weight: 600;
+               }
+            }
+         }
+      }
+
+      &.step-email,
+      &.step-code {
+         display: none;
+      }
+
+      &.active {
+         display: block;
+      }
+   }
+}
