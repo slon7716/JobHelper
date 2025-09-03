@@ -43,17 +43,17 @@
             
             input {
                width: 100%;
-               font-size: 24px;
-               line-height: 1.33;
+               font-size: 20px;
+               line-height: 1.5;
                border: 0.5px solid $grey-blue60;
                border-radius: 20px;
-               padding: 18px 24px;
+               padding: 13px 24px;
                cursor: pointer;
                // transition: 0.3s;
                
                &::placeholder {
                   font-family: $font-primary;
-                  font-size: 24px;
+                  font-size: 20px;
                   color: $grey-blue60;
                }
                

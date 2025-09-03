@@ -1,0 +1,47 @@
+@use 'variables' as *;
+
+.tracker {
+   .title-block {
+      margin: 20px 40px 40px;
+
+      .title {
+         margin-bottom: 16px;
+      }
+
+      .small-text {
+         margin-bottom: 40px;
+      }
+
+      .find-vacancy {
+         width: 325px;
+         font-size: 24px;
+         line-height: 1.33;
+         color: $grey-blue90;
+         background: url("assets/img/search.svg") no-repeat 24px center;
+         background-color: $blue20;
+         border: 1px solid $grey-blue60;
+         border-radius: 39px;
+         padding: 18px 24px 18px 56px;
+   
+         &::placeholder {
+            font-size: 20px;
+            line-height: 1.5;
+            color: $grey-blue60;
+         }
+
+         &:hover {
+            border: 1px solid $blue70;
+         }
+      
+         &:focus {
+            border: 2px solid $blue70;
+      
+            &::placeholder {
+               font-size: 20px;
+               line-height: 1.5;
+               color: $grey-blue60;
+            }
+         }
+      }
+   }
+}

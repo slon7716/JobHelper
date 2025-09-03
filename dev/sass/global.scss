@@ -19,7 +19,7 @@ img,
 }
 
 body {
-   max-width: 1619px;
+   // max-width: 1619px;
    min-height: 100vh;
    font-family: $font-primary;
    color: $primary-color;
@@ -88,7 +88,7 @@ h5 {
    padding: 8px 16px;
 
    &:hover {
-      background-color: $blue20;
+      background-color: $blue30;
    }
 
    img {

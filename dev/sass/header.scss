@@ -5,10 +5,14 @@ header {
 
 	.container {
 		.header-nav {
+			background-color: $grey-blue10;
+			border-radius: 58px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			padding: 0 106px;
+			gap: 40px;
+			padding: 0 40px;
+			margin: 0 66px;
 		}
 
 		.pages {

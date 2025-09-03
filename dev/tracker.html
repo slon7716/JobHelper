@@ -1,4 +1,90 @@
 @@include('templates/head.html')
 @@include('templates/header.html')
-
+<div class="tracker">
+   <div class="title-block">
+      <h4 class="title">Трекер заявок</h4>
+      <p class="small-text">Відстежуйте статус всіх ваших заявок</p>
+      <input class="find-vacancy" type="text" placeholder="Пошук вакансії" name="vacansy"></input>
+   </div>
+   <!-- <section class="status-board">
+      <div class="job-statuses">
+         <div class="status-column">
+            <div class="status-header">
+               <p class="status-title">Збережені</p>
+               <div class="status-count">5</div>
+            </div>
+            <div class="status-cards">
+               <article class="status-card"></article>
+            </div>
+         </div>
+      </div>
+   </section> -->
+   <section class="status-board">
+      <div class="status-column">
+         <header class="status-header">
+            <h3 class="status-title">Збережені</h3>
+            <div class="status-count">5</div>
+         </header>
+         <div class="status-cards">
+            <article class="status-card">
+               <h4 class="vacancy-title">Frontend Developer</h4>
+               <div class="vacancy-company">SoftServe</div>
+               <div class="vacancy-location">Київ</div>
+            </article>
+         </div>
+      </div>
+         <div class="status-column">
+         <header class="status-header">
+            <h3 class="status-title">Подано</h3>
+            <div class="status-count">3</div>
+         </header>
+         <div class="status-cards">
+            <article class="status-card">
+               <h4 class="vacancy-title">UI/UX Designer</h4>
+               <div class="vacancy-company">EPAM</div>
+               <div class="vacancy-location">Львів</div>
+            </article>
+         </div>
+      </div>
+      <div class="status-column">
+         <header class="status-header">
+            <h3 class="status-title">Співбесіда</h3>
+            <div class="status-count">1</div>
+         </header>
+         <div class="status-cards">
+            <article class="status-card">
+               <h4 class="vacancy-title">QA Engineer</h4>
+               <div class="vacancy-company">GlobalLogic</div>
+               <div class="vacancy-location">Одеса</div>
+            </article>
+         </div>
+      </div>
+      <div class="status-column">
+         <header class="status-header">
+            <h3 class="status-title">Пропозиція</h3>
+            <div class="status-count">0</div>
+         </header>
+         <div class="status-cards">
+            <article class="status-card">
+               <h4 class="vacancy-title">Backend Developer</h4>
+               <div class="vacancy-company">Luxoft</div>
+               <div class="vacancy-location">Дніпро</div>
+            </article>
+         </div>
+      </div>
+         <div class="status-column">
+         <header class="status-header">
+            <h3 class="status-title">Відмова</h3>
+            <div class="status-count">1</div>
+         </header>
+         <div class="status-cards">
+            <article class="status-card">
+               <h4 class="vacancy-title">DevOps Engineer</h4>
+               <div class="vacancy-company">Intellias</div>
+               <div class="vacancy-location">Харків</div>
+            </article>
+         </div>
+      </div>
+   </section>   
+</div>
 @@include('templates/footer.html')
