@@ -52,7 +52,6 @@ img,
 }
 
 body {
-  max-width: 1619px;
   min-height: 100vh;
   font-family: "Montserrat";
   color: #333840;
@@ -120,7 +119,7 @@ h5 {
   padding: 8px 16px;
 }
 .logo:hover {
-  background-color: #F0F5FC;
+  background-color: #ACCBFC;
 }
 .logo img {
   width: 32px;
@@ -188,10 +187,14 @@ header {
   padding: 56px 0;
 }
 header .container .header-nav {
+  background-color: #F9F9F9;
+  border-radius: 58px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 106px;
+  gap: 40px;
+  padding: 0 40px;
+  margin: 0 66px;
 }
 header .container .pages {
   display: flex;
@@ -458,16 +461,16 @@ header .container .pages .page:hover .text {
 }
 .enter-the-site form fieldset .field input {
   width: 100%;
-  font-size: 24px;
-  line-height: 1.33;
+  font-size: 20px;
+  line-height: 1.5;
   border: 0.5px solid #8E99AB;
   border-radius: 20px;
-  padding: 18px 24px;
+  padding: 13px 24px;
   cursor: pointer;
 }
 .enter-the-site form fieldset .field input::placeholder {
   font-family: "Montserrat";
-  font-size: 24px;
+  font-size: 20px;
   color: #8E99AB;
 }
 .enter-the-site form fieldset .field input:hover {
@@ -806,14 +809,14 @@ header .container .pages .page:hover .text {
   color: #707A8A;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .match {
-  width: 96px;
+  width: 94px;
   font-size: 14px;
   line-height: 1.43;
   color: #707A8A;
   text-align: center;
   border: 0.5px solid #1D5BBF;
   border-radius: 28px;
-  padding: 3px 12px;
+  padding: 3px 0;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills {
   padding: 0 24px;
@@ -900,6 +903,156 @@ header .container .pages .page:hover .text {
 }
 .main-page .feedback .btn {
   padding: 16px 74px;
+}
+
+.vacansy .title-block {
+  margin: 20px 40px 40px;
+}
+.vacansy .title-block .title {
+  margin-bottom: 16px;
+}
+.vacansy .title-block .small-text {
+  margin-bottom: 40px;
+}
+.vacansy .title-block .vacancy-today {
+  width: 100%;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #434A54;
+  background-color: #F0F5FC;
+  border: none;
+  border-radius: 39px;
+  padding: 24px;
+}
+.vacansy .title-block .vacancy-today::placeholder {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #8E99AB;
+}
+.vacansy .vacancies {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 0 40px 106px;
+}
+.vacansy .vacancies .swiper-slide {
+  width: 437px;
+  background-color: #EBEFF5;
+  border-radius: 40px;
+  padding: 12px 24px 24px;
+}
+.vacansy .vacancies .swiper-slide .job-title {
+  background-color: #fff;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 23px 24px;
+  margin-bottom: 16px;
+}
+.vacansy .vacancies .swiper-slide .job-title .position {
+  font-size: 16px;
+  font-weight: 600;
+}
+.vacansy .vacancies .swiper-slide .job-title .job-details {
+  display: flex;
+  gap: 25px;
+}
+.vacansy .vacancies .swiper-slide .job-title .job-details .items {
+  display: flex;
+  align-items: center;
+}
+.vacansy .vacancies .swiper-slide .job-title .job-details .items img {
+  width: 16px;
+  margin-right: 4px;
+}
+.vacansy .vacancies .swiper-slide .job-title .job-details .items .item {
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+}
+.vacansy .vacancies .swiper-slide .job-title .match {
+  width: 96px;
+  height: 28px;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+  text-align: center;
+  border: 0.5px solid #1D5BBF;
+  border-radius: 28px;
+  padding: 3px 8px;
+}
+.vacansy .vacancies .swiper-slide .required-skills {
+  padding: 0 24px;
+  margin-bottom: 16px;
+}
+.vacansy .vacancies .swiper-slide .required-skills .title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.43;
+  color: #58606E;
+  margin-bottom: 12px;
+}
+.vacansy .vacancies .swiper-slide .required-skills .required-skills-list .required-skills-item {
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+  display: flex;
+  margin-bottom: 8px;
+}
+.vacansy .vacancies .swiper-slide .required-skills .required-skills-list .required-skills-item img {
+  width: 4px;
+  margin-right: 8px;
+}
+.vacansy .vacancies .swiper-slide .btns {
+  text-align: center;
+}
+.vacansy .vacancies .swiper-slide .btns .btn {
+  font-size: 14px;
+  line-height: 1.43;
+  padding: 10px 23px;
+}
+.vacansy .vacancies .swiper-slide .btns .btn.btn-secondary {
+  background-color: #fff;
+  padding: 9px 19px;
+  margin-right: 40px;
+}
+
+.tracker .title-block {
+  margin: 20px 40px 40px;
+}
+.tracker .title-block .title {
+  margin-bottom: 16px;
+}
+.tracker .title-block .small-text {
+  margin-bottom: 40px;
+}
+.tracker .title-block .find-vacancy {
+  width: 325px;
+  font-size: 24px;
+  line-height: 1.33;
+  color: #434A54;
+  background: url("assets/img/search.svg") no-repeat 24px center;
+  background-color: #F0F5FC;
+  border: 1px solid #8E99AB;
+  border-radius: 39px;
+  padding: 18px 24px 18px 56px;
+}
+.tracker .title-block .find-vacancy::placeholder {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #8E99AB;
+}
+.tracker .title-block .find-vacancy:hover {
+  border: 1px solid #1D5BBF;
+}
+.tracker .title-block .find-vacancy:focus {
+  border: 2px solid #1D5BBF;
+}
+.tracker .title-block .find-vacancy:focus::placeholder {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #8E99AB;
 }
 
 footer {
