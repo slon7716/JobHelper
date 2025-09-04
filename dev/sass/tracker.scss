@@ -2,7 +2,7 @@
 
 .tracker {
    .title-block {
-      margin: 20px 40px 40px;
+      margin: 0 40px 40px;
 
       .title {
          margin-bottom: 16px;
@@ -12,34 +12,191 @@
          margin-bottom: 40px;
       }
 
-      .find-vacancy {
-         width: 325px;
-         font-size: 24px;
-         line-height: 1.33;
-         color: $grey-blue90;
-         background: url("assets/img/search.svg") no-repeat 24px center;
-         background-color: $blue20;
-         border: 1px solid $grey-blue60;
-         border-radius: 39px;
-         padding: 18px 24px 18px 56px;
-   
-         &::placeholder {
+      .find-add {
+         display: flex;
+         justify-content: space-between;
+
+         .find-vacancy {
+            width: 325px;
             font-size: 20px;
             line-height: 1.5;
-            color: $grey-blue60;
-         }
-
-         &:hover {
-            border: 1px solid $blue70;
-         }
-      
-         &:focus {
-            border: 2px solid $blue70;
+            color: $grey-blue90;
+            background: url("assets/img/search.svg") no-repeat 24px center;
+            border: 1px solid $grey-blue60;
+            border-radius: 39px;
+            padding: 13px 24px 13px 56px;
       
             &::placeholder {
                font-size: 20px;
                line-height: 1.5;
                color: $grey-blue60;
+            }
+   
+            &:hover {
+               border: 1px solid $blue70;
+            }
+         
+            &:focus {
+               background-color: $grey-blue10;
+               border: 2px solid $blue70;
+         
+               &::placeholder {
+                  font-size: 20px;
+                  line-height: 1.5;
+                  color: $grey-blue60;
+               }
+            }
+         }
+
+         .btn {
+            padding: 16px 53px;
+
+            i {
+               font-size: 24px;
+               line-height: 1;
+               margin-right: 26px;
+            }
+         }
+      }
+   }
+
+   .status-board {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      padding: 0 40px 117px;
+
+      .status-column {
+         display: flex;
+         flex-direction: column;
+
+         .status-header {
+            background-color: $blue20;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            margin-bottom: 40px;
+
+            &.yellow {
+               background-color: #FFFBD5;
+            }
+
+            &.pink {
+               background-color: #FFE9F3;
+            }
+
+            &.green {
+               background-color: #E5FFE0;
+            }
+
+            &.red {
+               background-color: #FFE6E6;
+            }
+
+            .status-title {
+               font-weight: 600;
+               color: $primary-color;
+            }
+
+            .status-count {
+               width: 31px;
+               height: 40px;
+               font-size: 16px;
+               font-weight: 600;
+               text-align: center;
+               background-color: $blue30;
+               border-radius: 10px;
+               padding: 8px;
+
+               &.yellow {
+                  background-color: #FFF380;
+               }
+
+               &.pink {
+                  background-color: #FFA3CC;
+               }
+
+               &.green {
+                  background-color: #A1FF8E;
+               }
+
+               &.red {
+                  background-color: #FF9C9C;
+               }
+            }
+         }
+
+         .status-cards {
+            .swiper-slide {
+               height: auto;
+               background-color: $grey-blue10;
+               border: 0.5px solid $grey-blue30;
+               border-radius: 20px;
+               padding: 16px 8px;
+               margin-bottom: 16px;
+
+               .cards-position {
+                  display: flex;
+                  justify-content: space-between;
+                  margin-bottom: 24px;
+
+                  .position {
+                     font-size: 14px;
+                     font-weight: 600;
+                     line-height: 1.71;
+                  }
+
+                  .control-buttons {
+                     display: flex;
+                     
+                     button {
+                        width: 24px;
+                        height: 24px;
+                        padding: 0;
+                        border: none;
+
+                        img {
+                           width: 16px;
+                        }
+                     }
+                  }
+               }
+   
+               .job-details {
+                  display: flex;
+                  gap: 26px;
+                  margin-bottom: 24px;
+   
+                  .items {
+                     display: flex;
+                     align-items: center;
+   
+                     img {
+                        width: 16px;
+                        margin-right: 4px;
+                     }
+   
+                     .item {
+                        font-size: 12px;
+                        line-height: 1.5;
+                        color: $secondary-color;
+                     }
+                  }
+               }
+   
+               .match {
+                  width: 96px;
+                  height: 28px;
+                  font-size: 14px;
+                  line-height: 1.43;
+                  color: $secondary-color;
+                  text-align: center;
+                  border: 0.5px solid $blue70;
+                  border-radius: 28px;
+                  padding: 3px 8px;
+               }
             }
          }
       }

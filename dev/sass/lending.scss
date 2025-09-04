@@ -152,7 +152,7 @@
             padding: 60px 24px;
 
             &:hover {
-               background-color: $blue20;
+               background-color: $blue10;
             }
 
             .icon {
@@ -214,6 +214,7 @@
             }
 
             h5 {
+               font-weight: 400;
                color: #fff;
             }
          }

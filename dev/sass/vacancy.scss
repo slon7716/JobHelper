@@ -2,7 +2,7 @@
 
 .vacansy {
    .title-block {
-      margin: 20px 40px 40px;
+      margin: 0 40px 40px;
 
       .title {
          margin-bottom: 16px;
@@ -17,15 +17,12 @@
          font-size: 20px;
          line-height: 1.5;
          color: $grey-blue90;
-         background-color: $blue20;
-         border: none;
+         background-color: $blue10;
          border-radius: 39px;
          padding: 24px;
-   
-         &::placeholder {
-            font-size: 20px;
-            line-height: 1.5;
-            color: $grey-blue60;
+
+         i {
+            float: right;
          }
       }
    }

@@ -1,7 +1,7 @@
 @use 'variables' as *;
 
 header {
-	padding: 56px 0;
+	padding: 40px 0 60px;
 
 	.container {
 		.header-nav {
@@ -11,8 +11,8 @@ header {
 			align-items: center;
 			justify-content: space-between;
 			gap: 40px;
-			padding: 0 40px;
-			margin: 0 66px;
+			padding: 8px 40px;
+			margin: 0 40px;
 		}
 
 		.pages {
@@ -30,8 +30,9 @@ header {
 				}
 
 				&.active {
-					background-color: $grey-blue30;
-					border-radius: 60px;
+					background-color: $grey-blue20;
+					outline: 1px solid $grey-blue30;
+					border-radius: 32px;
 					padding: 16px 24px;
 				}
 
