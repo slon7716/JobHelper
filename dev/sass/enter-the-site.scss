@@ -28,6 +28,37 @@
          .field {
             width: 100%;
 
+            &.password-field {
+               position: relative;
+               width: 100%;
+             
+               input {
+                  padding-right: 50px;
+
+                  &[type="password"] {
+                     height: 56px;
+                     font-size: 48px;
+                     line-height: 1;
+                     padding: 0 50px 6px 24px;
+                  }
+               }
+             
+               .toggle-password {
+                  position: absolute;
+                  top: 50%;
+                  right: 16px; // відступ від правого краю
+                  border: none;
+                  background: none;
+                  cursor: pointer;
+                  padding: 0;
+             
+                  img {
+                     width: 24px;
+                     height: 24px;
+                  }
+               }
+            }
+
             .small-text {
                text-align: left;
                margin-bottom: 4px;
@@ -49,7 +80,6 @@
                border-radius: 20px;
                padding: 13px 24px;
                cursor: pointer;
-               // transition: 0.3s;
                
                &::placeholder {
                   font-family: $font-primary;
@@ -69,12 +99,7 @@
                      color: $grey-blue60;
                   }
                }
-               
-               &.password {
-                  background: url("assets/img/eye.svg") no-repeat right 24px center;;
-               }
             }
-            
          }
          
          .incorrect {

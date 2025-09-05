@@ -5,11 +5,14 @@
       <h5>Мій профіль</h5>
       <p class="small-text">Керуйтe своєю професійною інформацією</p>
    </div>
-   <div class="basic-data">
+   <div class="basic-data section">
+      <button class="edit-btn" type="button">
+         <img src="assets/img/pencil.svg" alt="pencil">
+      </button>
       <div class="personal-data">
          <div class="foto">
             <div class="picture">
-               <img src="assets/img/person-100.svg" alt="foto">
+               <img src="assets/img/person-100-grey.svg" alt="foto">
             </div>
             <p>Змінити фото</p>
          </div>
@@ -28,7 +31,10 @@
          <img src="assets/img/download.svg" alt="download">
       </div>
    </div>
-   <div class="wish-to-vacancy">
+   <div class="wish-to-vacancy section">
+      <button class="edit-btn" type="button">
+         <img src="assets/img/pencil.svg" alt="pencil">
+      </button>
       <div class="title">Твої побажання до вакансій</div>
       <div class="job-details">
          <div class="job-details-name">
@@ -71,5 +77,19 @@
          </div>
       </div>
    </div>
+   <div class="account-settings section">
+      <button class="edit-btn" type="button">
+         <img src="assets/img/pencil.svg" alt="pencil">
+      </button>
+      <div class="title">Налаштування акаунту</div>
+      <div class="account-settings-list">
+         <div class="account-setting">Змінити імейл</div>
+         <div class="account-setting">Змінити пароль</div>
+         <div class="account-setting">Змінити мову</div>
+         <div class="account-setting">Видалити акаунт</div>
+      </div>
+   </div>
+   <button class="btn btn-primary" type="button" id="logoutBtn">Вийти з акаунту</button>
 </div>
+@@include('templates/modal-logout.html')
 @@include('templates/footer.html')

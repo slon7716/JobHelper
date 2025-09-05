@@ -1,77 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="theme-color" content="#188de7">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" type="text/css" />
-    <!-- <link rel="stylesheet" href="assets/css/nice-select.css" type="text/css"/> -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="shortcut icon" href="assets/img/briefcase.svg" type="image/x-icon">
-    <title>JobHelper</title>
-</head>
-
-<body>
-
-    <div class="registration">
-        <a class="logo" href="index.html">
-      <img src="assets/img/briefcase.svg" alt="briefcase">
-      <div class="name">JobHelper</div>
-   </a>
-        <h4>Створення профілю</h4>
-        <form action="#">
-            <fieldset>
-                <div class="field">
-                    <div class="small-text">Ім’я та прізвище</div>
-                    <input class="name" type="text" placeholder="Ім'я та призвище" name="personal">
-                </div>
-                <div class="field">
-                    <div class="small-text">Email або номер телефону</div>
-                    <input class="phone" type="text" placeholder="Email або номер телефону" name="personal">
-                </div>
-                <div class="field">
-                    <div class="small-text">Пароль для входу</div>
-                    <input class="password" type="text" placeholder="Пароль для входу" name="personal">
-                    <div class="info-lock">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або
-                        більше спеціальних символів (наприклад: ! @ # $ %)</div>
-                    <div class="info-symbols">
-                        <div class="title">
-                            <img src="assets/img/info.svg" alt="info">
-                            <div class="small-text">Ваш пароль має містити:</div>
+@@include('templates/head.html')
+<div class="registration">
+    <a class="logo" href="index.html">
+  <img src="assets/img/briefcase.svg" alt="briefcase">
+  <div class="name">JobHelper</div>
+</a>
+    <h4>Створення профілю</h4>
+    <form action="#">
+        <fieldset>
+            <div class="field">
+                <div class="small-text">Ім’я та прізвище</div>
+                <input class="name" type="text" placeholder="Ім'я та призвище" name="personal">
+            </div>
+            <div class="field">
+                <div class="small-text">Email або номер телефону</div>
+                <input class="phone" type="text" placeholder="Email або номер телефону" name="personal">
+            </div>
+            <div class="field">
+                <div class="small-text">Пароль для входу</div>
+                <input class="password" type="text" placeholder="Пароль для входу" name="personal">
+                <button type="button" class="toggle-password">
+                    <img src="assets/img/eye-grey.svg" alt="Show/Hide">
+                </button>
+                <div class="info-lock">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або
+                    більше спеціальних символів (наприклад: ! @ # $ %)</div>
+                <div class="info-symbols">
+                    <div class="title">
+                        <img src="assets/img/info.svg" alt="info">
+                        <div class="small-text">Ваш пароль має містити:</div>
+                    </div>
+                    <div class="list">
+                        <div class="item">
+                            <img src="assets/img/ellipse-green.svg" alt="circle">
+                            <i>Від 8 до 20 символів</i>
                         </div>
-                        <div class="list">
-                            <div class="item">
-                                <img src="assets/img/ellipse-green.svg" alt="circle">
-                                <i>Від 8 до 20 символів</i>
-                            </div>
-                            <div class="item">
-                                <img src="assets/img/ellipse-green.svg" alt="circle">
-                                <i>1 велику літеру</i>
-                            </div>
-                            <div class="item">
-                                <img src="assets/img/ellipse-green.svg" alt="circle">
-                                <i>1 або більше цифр</i>
-                            </div>
-                            <div class="item">
-                                <img src="assets/img/ellipse-green.svg" alt="circle">
-                                <i>1 або більше спеціальних символів (наприклад: ! @ # $ %)</i>
-                            </div>
+                        <div class="item">
+                            <img src="assets/img/ellipse-green.svg" alt="circle">
+                            <i>1 велику літеру</i>
+                        </div>
+                        <div class="item">
+                            <img src="assets/img/ellipse-green.svg" alt="circle">
+                            <i>1 або більше цифр</i>
+                        </div>
+                        <div class="item">
+                            <img src="assets/img/ellipse-green.svg" alt="circle">
+                            <i>1 або більше спеціальних символів (наприклад: ! @ # $ %)</i>
                         </div>
                     </div>
                 </div>
-            </fieldset>
-            <button class="btn btn-primary" disabled>Зареєструватися</button>
-        </form>
-    </div>
-    <footer>
-    </footer>
-    <script src="assets/js/jquery-3.7.1.min.js"></script>
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/custom.js"></script>
-</body>
-
-</html>
+            </div>
+        </fieldset>
+        <button class="btn btn-primary" disabled>Зареєструватися</button>
+    </form>
+</div>
+@@include('templates/footer.html')

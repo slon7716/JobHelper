@@ -5,15 +5,18 @@
       <div class="name">JobHelper</div>
    </a>
    <h5>Увійти на сайт</h5>
-   <form action="#">
+   <form id="loginForm" action="#">
       <fieldset>
          <div class="field">
             <div class="small-text">Email</div>
-            <input class="email" type="text" placeholder="Email" name="personal">
+            <input id="email" class="email" type="text" autocomplete="email" name="personal">
          </div>
-         <div class="field">
+         <div class="field password-field">
             <div class="small-text">Пароль</div>
-            <input class="password" type="text" placeholder="Пароль" name="personal">
+            <input class="password" type="password" name="personal">
+            <button type="button" class="toggle-password">
+               <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
+            </button>
          </div>
          <div class="incorrect">
             <img src="assets/img/info-red.svg" alt="info">
@@ -25,7 +28,7 @@
          <p class="small-text">Немає акаунта?</p>
          <a href="registration.html">Зареєструватися</a>
       </div>
-      <button class="btn btn-primary" disabled>Увійти</button>
+      <button id="loginBtn" class="btn btn-primary" disabled>Увійти</button>
    </form>
 </div>
 @@include('templates/modal-overlay.html')

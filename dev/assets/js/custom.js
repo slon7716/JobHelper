@@ -27,3 +27,49 @@ const carouselWeekly = new Swiper('.swiper', {
    //   },
    // },
 });
+
+            // активація кнопки для textarea
+const textarea = document.getElementById('ideas');
+const button = document.querySelector('.feedback .btn');
+
+if (textarea && button) { 
+   textarea.addEventListener('input', () => {
+     if (textarea.value.trim() !== '') {
+       button.disabled = false;
+     } else {
+       button.disabled = true;
+     }
+   });
+}
+
+const emailInput = document.getElementById('email');
+const passwordInput = document.querySelector('.password');
+const loginBtn = document.getElementById('loginBtn');
+const togglePassword = document.querySelector('.toggle-password');
+
+// Функція для перевірки, чи активувати кнопку
+function checkInputs() {
+  if (emailInput.value.trim() !== '' && passwordInput.value.trim() !== '') {
+    loginBtn.disabled = false;
+  } else {
+    loginBtn.disabled = true;
+  }
+}
+
+// Слухаємо введення у полях
+if (emailInput) emailInput.addEventListener('input', checkInputs);
+if (passwordInput) passwordInput.addEventListener('input', checkInputs);
+
+// Показ/приховування пароля та зміна іконки
+if (togglePassword) { 
+  const toggleIcon = togglePassword.querySelector('#eye');
+  togglePassword.addEventListener('click', () => {
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon.src = 'assets/img/eye.svg';
+    } else {
+      passwordInput.type = 'password';
+      toggleIcon.src = 'assets/img/eye-grey.svg';
+    }
+  });
+}

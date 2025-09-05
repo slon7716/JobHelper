@@ -9,15 +9,18 @@
       <fieldset>
          <div class="field">
             <div class="small-text">Ім’я та прізвище</div>
-            <input class="name" type="text" placeholder="Ім'я та призвище" name="personal">
+            <input class="name" type="text" name="personal">
          </div>
          <div class="field">
             <div class="small-text">Email або номер телефону</div>
-            <input class="phone" type="text" placeholder="Email або номер телефону" name="personal">
+            <input class="phone" type="text" name="personal">
          </div>
-         <div class="field">
+         <div class="field password-field">
             <div class="small-text">Пароль для входу</div>
-            <input class="password" type="text" placeholder="Пароль для входу" name="personal">
+            <input class="password" type="password" name="personal">
+            <button type="button" class="toggle-password">
+               <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
+            </button>
             <div class="info-lock">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або
                 більше спеціальних символів (наприклад: ! @ # $ %)</div>
             <div class="info-symbols">

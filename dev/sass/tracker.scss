@@ -132,10 +132,16 @@
             .swiper-slide {
                height: auto;
                background-color: $grey-blue10;
-               border: 0.5px solid $grey-blue30;
+               outline: 0.5px solid $grey-blue30;
                border-radius: 20px;
                padding: 16px 8px;
                margin-bottom: 16px;
+               transition: transform 0.3s ease, opacity 0.3s ease;
+
+               &.moving {
+                  opacity: 0.5;
+                  transform: translateX(30px);
+               }
 
                .cards-position {
                   display: flex;
@@ -154,8 +160,14 @@
                      button {
                         width: 24px;
                         height: 24px;
-                        padding: 0;
+                        background-color: inherit;
                         border: none;
+                        padding: 0;
+
+                        &:hover {
+                           background-color: $grey-blue20;
+                           border-radius: 12px;
+                        }
 
                         img {
                            width: 16px;

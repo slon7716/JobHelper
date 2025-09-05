@@ -9,20 +9,44 @@
       }
    }
 
-   .basic-data {
+   .section {
+      position: relative;
+      outline: 0.5px solid $grey-blue40;
+      border-radius: 20px;
       padding: 24px;
       margin: 0 40px 16px;
-      border: 0.5px solid $grey-blue40;
-      border-radius: 20px;
 
+      .edit-btn {
+         position: absolute;
+         top: 24px;
+         right: 24px;
+         width: 50px;
+         height: 50px;
+         background-color: #fff;
+         border: none;
+         border-radius: 25px;
+         display: block;
+         padding: 2px 7px;
+
+         &:hover {
+            background-color: $grey-blue20;
+         }
+      }
+
+      .title {
+         font-size: 24px;
+         line-height: 1.33;
+         margin-bottom: 38px;
+      }   
+   }
+
+   .basic-data {
       .personal-data {
          width: 100%;
          height: 194px;
          display: flex;
          gap: 40px;
          margin-bottom: 40px;
-         background: url("assets/img/pencil.svg") no-repeat right 9px top;
-         background-size: 32px 32px;
 
          .foto {
             text-align: center;
@@ -50,11 +74,13 @@
          }
 
          .personal-information {
+            padding-top: 10px;
+
             .sername {
                font-size: 24px;
                font-weight: 500;
                line-height: 1.33;
-               margin-bottom: 16px;
+               margin-bottom: 15px;
             }
 
             .profession,
@@ -107,19 +133,6 @@
    }
 
    .wish-to-vacancy {
-      padding: 24px;
-      margin: 0 40px 16px;
-      border: 0.5px solid $grey-blue40;
-      border-radius: 20px;
-      background: url("assets/img/pencil.svg") no-repeat right 33px top 24px;
-      background-size: 32px 32px;
-
-      .title {
-         font-size: 24px;
-         line-height: 1.33;
-         margin-bottom: 40px;
-      }
-
       .job-details {
          display: flex;
          flex-wrap: wrap;
@@ -152,5 +165,30 @@
             }
          }
       }
+   }
+
+   .account-settings {
+      .account-settings-list {
+         display: flex;
+         justify-content: space-between;
+
+         .account-setting {
+            width: 260px;
+            font-size: 18px;
+            line-height: 1.56;
+            color: $secondary-color;
+            text-align: center;
+            outline: 1px solid $grey-blue40;
+            border-radius: 30px;
+            padding: 16px;
+         }
+      }
+   }
+
+   .btn {
+      width: 325px;
+      height: 62px;
+      display: block;
+      margin: 56px auto 100px;
    }
 }

@@ -38,7 +38,7 @@
                     line-height: 1.33;
                     border: 1px solid $grey-blue60;
                     border-radius: 20px;
-                    padding: 18px 24px 18px 56px;
+                    padding: 11px 24px 11px 56px;
                     cursor: pointer;
                     // transition: 0.3s;
                  
@@ -70,9 +70,39 @@
                     }
                     
                     &.password {
-                        background: url("assets/img/lock.svg") no-repeat 24px center,
-                        url("assets/img/eye.svg") no-repeat right 24px center;
+                        background: url("assets/img/lock.svg") no-repeat 24px center;
                         margin-bottom: 8px;
+                    }
+                }
+
+                &.password-field {
+                    position: relative;
+                    width: 100%;
+                  
+                    input {
+                        padding-right: 50px;
+     
+                        &[type="password"] {
+                           height: 56px;
+                           font-size: 48px;
+                           line-height: 1;
+                           padding: 0 50px 6px 56px;
+                        }
+                    }
+                  
+                    .toggle-password {
+                       position: absolute;
+                       top: 38%;
+                       right: 16px; // відступ від правого краю
+                       border: none;
+                       background: none;
+                       cursor: pointer;
+                       padding: 0;
+                  
+                       img {
+                          width: 24px;
+                          height: 24px;
+                       }
                     }
                 }
 
@@ -81,6 +111,8 @@
                 }
 
                 .info-symbols{
+                    display: none;
+
                     .title {
                         display: flex;
                         margin-left: 3px;
