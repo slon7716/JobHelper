@@ -49,94 +49,411 @@
         <div class="title-block">
             <h4 class="title">Трекер заявок</h4>
             <p class="small-text">Відстежуйте статус всіх ваших заявок</p>
-            <input class="find-vacancy" type="text" placeholder="Пошук вакансії" name="vacansy"></input>
+            <div class="find-add">
+                <input class="find-vacancy" type="text" placeholder="Пошук вакансії" name="vacansy"></input>
+                <button class="btn btn-primary"><i>+</i>Додати вакансію</button>
+            </div>
         </div>
-        <!-- <section class="status-board">
-      <div class="job-statuses">
-         <div class="status-column">
-            <div class="status-header">
-               <p class="status-title">Збережені</p>
-               <div class="status-count">5</div>
-            </div>
-            <div class="status-cards">
-               <article class="status-card"></article>
-            </div>
-         </div>
-      </div>
-   </section> -->
         <section class="status-board">
             <div class="status-column">
                 <header class="status-header">
-                    <h3 class="status-title">Збережені</h3>
+                    <div class="status-title small-text">Збережені</div>
                     <div class="status-count">5</div>
                 </header>
                 <div class="status-cards">
-                    <article class="status-card">
-                        <h4 class="vacancy-title">Frontend Developer</h4>
-                        <div class="vacancy-company">SoftServe</div>
-                        <div class="vacancy-location">Київ</div>
-                    </article>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
                 </div>
             </div>
             <div class="status-column">
-                <header class="status-header">
-                    <h3 class="status-title">Подано</h3>
-                    <div class="status-count">3</div>
+                <header class="status-header yellow">
+                    <h3 class="status-title small-text">Подано</h3>
+                    <div class="status-count yellow">3</div>
                 </header>
                 <div class="status-cards">
-                    <article class="status-card">
-                        <h4 class="vacancy-title">UI/UX Designer</h4>
-                        <div class="vacancy-company">EPAM</div>
-                        <div class="vacancy-location">Львів</div>
-                    </article>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
                 </div>
             </div>
             <div class="status-column">
-                <header class="status-header">
-                    <h3 class="status-title">Співбесіда</h3>
-                    <div class="status-count">1</div>
+                <header class="status-header pink">
+                    <h3 class="status-title small-text">Співбесіда</h3>
+                    <div class="status-count pink">1</div>
                 </header>
                 <div class="status-cards">
-                    <article class="status-card">
-                        <h4 class="vacancy-title">QA Engineer</h4>
-                        <div class="vacancy-company">GlobalLogic</div>
-                        <div class="vacancy-location">Одеса</div>
-                    </article>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
                 </div>
             </div>
             <div class="status-column">
-                <header class="status-header">
-                    <h3 class="status-title">Пропозиція</h3>
-                    <div class="status-count">0</div>
+                <header class="status-header green">
+                    <h3 class="status-title small-text">Пропозиція</h3>
+                    <div class="status-count green">1</div>
                 </header>
                 <div class="status-cards">
-                    <article class="status-card">
-                        <h4 class="vacancy-title">Backend Developer</h4>
-                        <div class="vacancy-company">Luxoft</div>
-                        <div class="vacancy-location">Дніпро</div>
-                    </article>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
                 </div>
             </div>
             <div class="status-column">
-                <header class="status-header">
-                    <h3 class="status-title">Відмова</h3>
-                    <div class="status-count">1</div>
+                <header class="status-header red">
+                    <h3 class="status-title small-text">Відмова</h3>
+                    <div class="status-count red">1</div>
                 </header>
                 <div class="status-cards">
-                    <article class="status-card">
-                        <h4 class="vacancy-title">DevOps Engineer</h4>
-                        <div class="vacancy-company">Intellias</div>
-                        <div class="vacancy-location">Харків</div>
-                    </article>
+                    <div class="swiper-slide">
+                        <div class="cards-position">
+                            <div class="position">Frontend Developer</div>
+                            <div class="control-buttons">
+                                <button type="button" class="btn-close">
+                                    <img src="assets/img/close-grey.svg" alt="close">
+                                </button>
+                                <button type="button" class="btn-expand">
+                                    <img src="assets/img/extand-grey.svg" alt="extand">
+                                </button>
+                                <button type="button" class="btn-transfer">
+                                    <img src="assets/img/transfer-grey.svg" alt="transfer">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="job-details">
+                            <div class="items">
+                                <img src="assets/img/building.svg" alt="icon">
+                                <div class="item company-name">TechCorp</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/location.svg" alt="location">
+                                <div class="item location">Київ</div>
+                            </div>
+                            <div class="items">
+                                <img src="assets/img/pig.svg" alt="pig">
+                                <div class="item salary">$2000</div>
+                            </div>
+                        </div>
+                        <div class="match">85% match</div>
+                    </div>
                 </div>
             </div>
         </section>
+    </div>
+    <div class="modal-card" id="cardModal">
+        <div class="modal-content">
+            <button class="btn-close-modal">
+                <img src="assets/img/close-grey.svg" alt="close">
+            </button>
+            <div class="modal-body"></div>
+        </div>
     </div>
     <footer>
     </footer>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/modal.js"></script>
+    <script src="assets/js/modal-overlay.js"></script>
+    <script src="assets/js/modal-logout.js"></script>
+    <script src="assets/js/modal-card.js"></script>
+    <script src="assets/js/registration.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>
 

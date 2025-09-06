@@ -27,3 +27,36 @@ const carouselWeekly = new Swiper('.swiper', {
    //   },
    // },
 });
+
+            // активація кнопки для textarea
+const textarea = document.getElementById('ideas');
+const button = document.querySelector('.feedback .btn');
+
+if (textarea && button) { 
+   textarea.addEventListener('input', () => {
+     if (textarea.value.trim() !== '') {
+       button.disabled = false;
+     } else {
+       button.disabled = true;
+     }
+   });
+}
+
+const toggleButtons = document.querySelectorAll('.toggle-password');
+const passwordInputs = document.querySelectorAll('.password');
+
+toggleButtons.forEach((toggleBtn, index) => {
+  const toggleIcon = toggleBtn.querySelector('img');
+  const input = passwordInputs[index];
+
+  toggleBtn.addEventListener('mousedown', (e) => {
+     e.preventDefault(); // блокуємо фокус на кнопці
+     if (input.type === 'password') {
+        input.type = 'text';
+        toggleIcon.src = 'assets/img/eye.svg';
+     } else {
+        input.type = 'password';
+        toggleIcon.src = 'assets/img/eye-grey.svg';
+     }
+  });
+});

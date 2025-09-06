@@ -100,6 +100,7 @@ h4 {
 
 h5 {
   font-size: 30px;
+  font-weight: 700;
   line-height: 1.27;
 }
 
@@ -112,14 +113,15 @@ h5 {
 
 .logo {
   width: 206px;
-  height: 48px;
+  height: 64px;
   display: flex;
   align-items: center;
   border-radius: 48px;
-  padding: 8px 16px;
+  padding: 16px;
 }
 .logo:hover {
-  background-color: #ACCBFC;
+  border: 0.5px solid #DDE3ED;
+  background-color: #CFE0FC;
 }
 .logo img {
   width: 32px;
@@ -140,7 +142,7 @@ h5 {
   line-height: 1.5;
   text-decoration: none;
   white-space: nowrap;
-  border-radius: 56px;
+  border-radius: 31px;
   cursor: pointer;
 }
 .btn.btn-primary {
@@ -149,7 +151,7 @@ h5 {
   background-color: #1D5BBF;
 }
 .btn.btn-primary:hover {
-  background: linear-gradient(to right, #0057E2 0%, #0047BA 64%, #003DA0 100%);
+  background: linear-gradient(to right, #75AAFF 0%, #2D71DF 28%, #0D4CB1 64%, #001f51 100%);
   outline: none;
 }
 .btn.btn-primary:disabled {
@@ -184,7 +186,7 @@ h5 {
 }
 
 header {
-  padding: 56px 0;
+  padding: 40px 0 60px;
 }
 header .container .header-nav {
   background-color: #F9F9F9;
@@ -193,8 +195,8 @@ header .container .header-nav {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  padding: 0 40px;
-  margin: 0 66px;
+  padding: 8px 40px;
+  margin: 0 40px;
 }
 header .container .pages {
   display: flex;
@@ -210,8 +212,9 @@ header .container .pages .page img {
   margin-right: 8px;
 }
 header .container .pages .page.active {
-  background-color: #DDE3ED;
-  border-radius: 60px;
+  background-color: #EBEFF5;
+  outline: 1px solid #DDE3ED;
+  border-radius: 32px;
   padding: 16px 24px;
 }
 header .container .pages .page:hover .text {
@@ -392,6 +395,7 @@ header .container .pages .page:hover .text {
   margin-right: 24px;
 }
 .lending .how-works .instraction .step h5 {
+  font-weight: 400;
   color: #fff;
 }
 .lending .free-registration {
@@ -425,15 +429,14 @@ header .container .pages .page:hover .text {
 }
 
 .enter-the-site .logo {
-  margin: 40px 0 40px 40px;
+  margin: 40px;
 }
-.enter-the-site h4 {
+.enter-the-site h5 {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 .enter-the-site form {
-  max-width: 523px;
-  width: 100%;
+  width: 523px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -444,26 +447,22 @@ header .container .pages .page:hover .text {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 .enter-the-site form fieldset .field {
   width: 100%;
+  margin-bottom: 24px;
 }
 .enter-the-site form fieldset .field .small-text {
   text-align: left;
   margin-bottom: 4px;
 }
-.enter-the-site form fieldset .field .email {
-  margin-bottom: 24px;
-}
-.enter-the-site form fieldset .field .password {
-  margin-bottom: 8px;
-}
 .enter-the-site form fieldset .field input {
   width: 100%;
   font-size: 20px;
   line-height: 1.5;
-  border: 0.5px solid #8E99AB;
+  outline: 0.5px solid #8E99AB;
+  border: none;
   border-radius: 20px;
   padding: 13px 24px;
   cursor: pointer;
@@ -474,41 +473,71 @@ header .container .pages .page:hover .text {
   color: #8E99AB;
 }
 .enter-the-site form fieldset .field input:hover {
-  border: 1px solid #1D5BBF;
+  outline: 1px solid #1D5BBF;
 }
 .enter-the-site form fieldset .field input:focus {
-  border: 2px solid #1D5BBF;
+  outline: 2px solid #1D5BBF;
 }
 .enter-the-site form fieldset .field input:focus::placeholder {
   font-size: 20px;
   color: #8E99AB;
 }
-.enter-the-site form fieldset .field input.password {
-  background: url("assets/img/eye.svg") no-repeat right 24px center;
+.enter-the-site form fieldset .field.password-field {
+  position: relative;
+  width: 100%;
 }
-.enter-the-site form fieldset .incorrect {
+.enter-the-site form fieldset .field.password-field input {
+  padding-right: 50px;
+  margin-bottom: 8px;
+}
+.enter-the-site form fieldset .field.password-field input[type=password] {
+  height: 56px;
+  font-size: 48px;
+  line-height: 1;
+  padding: 0 50px 6px 24px;
+}
+.enter-the-site form fieldset .field.password-field .toggle-password {
+  position: absolute;
+  top: 46px;
+  right: 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.enter-the-site form fieldset .field.password-field .toggle-password img {
+  width: 24px;
+  height: 24px;
+}
+.enter-the-site form fieldset .incorrect-and-forgot-password {
+  position: relative;
+  height: 24px;
+}
+.enter-the-site form fieldset .incorrect-and-forgot-password .incorrect {
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
 }
-.enter-the-site form fieldset .incorrect img {
+.enter-the-site form fieldset .incorrect-and-forgot-password .incorrect img {
   width: 24px;
   height: 24px;
   margin-right: 8px;
 }
-.enter-the-site form fieldset .incorrect .small-text {
+.enter-the-site form fieldset .incorrect-and-forgot-password .incorrect .small-text {
   font-size: 16px;
   color: #DE1B1B;
   text-align: left;
 }
-.enter-the-site form fieldset .incorrect .forgot-password {
+.enter-the-site form fieldset .incorrect-and-forgot-password .forgot-password {
+  position: absolute;
+  top: 0;
+  right: 0;
   color: #707A8A;
   text-decoration: underline;
   display: flex;
   justify-content: right;
   margin-left: auto;
 }
-.enter-the-site form fieldset .incorrect .forgot-password:hover {
+.enter-the-site form fieldset .incorrect-and-forgot-password .forgot-password:hover {
   font-weight: 500;
   color: #333840;
   cursor: pointer;
@@ -540,29 +569,35 @@ header .container .pages .page:hover .text {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(112, 122, 138, 0.6);
+  background-color: rgba(112, 122, 138, 0.7);
   display: none;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   z-index: 2;
 }
 .modal-overlay .modal {
+  position: relative;
+  max-width: 652px;
+  width: 80%;
+  text-align: center;
   background-color: #fff;
   border-radius: 20px;
   padding: 40px 30px;
-  max-width: 800px;
-  width: 80%;
-  text-align: center;
-  position: relative;
+  margin-top: 22vh;
 }
 .modal-overlay .modal .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 20px;
+  right: 20px;
   background: none;
   border: none;
   font-size: 21px;
   cursor: pointer;
+  padding: 0 6px 3px;
+}
+.modal-overlay .modal .modal-close:hover {
+  background-color: #DDE3ED;
+  border-radius: 20px;
 }
 .modal-overlay .modal .modal-header {
   margin-bottom: 40px;
@@ -576,36 +611,75 @@ header .container .pages .page:hover .text {
   color: #8E99AB;
 }
 .modal-overlay .modal .modal-form {
+  width: 100%;
+}
+.modal-overlay .modal .modal-form .field {
+  position: relative;
+  width: 523px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 0 auto 40px;
 }
-.modal-overlay .modal .modal-form label {
+.modal-overlay .modal .modal-form .field .small-text {
   margin-bottom: 4px;
+  margin-right: auto;
 }
-.modal-overlay .modal .modal-form input {
-  width: 523px;
+.modal-overlay .modal .modal-form .field input {
+  width: 100%;
   font-size: 20px;
   line-height: 1.5;
   color: #434A54;
   border-radius: 20px;
-  border: 0.5px solid #8E99AB;
+  outline: 0.5px solid #8E99AB;
+  border: none;
   padding: 13px 24px;
-  margin-bottom: 40px;
 }
-.modal-overlay .modal .modal-form input::placeholder {
+.modal-overlay .modal .modal-form .field input::placeholder {
   font-family: "Montserrat";
   font-size: 20px;
   color: #8E99AB;
 }
-.modal-overlay .modal .modal-form input:hover {
-  border: 1px solid #1D5BBF;
+.modal-overlay .modal .modal-form .field input:hover {
+  outline: 1px solid #1D5BBF;
 }
-.modal-overlay .modal .modal-form input:focus {
-  border: 2px solid #1D5BBF;
+.modal-overlay .modal .modal-form .field input:focus {
+  outline: 2px solid #1D5BBF;
+}
+.modal-overlay .modal .modal-form .field .toggle-password {
+  border: none;
+  position: absolute;
+  top: 44px;
+  right: 18px;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.modal-overlay .modal .modal-form .field .toggle-password #eye {
+  width: 24px;
+}
+.modal-overlay .modal .modal-form .field .info-lock {
+  font-size: 16px;
+  display: block;
+  margin-top: 8px;
+}
+.modal-overlay .modal .modal-form .field .info-lock.show {
+  display: block;
+}
+.modal-overlay .modal .modal-form .field .info-lock .warning {
+  display: flex;
+  margin-bottom: 4px;
+}
+.modal-overlay .modal .modal-form .field .info-lock .warning img {
+  width: 24px;
+  margin-right: 8px;
+}
+.modal-overlay .modal .modal-form .field .info-lock .warning .enter-correct {
+  font-size: 16px;
+  color: #DE1B1B;
 }
 .modal-overlay .modal .modal-form .btn-primary {
   padding: 16px 88px;
+  margin-top: 20px;
 }
 .modal-overlay .modal .modal-form .no-account {
   display: flex;
@@ -624,23 +698,168 @@ header .container .pages .page:hover .text {
 .modal-overlay .modal .modal-form .no-account a:hover {
   font-weight: 600;
 }
-.modal-overlay .modal.step-email, .modal-overlay .modal.step-code {
+.modal-overlay .modal.step-email, .modal-overlay .modal.step-code, .modal-overlay .modal.step-new-password {
   display: none;
 }
 .modal-overlay .modal.active {
   display: block;
 }
+.modal-overlay .modal .success-message {
+  display: none;
+  margin: 12px 0;
+}
+.modal-overlay .modal .success-message h5 {
+  margin-bottom: 40px;
+}
+.modal-overlay .modal .success-message .btn {
+  padding: 13px 61px;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    color: inherit;
+  }
+  50% {
+    transform: scale(1.05);
+    color: #1D5BBF;
+  }
+  100% {
+    transform: scale(1);
+    color: inherit;
+  }
+}
+.modal-overlay .resend-animate {
+  animation: pulse 0.9s ease;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.modal-logout {
+  display: none; /* схована за замовчуванням */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: flex-start;
+}
+.modal-logout .modal-content {
+  width: 100%;
+  max-width: 783px;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.27;
+  text-align: center;
+  background: #fff;
+  border-radius: 40px;
+  padding: 24px;
+  margin-top: 28vh;
+}
+.modal-logout .modal-content p {
+  margin: 28px 0 40px;
+}
+.modal-logout .modal-content .modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.modal-logout .modal-content .modal-actions .btn {
+  width: 191px;
+  height: 56px;
+}
+
+.modal-card {
+  display: none; /* схована за замовчуванням */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.modal-card .modal-content {
+  position: relative;
+  max-width: 783px;
+  width: 80%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+}
+.modal-card .modal-content .btn-close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.modal-card .modal-content .modal-body {
+  height: auto;
+  background-color: #F9F9F9;
+  border-radius: 20px;
+  padding: 16px 8px;
+  margin-bottom: 16px;
+}
+.modal-card .modal-content .modal-body .cards-position {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.modal-card .modal-content .modal-body .cards-position .position {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.71;
+}
+.modal-card .modal-content .modal-body .cards-position .control-buttons {
+  display: none;
+}
+.modal-card .modal-content .modal-body .job-details {
+  display: flex;
+  gap: 26px;
+  margin-bottom: 24px;
+}
+.modal-card .modal-content .modal-body .job-details .items {
+  display: flex;
+  align-items: center;
+}
+.modal-card .modal-content .modal-body .job-details .items img {
+  width: 16px;
+  margin-right: 4px;
+}
+.modal-card .modal-content .modal-body .job-details .items .item {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #707A8A;
+}
+.modal-card .modal-content .modal-body .match {
+  width: 96px;
+  height: 28px;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+  text-align: center;
+  border: 0.5px solid #1D5BBF;
+  border-radius: 28px;
+  padding: 3px 8px;
+}
 
 .registration .logo {
-  margin: 40px 0 40px 40px;
+  margin: 40px;
 }
-.registration h4 {
+.registration h5 {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 .registration form {
-  max-width: 523px;
-  width: 100%;
+  width: 523px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -648,6 +867,7 @@ header .container .pages .page:hover .text {
   margin: 0 auto 230px;
 }
 .registration form fieldset {
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 36px;
@@ -657,15 +877,16 @@ header .container .pages .page:hover .text {
 }
 .registration form fieldset .field .small-text {
   text-align: left;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 .registration form fieldset .field input {
   width: 100%;
   font-size: 24px;
   line-height: 1.33;
-  border: 1px solid #8E99AB;
+  outline: 0.5px solid #8E99AB;
+  border: none;
   border-radius: 20px;
-  padding: 18px 24px 18px 56px;
+  padding: 12px 56px;
   cursor: pointer;
 }
 .registration form fieldset .field input::placeholder {
@@ -674,10 +895,10 @@ header .container .pages .page:hover .text {
   color: #8E99AB;
 }
 .registration form fieldset .field input:hover {
-  border: 1px solid #1D5BBF;
+  outline: 1px solid #1D5BBF;
 }
 .registration form fieldset .field input:focus {
-  border: 2px solid #1D5BBF;
+  outline: 2px solid #1D5BBF;
 }
 .registration form fieldset .field input:focus::placeholder {
   font-size: 20px;
@@ -686,46 +907,62 @@ header .container .pages .page:hover .text {
 .registration form fieldset .field input.name {
   background: url("assets/img/person.svg") no-repeat 24px center;
 }
-.registration form fieldset .field input.phone {
+.registration form fieldset .field input.email {
   background: url("assets/img/pencil.svg") no-repeat 24px center;
 }
 .registration form fieldset .field input.password {
-  background: url("assets/img/lock.svg") no-repeat 24px center, url("assets/img/eye.svg") no-repeat right 24px center;
+  background: url("assets/img/lock.svg") no-repeat 24px center;
   margin-bottom: 8px;
 }
-.registration form fieldset .field .info-lock {
-  font-size: 12px;
+.registration form fieldset .field.password-field {
+  position: relative;
+  width: 100%;
 }
-.registration form fieldset .field .info-symbols .title {
-  display: flex;
-  margin-left: 3px;
+.registration form fieldset .field.password-field input {
+  padding-right: 50px;
 }
-.registration form fieldset .field .info-symbols .title img {
+.registration form fieldset .field.password-field input[type=password] {
+  font-size: 41px;
+  line-height: 1;
+  padding: 0 56px 6px;
+}
+.registration form fieldset .field.password-field .toggle-password {
+  border: none;
+  position: absolute;
+  top: 48px;
+  right: 18px;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.registration form fieldset .field.password-field .toggle-password #eye {
   width: 24px;
-  height: 24px;
+}
+.registration form fieldset .field .info-lock {
+  display: none;
+  font-size: 16px;
+}
+.registration form fieldset .field .info-lock.show {
+  display: block;
+}
+.registration form fieldset .field .info-lock .warning {
+  display: flex;
+  margin-bottom: 4px;
+}
+.registration form fieldset .field .info-lock .warning img {
+  width: 24px;
   margin-right: 8px;
 }
-.registration form fieldset .field .info-symbols .list {
-  text-align: left;
-  padding-left: 3px;
-}
-.registration form fieldset .field .info-symbols .list .item {
-  margin: 0 0 8px 3px;
-}
-.registration form fieldset .field .info-symbols .list .item img {
-  width: 10px;
-  height: 10px;
-  margin-right: 14px;
-}
-.registration form fieldset .field .info-symbols .list .item:last-child {
-  margin-bottom: 0;
+.registration form fieldset .field .info-lock .warning .enter-correct {
+  font-size: 16px;
+  color: #DE1B1B;
 }
 .registration form .btn.btn-primary {
   padding: 16px 73px;
 }
 
 .main-page .greeting {
-  margin: 36px 40px 60px;
+  margin: 0 40px 60px;
 }
 .main-page .greeting .title {
   display: flex;
@@ -757,14 +994,16 @@ header .container .pages .page:hover .text {
 .main-page .recent-vacancies {
   margin: 0 0 100px 40px;
 }
-.main-page .recent-vacancies h5 {
+.main-page .recent-vacancies .title-block {
+  margin-bottom: 24px;
+}
+.main-page .recent-vacancies .title-block h5 {
   margin-bottom: 12px;
 }
-.main-page .recent-vacancies .works {
+.main-page .recent-vacancies .title-block .works {
   font-size: 18px;
   line-height: 1.56;
   color: #707A8A;
-  margin-bottom: 24px;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper {
   width: 100%;
@@ -876,21 +1115,24 @@ header .container .pages .page:hover .text {
   margin-bottom: 76px;
   text-align: center;
 }
-.main-page .feedback h5 {
+.main-page .feedback p {
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 8px;
 }
 .main-page .feedback label {
-  font-size: 18px;
-  line-height: 1.56;
+  font-size: 14px;
+  line-height: 1.43;
   color: #707A8A;
   display: block;
   margin-bottom: 24px;
 }
 .main-page .feedback textarea {
   width: 376px;
+  height: 159px;
+  font-size: 16px;
   border-radius: 20px 20px 10px 20px;
-  padding: 24px 16px;
+  padding: 16px;
   margin-bottom: 24px;
   resize: vertical;
 }
@@ -898,7 +1140,10 @@ header .container .pages .page:hover .text {
   font-size: 16px;
   color: #8E99AB;
 }
-.main-page .feedback textarea:hover, .main-page .feedback textarea:active, .main-page .feedback textarea:focus {
+.main-page .feedback textarea:hover {
+  border: 1px solid #1D5BBF;
+}
+.main-page .feedback textarea:active, .main-page .feedback textarea:focus {
   border: 2px solid #1D5BBF;
 }
 .main-page .feedback .btn {
@@ -906,7 +1151,7 @@ header .container .pages .page:hover .text {
 }
 
 .vacansy .title-block {
-  margin: 20px 40px 40px;
+  margin: 0 40px 40px;
 }
 .vacansy .title-block .title {
   margin-bottom: 16px;
@@ -920,14 +1165,11 @@ header .container .pages .page:hover .text {
   line-height: 1.5;
   color: #434A54;
   background-color: #F0F5FC;
-  border: none;
   border-radius: 39px;
   padding: 24px;
 }
-.vacansy .title-block .vacancy-today::placeholder {
-  font-size: 20px;
-  line-height: 1.5;
-  color: #8E99AB;
+.vacansy .title-block .vacancy-today i {
+  float: right;
 }
 .vacansy .vacancies {
   display: flex;
@@ -939,7 +1181,7 @@ header .container .pages .page:hover .text {
   width: 437px;
   background-color: #EBEFF5;
   border-radius: 40px;
-  padding: 12px 24px 24px;
+  padding: 24px;
 }
 .vacansy .vacancies .swiper-slide .job-title {
   background-color: #fff;
@@ -947,7 +1189,7 @@ header .container .pages .page:hover .text {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 23px 24px;
+  padding: 24px;
   margin-bottom: 16px;
 }
 .vacansy .vacancies .swiper-slide .job-title .position {
@@ -984,7 +1226,7 @@ header .container .pages .page:hover .text {
 }
 .vacansy .vacancies .swiper-slide .required-skills {
   padding: 0 24px;
-  margin-bottom: 16px;
+  margin: 24px;
 }
 .vacansy .vacancies .swiper-slide .required-skills .title {
   font-size: 14px;
@@ -1019,7 +1261,7 @@ header .container .pages .page:hover .text {
 }
 
 .tracker .title-block {
-  margin: 20px 40px 40px;
+  margin: 0 40px 40px;
 }
 .tracker .title-block .title {
   margin-bottom: 16px;
@@ -1027,32 +1269,327 @@ header .container .pages .page:hover .text {
 .tracker .title-block .small-text {
   margin-bottom: 40px;
 }
-.tracker .title-block .find-vacancy {
+.tracker .title-block .find-add {
+  display: flex;
+  justify-content: space-between;
+}
+.tracker .title-block .find-add .find-vacancy {
   width: 325px;
-  font-size: 24px;
-  line-height: 1.33;
+  font-size: 20px;
+  line-height: 1.5;
   color: #434A54;
   background: url("assets/img/search.svg") no-repeat 24px center;
-  background-color: #F0F5FC;
-  border: 1px solid #8E99AB;
+  outline: 1px solid #8E99AB;
+  border: none;
   border-radius: 39px;
-  padding: 18px 24px 18px 56px;
+  padding: 13px 24px 13px 56px;
 }
-.tracker .title-block .find-vacancy::placeholder {
+.tracker .title-block .find-add .find-vacancy::placeholder {
   font-size: 20px;
   line-height: 1.5;
   color: #8E99AB;
 }
-.tracker .title-block .find-vacancy:hover {
+.tracker .title-block .find-add .find-vacancy:hover {
+  outline: 1px solid #1D5BBF;
+}
+.tracker .title-block .find-add .find-vacancy:focus {
+  background-color: #F9F9F9;
+  outline: 2px solid #1D5BBF;
+}
+.tracker .title-block .find-add .find-vacancy:focus::placeholder {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #8E99AB;
+}
+.tracker .title-block .find-add .btn {
+  padding: 16px 53px;
+}
+.tracker .title-block .find-add .btn i {
+  font-size: 24px;
+  line-height: 1;
+  margin-right: 26px;
+}
+.tracker .status-board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  padding: 0 40px 117px;
+}
+.tracker .status-board .status-column {
+  display: flex;
+  flex-direction: column;
+}
+.tracker .status-board .status-column .status-header {
+  background-color: #CFE0FC;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  margin-bottom: 40px;
+}
+.tracker .status-board .status-column .status-header.yellow {
+  background-color: #FFFBD5;
+}
+.tracker .status-board .status-column .status-header.pink {
+  background-color: #FFE9F3;
+}
+.tracker .status-board .status-column .status-header.green {
+  background-color: #E5FFE0;
+}
+.tracker .status-board .status-column .status-header.red {
+  background-color: #FFE6E6;
+}
+.tracker .status-board .status-column .status-header .status-title {
+  font-weight: 600;
+  color: #333840;
+}
+.tracker .status-board .status-column .status-header .status-count {
+  width: 31px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  background-color: #ACCBFC;
+  border-radius: 10px;
+  padding: 8px;
+}
+.tracker .status-board .status-column .status-header .status-count.yellow {
+  background-color: #FFF380;
+}
+.tracker .status-board .status-column .status-header .status-count.pink {
+  background-color: #FFA3CC;
+}
+.tracker .status-board .status-column .status-header .status-count.green {
+  background-color: #A1FF8E;
+}
+.tracker .status-board .status-column .status-header .status-count.red {
+  background-color: #FF9C9C;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide {
+  height: auto;
+  background-color: #F9F9F9;
+  outline: 0.5px solid #DDE3ED;
+  border-radius: 20px;
+  padding: 16px 8px;
+  margin-bottom: 16px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide.moving {
+  opacity: 0.5;
+  transform: translateX(30px);
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .cards-position {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .position {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.71;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons {
+  display: flex;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons button {
+  width: 24px;
+  height: 24px;
+  background-color: inherit;
+  border: none;
+  padding: 0;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons button:hover {
+  background-color: #EBEFF5;
+  border-radius: 12px;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons button img {
+  width: 16px;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .job-details {
+  display: flex;
+  gap: 26px;
+  margin-bottom: 24px;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .job-details .items {
+  display: flex;
+  align-items: center;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .job-details .items img {
+  width: 16px;
+  margin-right: 4px;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .job-details .items .item {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #707A8A;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .match {
+  width: 96px;
+  height: 28px;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #707A8A;
+  text-align: center;
+  border: 0.5px solid #1D5BBF;
+  border-radius: 28px;
+  padding: 3px 8px;
+}
+
+.profile .title-block {
+  margin: 0 40px 58px;
+}
+.profile .title-block h5 {
+  margin-bottom: 12px;
+}
+.profile .section {
+  position: relative;
+  outline: 0.5px solid #C8D1E0;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 0 40px 16px;
+}
+.profile .section .edit-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: none;
+  border-radius: 25px;
+  display: block;
+  padding: 2px 7px;
+}
+.profile .section .edit-btn:hover {
+  background-color: #EBEFF5;
+}
+.profile .section .title {
+  font-size: 24px;
+  line-height: 1.33;
+  margin-bottom: 38px;
+}
+.profile .basic-data .personal-data {
+  width: 100%;
+  height: 194px;
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.profile .basic-data .personal-data .foto {
+  text-align: center;
+}
+.profile .basic-data .personal-data .foto .picture {
+  width: 150px;
+  height: 150px;
+  background-color: #DDE3ED;
+  border-radius: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.profile .basic-data .personal-data .foto .picture img {
+  width: 100px;
+}
+.profile .basic-data .personal-data .foto p {
+  font-size: 18px;
+  line-height: 1.56;
+  color: #434A54;
+}
+.profile .basic-data .personal-data .personal-information {
+  padding-top: 10px;
+}
+.profile .basic-data .personal-data .personal-information .sername {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.33;
+  margin-bottom: 15px;
+}
+.profile .basic-data .personal-data .personal-information .profession,
+.profile .basic-data .personal-data .personal-information .location {
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+  margin-bottom: 4px;
+}
+.profile .basic-data .personal-data .personal-information .filling-profile {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+.profile .basic-data .personal-data .personal-information .filling-profile .p {
+  font-size: 20px;
+  color: #434A54;
+  margin-right: 16px;
+}
+.profile .basic-data .personal-data .personal-information .filling-profile .procent-filling {
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  text-align: center;
+  color: #434A54;
   border: 1px solid #1D5BBF;
+  border-radius: 25px;
+  padding-top: 11px;
 }
-.tracker .title-block .find-vacancy:focus {
-  border: 2px solid #1D5BBF;
+.profile .basic-data .resume {
+  display: flex;
+  align-items: center;
 }
-.tracker .title-block .find-vacancy:focus::placeholder {
+.profile .basic-data .resume .upload-resume {
   font-size: 20px;
-  line-height: 1.5;
-  color: #8E99AB;
+  font-weight: 500;
+  margin-right: 16px;
+}
+.profile .basic-data .resume img {
+  width: 24px;
+}
+.profile .wish-to-vacancy .job-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.profile .wish-to-vacancy .job-details .job-details-name .job-details-title {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.profile .wish-to-vacancy .job-details .job-details-name .job-details-choices {
+  display: flex;
+  gap: 12px;
+}
+.profile .wish-to-vacancy .job-details .job-details-name .job-details-choices .job-details-choice {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+  outline: 1px solid #C8D1E0;
+  border-radius: 30px;
+  padding: 16px;
+}
+.profile .wish-to-vacancy .job-details .job-details-name .job-details-choices .job-details-choice img {
+  width: 24px;
+  margin-right: 8px;
+}
+.profile .account-settings .account-settings-list {
+  display: flex;
+  justify-content: space-between;
+}
+.profile .account-settings .account-settings-list .account-setting {
+  width: 260px;
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+  text-align: center;
+  outline: 1px solid #C8D1E0;
+  border-radius: 30px;
+  padding: 16px;
+}
+.profile .btn {
+  width: 325px;
+  height: 62px;
+  display: block;
+  margin: 56px auto 100px;
 }
 
 footer {

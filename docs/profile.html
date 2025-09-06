@@ -45,12 +45,114 @@
         </div>
     </header>
 
-
+    <div class="profile">
+        <div class="title-block">
+            <h5>Мій профіль</h5>
+            <p class="small-text">Керуйтe своєю професійною інформацією</p>
+        </div>
+        <div class="basic-data section">
+            <button class="edit-btn" type="button">
+                <img src="assets/img/pencil.svg" alt="pencil">
+            </button>
+            <div class="personal-data">
+                <div class="foto">
+                    <div class="picture">
+                        <img src="assets/img/person-100-grey.svg" alt="foto">
+                    </div>
+                    <p>Змінити фото</p>
+                </div>
+                <div class="personal-information">
+                    <div class="sername">Максим Коваленко</div>
+                    <div class="profession">Senior Frontend Developer</div>
+                    <div class="location">Київ, Україна</div>
+                    <div class="filling-profile">
+                        <div class="p">Заповнення профілю</div>
+                        <div class="procent-filling">90%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="resume">
+                <div class="upload-resume">Завантаж своє резюме</div>
+                <img src="assets/img/download.svg" alt="download">
+            </div>
+        </div>
+        <div class="wish-to-vacancy section">
+            <button class="edit-btn" type="button">
+                <img src="assets/img/pencil.svg" alt="pencil">
+            </button>
+            <div class="title">Твої побажання до вакансій</div>
+            <div class="job-details">
+                <div class="job-details-name">
+                    <div class="job-details-title">Назва вакансії</div>
+                    <div class="job-details-choices">
+                        <div class="job-details-choice">Senior Frontend Developer</div>
+                    </div>
+                </div>
+                <div class="job-details-name">
+                    <div class="job-details-title">Тип зайнятості</div>
+                    <div class="job-details-choices">
+                        <div class="job-details-choice">Повна зайнятість</div>
+                        <div class="job-details-choice">Неповна зайнятість</div>
+                    </div>
+                </div>
+                <div class="job-details-name">
+                    <div class="job-details-title">Локація</div>
+                    <div class="job-details-choices">
+                        <div class="job-details-choice">
+                            <img src="assets/img/location.svg" alt="location">Київ
+                        </div>
+                    </div>
+                </div>
+                <div class="job-details-name">
+                    <div class="job-details-title">Формат роботи</div>
+                    <div class="job-details-choices">
+                        <div class="job-details-choice">Офіс</div>
+                        <div class="job-details-choice">Віддалено</div>
+                        <div class="job-details-choice">Гібридний формат</div>
+                    </div>
+                </div>
+                <div class="job-details-name">
+                    <div class="job-details-title">Досвід</div>
+                    <div class="job-details-choices">
+                        <div class="job-details-choice">0 - 1 рік</div>
+                        <div class="job-details-choice">1 - 3 роки</div>
+                        <div class="job-details-choice">3 - 5 років</div>
+                        <div class="job-details-choice">5+ років</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="account-settings section">
+            <button class="edit-btn" type="button">
+                <img src="assets/img/pencil.svg" alt="pencil">
+            </button>
+            <div class="title">Налаштування акаунту</div>
+            <div class="account-settings-list">
+                <div class="account-setting">Змінити імейл</div>
+                <div class="account-setting">Змінити пароль</div>
+                <div class="account-setting">Змінити мову</div>
+                <div class="account-setting">Видалити акаунт</div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="button" id="logoutBtn">Вийти з акаунту</button>
+    </div>
+    <div class="modal-logout" id="logoutModal">
+        <div class="modal-content">
+            <p>Ви впевнені, що хочете вийти?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="confirmLogout">Так</button>
+                <button class="btn btn-primary" id="cancelLogout">Скасувати</button>
+            </div>
+        </div>
+    </div>
     <footer>
     </footer>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/modal.js"></script>
+    <script src="assets/js/modal-overlay.js"></script>
+    <script src="assets/js/modal-logout.js"></script>
+    <script src="assets/js/modal-card.js"></script>
+    <script src="assets/js/registration.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>
 
