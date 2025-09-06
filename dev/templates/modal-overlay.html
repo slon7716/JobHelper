@@ -4,12 +4,14 @@
          <img src="assets/img/close.svg" alt="button">
       </button>
       <div class="modal-header">
-         <h4 id="modalTitleEmail">Відновлення паролю</h4>
+         <h5 id="modalTitleEmail">Відновлення паролю</h5>
          <p>Введіть ваш email та отримайте код для відновлення доступу</p>
       </div>
       <form class="modal-form">
-         <label for="resetEmail" class="small-text">Email</label>
-         <input type="email" id="resetEmail" placeholder="email@example.com" required>
+         <div class="field">
+            <label for="resetEmail" class="small-text">Email</label>
+            <input type="email" id="resetEmail" placeholder="email@example.com" required>
+         </div>
          <div class="no-account">
             <p class="small-text">Немає акаунта?</p>
             <a href="registration.html">Зареєструватися</a>
@@ -22,17 +24,58 @@
          <img src="assets/img/close.svg" alt="button">
       </button>
       <div class="modal-header">
-         <h4>Відновлення паролю</h4>
-         <p>Ми надіслали код на email@example.com. Введіть його нижче, щоб підтвердити вашу особу. </p>
+         <h5>Відновлення паролю</h5>
+         <p>Ми надіслали код на email@example.com. Введіть його нижче, щоб підтвердити вашу особу.</p>
       </div>
       <form class="modal-form">
-         <label for="confirmationCode" class="small-text">Код підтвердження</label>
-         <input type="text" id="confirmationCode" placeholder="Код підтвердження" required>
+         <div class="field">
+            <label for="confirmationCode" class="small-text">Код підтвердження</label>
+            <input type="text" id="confirmationCode" required>
+         </div>
          <div class="no-account">
             <p class="small-text">Не отримали код?</p>
             <a href="#" id="resendCode">Надіслати ще раз</a>
          </div>
          <button class="btn btn-primary">Підтвердити</button>
       </form>
+   </div>
+   <div class="modal step-new-password">
+      <button class="modal-close">
+         <img src="assets/img/close.svg" alt="button">
+      </button>
+      <div class="modal-header">
+         <h5>Відновлення паролю</h5>
+         <p>Створіть новий пароль та підтвердіть його</p>
+      </div>
+      <form class="modal-form">
+         <div class="field">
+            <label for="newPassword" class="small-text">Новий пароль</label>
+            <input class="password" type="password" id="newPassword" required>
+            <button type="button" class="toggle-password" tabindex="-1">
+               <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
+            </button>
+            <div class="info-lock">
+               <div class="warning">
+                  <img src="assets/img/info-red.svg" alt="info">
+                  <p class="enter-correct">Введіть коректний пароль:</p>
+               </div>
+               <p class="instruction">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або 
+                  більше спеціальних символів (наприклад: ! @ # $ %)
+               </p>
+            </div>
+         </div>
+         <div class="field">
+            <label for="confirmPassword" class="small-text">Повторіть пароль</label>
+            <input class="password" type="password" id="confirmPassword" required>
+            <button type="button" class="toggle-password" tabindex="-1">
+               <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
+            </button>
+         </div>
+         <button type="submit" class="btn btn-primary" disabled>Зберегти пароль</button>
+      </form>
+      <div class="success-message">
+         <h5>Пароль успішно змінено!</h5>
+         <a href="enter-the-site.html" id="loginBtn" class="btn btn-primary">Увійти</a>
+      </div>
    </div>
 </div>

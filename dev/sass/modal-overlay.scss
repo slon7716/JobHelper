@@ -6,29 +6,36 @@
    left: 0;
    width: 100vw;
    height: 100vh;
-   background-color: rgba(112,122,138,0.6);
+   background-color: rgba(112,122,138,0.7);
    display: none; // спочатку приховано
    justify-content: center;
-   align-items: center;
+   align-items: flex-start;
    z-index: 2;
 
    .modal {
+      position: relative;
+      max-width: 652px;
+      width: 80%;
+      text-align: center;
       background-color: #fff;
       border-radius: 20px;
       padding: 40px 30px;
-      max-width: 800px;
-      width: 80%;
-      text-align: center;
-      position: relative;
+      margin-top: 22vh;
 
       .modal-close {
          position: absolute;
-         top: 15px;
-         right: 15px;
+         top: 20px;
+         right: 20px;
          background: none;
          border: none;
          font-size: 21px;
          cursor: pointer;
+         padding: 0 6px 3px;
+
+         &:hover {
+            background-color: $grey-blue30;
+            border-radius: 20px;
+         }
       }
 
       .modal-header {
@@ -46,41 +53,88 @@
       }
 
       .modal-form {
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-
-         label {
-            margin-bottom: 4px;
-         }
-
-         input {
+         width: 100%;
+         
+         .field {
+            position: relative;
             width: 523px;
-            font-size: 20px;
-            line-height: 1.5;
-            color: $grey-blue90;
-            border-radius: 20px;
-            border: 0.5px solid $grey-blue60;
-            padding: 13px 24px;
-            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto 40px;
 
-            &::placeholder {
-               font-family: $font-primary;
+            .small-text {
+               margin-bottom: 4px;
+               margin-right: auto;
+            }
+   
+            input {
+               width: 100%;
                font-size: 20px;
-               color: $grey-blue60;
-            }
-            
-            &:hover {
-               border: 1px solid $blue70;
+               line-height: 1.5;
+               color: $grey-blue90;
+               border-radius: 20px;
+               outline: 0.5px solid $grey-blue60;
+               border: none;
+               padding: 13px 24px;
+   
+               &::placeholder {
+                  font-family: $font-primary;
+                  font-size: 20px;
+                  color: $grey-blue60;
+               }
+               
+               &:hover {
+                  outline: 1px solid $blue70;
+               }
+   
+               &:focus {
+                  outline: 2px solid $blue70;
+               }
             }
 
-            &:focus {
-               border: 2px solid $blue70;
+            .toggle-password {
+               border: none;
+               position: absolute;
+               top: 44px;
+               right: 18px;
+               background: none;
+               cursor: pointer;
+               padding: 6px;
+               
+               #eye {
+                   width: 24px;
+               }
+            }
+
+            .info-lock {
+               font-size: 16px;
+               display: block;
+               margin-top: 8px;
+
+               &.show {
+                   display: block;
+               }
+
+               .warning {
+                   display: flex;
+                   margin-bottom: 4px;
+
+                   img {
+                       width: 24px;
+                       margin-right: 8px;
+                   }
+
+                   .enter-correct {
+                       font-size: 16px;
+                       color: $red;
+                   }
+               }
             }
          }
 
          .btn-primary {
             padding: 16px 88px;
+            margin-top: 20px;
          }
 
          .no-account {
@@ -104,14 +158,41 @@
             }
          }
       }
-
+      
       &.step-email,
-      &.step-code {
+      &.step-code,
+      &.step-new-password {
          display: none;
       }
-
+      
       &.active {
          display: block;
       }
+
+      .success-message {
+         display: none;
+         margin: 12px 0;
+
+         h5 {
+            margin-bottom: 40px;
+         }
+
+         .btn {
+            padding: 13px 61px;
+         }
+      }
+   }
+
+   @keyframes pulse {
+      0% { transform: scale(1); color: inherit; }
+      50% { transform: scale(1.05); color: $blue70; }
+      100% { transform: scale(1); color: inherit; }
+   }
+   
+   .resend-animate {
+      animation: pulse 0.9s ease;
+      outline: none;
+      border: none;
+      box-shadow: none;
    }
 }

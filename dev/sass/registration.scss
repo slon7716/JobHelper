@@ -2,17 +2,16 @@
 
 .registration {    
     .logo {
-        margin: 40px 0 40px 40px;
+        margin: 40px;
     }
     
     h5 {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 60px;
     }
     
     form {
-        max-width: 523px;
-        width: 100%;
+        width: 523px;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -20,6 +19,7 @@
         margin: 0 auto 230px;
 
         fieldset {
+            width: 100%;
             display: flex;
             flex-direction: column;
             margin-bottom: 36px;
@@ -29,18 +29,18 @@
 
                 .small-text {
                     text-align: left;
-                    margin-bottom: 4px;
+                    margin-bottom: 8px;
                 }
 
                 input {
                     width: 100%;
                     font-size: 24px;
                     line-height: 1.33;
-                    border: 1px solid $grey-blue60;
+                    outline: 0.5px solid $grey-blue60;
+                    border: none;
                     border-radius: 20px;
-                    padding: 11px 24px 11px 56px;
+                    padding: 12px 56px;
                     cursor: pointer;
-                    // transition: 0.3s;
                  
                     &::placeholder {
                        font-family: $font-primary;
@@ -49,11 +49,11 @@
                     }
                  
                     &:hover {
-                       border: 1px solid $blue70;
+                       outline: 1px solid $blue70;
                     }
                  
                     &:focus {
-                        border: 2px solid $blue70;
+                        outline: 2px solid $blue70;
                  
                         &::placeholder {
                           font-size: 20px;
@@ -65,7 +65,7 @@
                         background: url("assets/img/person.svg") no-repeat 24px center;
                     }
                     
-                    &.phone {
+                    &.email {
                         background: url("assets/img/pencil.svg") no-repeat 24px center;
                     }
                     
@@ -74,78 +74,62 @@
                         margin-bottom: 8px;
                     }
                 }
-
+                
                 &.password-field {
                     position: relative;
                     width: 100%;
-                  
+                    
                     input {
                         padding-right: 50px;
-     
+                        
                         &[type="password"] {
-                           height: 56px;
-                           font-size: 48px;
-                           line-height: 1;
-                           padding: 0 50px 6px 56px;
+                            font-size: 41px;
+                            line-height: 1;
+                            padding: 0 56px 6px;
                         }
                     }
-                  
+                    
                     .toggle-password {
-                       position: absolute;
-                       top: 38%;
-                       right: 16px; // відступ від правого краю
-                       border: none;
-                       background: none;
-                       cursor: pointer;
-                       padding: 0;
-                  
-                       img {
-                          width: 24px;
-                          height: 24px;
-                       }
+                        border: none;
+                        position: absolute;
+                        top: 48px;
+                        right: 18px;
+                        background: none;
+                        cursor: pointer;
+                        padding: 6px;
+                        
+                        #eye {
+                            width: 24px;
+                        }
                     }
                 }
 
                 .info-lock {
-                    font-size: 12px;
-                }
-
-                .info-symbols{
                     display: none;
+                    font-size: 16px;
 
-                    .title {
+                    &.show {
+                        display: block;
+                    }
+
+                    .warning {
                         display: flex;
-                        margin-left: 3px;
+                        margin-bottom: 4px;
 
                         img {
                             width: 24px;
-                            height: 24px;
                             margin-right: 8px;
                         }
-                    }
 
-                    .list {
-                        text-align: left;
-                        padding-left: 3px;
-
-                        .item {
-                            margin: 0 0 8px 3px;
-
-                            img {
-                                width: 10px;
-                                height: 10px;
-                                margin-right: 14px;
-                            }
-
-                            &:last-child {
-                                margin-bottom: 0;
-                            }
+                        .enter-correct {
+                            font-size: 16px;
+                            color: $red;
                         }
                     }
                 }
             }
         }
-
+        
         .btn {
             &.btn-primary {
                 padding: 16px 73px;
@@ -153,3 +137,37 @@
         }
     }
 }
+
+// .info-symbols{
+//     display: none;
+
+//     .title {
+//         display: flex;
+//         margin-left: 3px;
+
+//         img {
+//             width: 24px;
+//             height: 24px;
+//             margin-right: 8px;
+//         }
+//     }
+
+//     .list {
+//         text-align: left;
+//         padding-left: 3px;
+
+//         .item {
+//             margin: 0 0 8px 3px;
+
+//             img {
+//                 width: 10px;
+//                 height: 10px;
+//                 margin-right: 14px;
+//             }
+
+//             &:last-child {
+//                 margin-bottom: 0;
+//             }
+//         }
+//     }
+// }

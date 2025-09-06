@@ -9,18 +9,20 @@
       <fieldset>
          <div class="field">
             <div class="small-text">Email</div>
-            <input id="email" class="email" type="text" autocomplete="email" name="personal">
+            <input class="email" type="text" autocomplete="email" name="personal">
          </div>
          <div class="field password-field">
             <div class="small-text">Пароль</div>
             <input class="password" type="password" name="personal">
-            <button type="button" class="toggle-password">
+            <button type="button" class="toggle-password" tabindex="-1">
                <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
             </button>
          </div>
-         <div class="incorrect">
-            <img src="assets/img/info-red.svg" alt="info">
-            <div class="small-text">Неправильний email або пароль</div>
+         <div class="incorrect-and-forgot-password">
+            <div class="incorrect">
+               <img src="assets/img/info-red.svg" alt="info">
+               <div class="small-text">Неправильний email або пароль</div>
+            </div>
             <a href="#" class="forgot-password">Забули пароль?</a>
          </div>
       </fieldset>

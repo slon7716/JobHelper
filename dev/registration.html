@@ -13,43 +13,51 @@
          </div>
          <div class="field">
             <div class="small-text">Email або номер телефону</div>
-            <input class="phone" type="text" name="personal">
+            <input class="email" type="text" name="personal">
          </div>
          <div class="field password-field">
             <div class="small-text">Пароль для входу</div>
             <input class="password" type="password" name="personal">
-            <button type="button" class="toggle-password">
+            <button type="button" class="toggle-password" tabindex="-1">
                <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
             </button>
-            <div class="info-lock">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або
-                більше спеціальних символів (наприклад: ! @ # $ %)</div>
-            <div class="info-symbols">
-               <div class="title">
-                  <img src="assets/img/info.svg" alt="info">
-                  <div class="small-text">Ваш пароль має містити:</div>
+            <div class="info-lock">
+               <div class="warning">
+                  <img src="assets/img/info-red.svg" alt="info">
+                  <p class="enter-correct">Введіть коректний пароль:</p>
                </div>
-               <div class="list">
-                  <div class="item">
-                     <img src="assets/img/ellipse-green.svg" alt="circle">
-                     <i>Від 8 до 20 символів</i>
-                  </div>
-                  <div class="item">
-                     <img src="assets/img/ellipse-green.svg" alt="circle">
-                     <i>1 велику літеру</i>
-                  </div>
-                  <div class="item">
-                     <img src="assets/img/ellipse-green.svg" alt="circle">
-                     <i>1 або більше цифр</i>
-                  </div>
-                  <div class="item">
-                     <img src="assets/img/ellipse-green.svg" alt="circle">
-                     <i>1 або більше спеціальних символів (наприклад: ! @ # $ %)</i>
-                  </div>
-               </div>
+               <p class="instruction">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або 
+                  більше спеціальних символів (наприклад: ! @ # $ %)
+               </p>
             </div>
          </div>
       </fieldset>
-      <button class="btn btn-primary" disabled>Зареєструватися</button>
+      <button id="loginBtn" class="btn btn-primary" disabled>Зареєструватися</button>
    </form>
 </div>
 @@include('templates/footer.html')
+
+<!-- <div class="info-symbols">
+   <div class="title">
+      <img src="assets/img/info.svg" alt="info">
+      <div class="small-text">Ваш пароль має містити:</div>
+   </div>
+   <div class="list">
+      <div class="item">
+         <img src="assets/img/ellipse-green.svg" alt="circle">
+         <i>Від 8 до 20 символів</i>
+      </div>
+      <div class="item">
+         <img src="assets/img/ellipse-green.svg" alt="circle">
+         <i>1 велику літеру</i>
+      </div>
+      <div class="item">
+         <img src="assets/img/ellipse-green.svg" alt="circle">
+         <i>1 або більше цифр</i>
+      </div>
+      <div class="item">
+         <img src="assets/img/ellipse-green.svg" alt="circle">
+         <i>1 або більше спеціальних символів (наприклад: ! @ # $ %)</i>
+      </div>
+   </div>
+</div> -->

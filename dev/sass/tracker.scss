@@ -22,7 +22,8 @@
             line-height: 1.5;
             color: $grey-blue90;
             background: url("assets/img/search.svg") no-repeat 24px center;
-            border: 1px solid $grey-blue60;
+            outline: 1px solid $grey-blue60;
+            border: none;
             border-radius: 39px;
             padding: 13px 24px 13px 56px;
       
@@ -33,12 +34,12 @@
             }
    
             &:hover {
-               border: 1px solid $blue70;
+               outline: 1px solid $blue70;
             }
          
             &:focus {
                background-color: $grey-blue10;
-               border: 2px solid $blue70;
+               outline: 2px solid $blue70;
          
                &::placeholder {
                   font-size: 20px;
