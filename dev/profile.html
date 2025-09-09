@@ -91,5 +91,13 @@
    </div>
    <button class="btn btn-primary" type="button" id="logoutBtn">Вийти з акаунту</button>
 </div>
-@@include('templates/modal-logout.html')
+<div class="modal-logout" id="logoutModal">
+   <div class="modal-content">
+      <h5>Ви впевнені, що хочете вийти?</h5>
+      <div class="modal-actions">
+         <button class="btn btn-secondary" id="confirmLogout">Так</button>
+         <button class="btn btn-primary" id="cancelLogout">Скасувати</button>
+      </div>
+   </div>
+</div>
 @@include('templates/footer.html')

@@ -138,11 +138,11 @@ h5 {
    &.btn-secondary {
       color: $grey-blue90;
       background-color: inherit;
-      border: 0.5px solid $secondary-color;
+      border: none;
+      outline: 0.5px solid $secondary-color;
 
       &:hover {
-         outline: none;
-         border: 2px solid $blue70;
+         outline: 2px solid $blue70;
       }
    }
 
