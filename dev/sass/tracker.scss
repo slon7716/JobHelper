@@ -12,50 +12,35 @@
          margin-bottom: 40px;
       }
 
-      .find-add {
-         display: flex;
-         justify-content: space-between;
-
-         .find-vacancy {
-            width: 325px;
+      .find-vacancy {
+         width: 325px;
+         font-size: 20px;
+         line-height: 1.5;
+         color: $grey-blue90;
+         background: url("assets/img/search.svg") no-repeat 24px center;
+         outline: 1px solid $grey-blue60;
+         border: none;
+         border-radius: 39px;
+         padding: 13px 24px 13px 56px;
+   
+         &::placeholder {
             font-size: 20px;
             line-height: 1.5;
-            color: $grey-blue90;
-            background: url("assets/img/search.svg") no-repeat 24px center;
-            outline: 1px solid $grey-blue60;
-            border: none;
-            border-radius: 39px;
-            padding: 13px 24px 13px 56px;
+            color: $grey-blue60;
+         }
+
+         &:hover {
+            outline: 1px solid $blue70;
+         }
+      
+         &:focus {
+            background-color: $grey-blue10;
+            outline: 2px solid $blue70;
       
             &::placeholder {
                font-size: 20px;
                line-height: 1.5;
                color: $grey-blue60;
-            }
-   
-            &:hover {
-               outline: 1px solid $blue70;
-            }
-         
-            &:focus {
-               background-color: $grey-blue10;
-               outline: 2px solid $blue70;
-         
-               &::placeholder {
-                  font-size: 20px;
-                  line-height: 1.5;
-                  color: $grey-blue60;
-               }
-            }
-         }
-
-         .btn {
-            padding: 16px 53px;
-
-            i {
-               font-size: 24px;
-               line-height: 1;
-               margin-right: 26px;
             }
          }
       }

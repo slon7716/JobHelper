@@ -42,16 +42,35 @@
       margin: 0 0 100px 40px;
 
       .title-block {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding-right: 40px;
          margin-bottom: 24px;
-         
-         h5 {
-            margin-bottom: 12px;
+
+         .new-jobs {
+            h5 {
+               margin-bottom: 8px;
+            }
+      
+            .works {
+               font-size: 18px;
+               line-height: 1.56;
+               color: $secondary-color;
+            }
          }
-   
-         .works {
-            font-size: 18px;
-            line-height: 1.56;
-            color: $secondary-color;
+
+         .btn {
+            height: 62px;
+            padding: 16px 53px 16px 62px;
+            display: flex;
+            align-items: center;
+
+            i {
+               font-size: 26px;
+               line-height: 1;
+               margin-right: 16px;
+            }
          }
       }
 
@@ -66,6 +85,7 @@
             
             .swiper-slide {
                width: 332px;
+               height: 500px;
                background-color: $grey-blue20;
                border-radius: 40px;
                padding: 20px 12px;
@@ -117,7 +137,7 @@
                   }
                }
 
-               .required-skills {
+               .characteristic-name {
                   padding: 0 24px;
                   margin-bottom: 16px;
 
@@ -126,22 +146,36 @@
                      font-weight: 600;
                      line-height: 1.43;
                      color: $grey-blue80;
-                     margin-bottom: 12px;
+                     margin-bottom: 8px;
                   }
+               }
 
+               .format,
+               .required-skills-item,
+               .descripion {
+                  font-size: 14px;
+                  line-height: 1.43;
+                  color: $secondary-color;
+               }
+               
+               .required-skills {
                   .required-skills-list {
                      .required-skills-item {
-                        font-size: 14px;
-                        line-height: 1.43;
-                        color: $secondary-color;
                         display: flex;
                         margin-bottom: 8px;
-   
+                        
                         img {
                            width: 4px;
                            margin-right: 8px;
                         }
                      }
+                  }
+               }
+
+               .job-description {
+                  .descripion {
+                     word-break: break-word; /* переносить довгі слова */
+                     overflow-wrap: break-word; /* сучасний аналог для довгих слів */
                   }
                }
 
@@ -171,7 +205,7 @@
       
             .swiper-button-prev,
             .swiper-button-next {
-               top: 414px;
+               top: 586px;
                width: 30px;
                height: 30px;
 

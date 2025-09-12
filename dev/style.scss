@@ -20,11 +20,14 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @use 'sass/lending';
 @use 'sass/enter-the-site';
 @use 'sass/modal-overlay';
-@use 'sass/modal-card';
+@use 'sass/modal-tracker-card';
+@use 'sass/modal-main-page';
+@use 'sass/modal-add-vacation';
 @use 'sass/registration';
 @use 'sass/main-page';
 @use 'sass/vacancy';
 @use 'sass/tracker';
 @use 'sass/profile';
 @use 'sass/footer';
-@use 'sass/media/media'; /*должен подключаться последним*/
+@use 'sass/media/media';
+/*должен подключаться последним*/

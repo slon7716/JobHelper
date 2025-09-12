@@ -1,0 +1,104 @@
+@use 'variables' as *;
+
+.modal-add-vacation {
+   display: none;
+   position: fixed;
+   z-index: 2;
+   inset: 0;
+   background: rgba(0, 0, 0, 0.5);
+
+   .modal-content {
+      width: 90%;
+      background-color: #fff;
+      max-width: 806px;
+      margin: 50px auto;
+      padding: 30px 40px;
+      border-radius: 60px;
+      position: relative;
+
+      .modal-close {
+         position: absolute;
+         top: 30px;
+         right: 40px;
+         background: none;
+         border: none;
+         font-size: 31px;
+         cursor: pointer;
+         padding: 0 10px 6px;
+   
+         &:hover {
+            background-color: $grey-blue30;
+            border-radius: 22px;
+         }
+
+         img {
+            width: 24px;
+         }
+      }
+
+      h5 {
+         text-align: center;
+         margin-bottom: 12px;
+      }
+
+      .small-text {
+         text-align: center;
+         margin-bottom: 40px;
+      }
+
+      form {
+         width: 100%;
+
+         .field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+
+            label {
+               font-size: 24px;
+               font-weight: 500;
+               line-height: 1.33;
+               color: $grey-blue90;
+               display: block;
+            }
+   
+            input,
+            textarea {
+               width: 450px;
+               font-size: 20px;
+               line-height: 1.5;
+               color: $grey-blue90;
+               border-radius: 20px;
+               outline: 0.5px solid $grey-blue60;
+               border: none;
+               padding: 13px 24px;
+
+               &:hover {
+                  outline: 1px solid $blue70;
+               }
+   
+               &:focus {
+                  outline: 2px solid $blue70;
+               }
+            }
+
+            .skills-list {
+               display: flex;
+               flex-direction: column;
+               gap: 8px;
+            }
+   
+            textarea {
+               min-height: 80px;
+            }
+         }
+         
+         .btn {
+            display: block;
+            padding: 16px 124px;
+            margin: 0 auto;
+         }
+      }
+   }
+}

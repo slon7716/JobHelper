@@ -34,12 +34,13 @@
 
                 input {
                     width: 100%;
-                    font-size: 24px;
-                    line-height: 1.33;
+                    font-size: 20px;
+                    line-height: 1.5;
+                    letter-spacing: 2px;
                     outline: 0.5px solid $grey-blue60;
                     border: none;
                     border-radius: 20px;
-                    padding: 12px 56px;
+                    padding: 13px 56px;
                     cursor: pointer;
                  
                     &:hover {
@@ -61,6 +62,10 @@
                     &.password {
                         background: url("assets/img/lock.svg") no-repeat 24px center;
                         margin-bottom: 8px;
+                    }
+
+                    &.error {
+                        outline: 2px solid $red;
                     }
                 }
                 

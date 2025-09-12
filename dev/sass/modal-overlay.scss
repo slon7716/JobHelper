@@ -79,7 +79,7 @@
    
                &[type="password"] {
                   height: 56px;
-                  font-size: 42px;
+                  font-size: 41px;
                   line-height: 1;
                   padding: 0 50px 6px 24px;
                }
@@ -96,6 +96,10 @@
    
                &:focus {
                   outline: 2px solid $blue70;
+               }
+
+               &.error {
+                  outline: 2px solid $red;
                }
             }
 
@@ -115,7 +119,7 @@
 
             .info-lock {
                font-size: 16px;
-               display: block;
+               display: none;
                margin-top: 8px;
 
                &.show {
@@ -123,18 +127,18 @@
                }
 
                .warning {
-                   display: flex;
-                   margin-bottom: 4px;
+                  display: flex;
+                  margin-bottom: 4px;
 
-                   img {
-                       width: 24px;
-                       margin-right: 8px;
-                   }
+                  img {
+                     width: 24px;
+                     margin-right: 8px;
+                  }
 
-                   .enter-correct {
-                       font-size: 16px;
-                       color: $red;
-                   }
+                  .enter-correct {
+                     font-size: 16px;
+                     color: $red;
+                  }
                }
             }
          }

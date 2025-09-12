@@ -1,4 +1,3 @@
-// Отримуємо модалку (якщо є)
 const cardModal = document.getElementById('cardModal');
 let modalBody = null;
 let closeModalBtn = null;
