@@ -183,24 +183,30 @@ if (document.querySelector('.main-page')) {
 
     // Завантаження карток із LocalStorage при старті
     const savedSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
-    swiperWrapper.innerHTML = ''; // очищаємо стартові картки, щоб уникнути дублів
 
-    savedSlides.forEach(html => {
-      const slide = document.createElement('div');
-      slide.classList.add('swiper-slide');
-      slide.innerHTML = html;
-
-      // Додаємо слухач для кнопки “Скасувати”
-      const cancelBtn = slide.querySelector('.btn-secondary');
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', () => {
-          slide.remove();
-          saveSlides();
-        });
-      }
-
-      swiperWrapper.appendChild(slide);
-    });
+    if (savedSlides.length > 0) {
+      swiperWrapper.innerHTML = ''; // очищаємо, щоб не було дублів
+    
+      savedSlides.forEach(html => {
+        const slide = document.createElement('div');
+        slide.classList.add('swiper-slide');
+        slide.innerHTML = html;
+    
+        // Додаємо слухач для кнопки “Скасувати”
+        const cancelBtn = slide.querySelector('.btn-secondary');
+        if (cancelBtn) {
+          cancelBtn.addEventListener('click', () => {
+            slide.remove();
+            saveSlides();
+          });
+        }
+    
+        swiperWrapper.appendChild(slide);
+      });
+    } else {
+      // Якщо LocalStorage пустий — зберігаємо початкові картки з HTML
+      saveSlides();
+    }
 
     // Сабміт форми
     jobForm.addEventListener('submit', (e) => {
