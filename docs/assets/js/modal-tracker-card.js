@@ -3,8 +3,8 @@ let modalBody = null;
 let closeModalBtn = null;
 
 if (cardModal) {
-  modalBody = cardModal.querySelector('.modal-body');
-  closeModalBtn = cardModal.querySelector('.btn-close-modal');
+  modalBody = cardModal.querySelector('.modal-card-content');
+  closeModalBtn = cardModal.querySelector('.btn-primary');
 }
 
 // Функція для оновлення лічильників у всіх колонках
@@ -37,7 +37,7 @@ document.addEventListener('click', (e) => {
   }
 
   // 3. Закрити модалку через кнопку
-  if (cardModal && e.target.closest('.btn-close-modal')) {
+  if (cardModal && e.target.closest('.btn-primary')) {
     cardModal.style.display = 'none';
   }
 
@@ -65,6 +65,5 @@ document.addEventListener('click', (e) => {
     }
   }
 });
-
 // Початковий підрахунок при завантаженні сторінки
 updateCounts();

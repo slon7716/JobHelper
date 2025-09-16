@@ -428,6 +428,141 @@ header .container .pages .page:hover .text {
   align-items: center;
 }
 
+.registration .logo {
+  margin: 40px;
+}
+.registration h5 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.registration form {
+  width: 523px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto 230px;
+}
+.registration form fieldset {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 36px;
+}
+.registration form fieldset .field {
+  margin-bottom: 24px;
+}
+.registration form fieldset .field .small-text {
+  text-align: left;
+  margin-bottom: 8px;
+}
+.registration form fieldset .field input {
+  width: 100%;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  outline: 0.5px solid #8E99AB;
+  border: none;
+  border-radius: 20px;
+  padding: 13px 56px;
+  cursor: pointer;
+}
+.registration form fieldset .field input:hover {
+  outline: 1px solid #1D5BBF;
+}
+.registration form fieldset .field input:focus {
+  outline: 2px solid #1D5BBF;
+}
+.registration form fieldset .field input.name {
+  background: url("assets/img/person.svg") no-repeat 24px center;
+}
+.registration form fieldset .field input.email {
+  background: url("assets/img/pencil.svg") no-repeat 24px center;
+}
+.registration form fieldset .field input.password {
+  background: url("assets/img/lock.svg") no-repeat 24px center;
+  margin-bottom: 8px;
+}
+.registration form fieldset .field input.error {
+  outline: 2px solid #DE1B1B;
+}
+.registration form fieldset .field.password-field {
+  position: relative;
+  width: 100%;
+}
+.registration form fieldset .field.password-field input {
+  padding-right: 50px;
+}
+.registration form fieldset .field.password-field input[type=password] {
+  font-size: 41px;
+  line-height: 1;
+  padding: 0 56px 6px;
+}
+.registration form fieldset .field.password-field .toggle-password {
+  border: none;
+  position: absolute;
+  top: 48px;
+  right: 18px;
+  background: none;
+  cursor: pointer;
+  padding: 6px;
+}
+.registration form fieldset .field.password-field .toggle-password #eye {
+  width: 24px;
+}
+.registration form fieldset .field .info-lock {
+  display: none;
+  font-size: 16px;
+}
+.registration form fieldset .field .info-lock.show {
+  display: block;
+}
+.registration form fieldset .field .info-lock .warning {
+  display: flex;
+  margin-bottom: 4px;
+}
+.registration form fieldset .field .info-lock .warning img {
+  width: 24px;
+  margin-right: 8px;
+}
+.registration form fieldset .field .info-lock .warning .enter-correct {
+  font-size: 16px;
+  color: #DE1B1B;
+}
+.registration form .btn.btn-primary {
+  padding: 16px 73px;
+}
+
+.profile-success-create {
+  display: none; /* схована за замовчуванням */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+.profile-success-create .modal-content {
+  width: 100%;
+  max-width: 783px;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.27;
+  text-align: center;
+  background: #fff;
+  border-radius: 40px;
+  padding: 52px 24px;
+}
+.profile-success-create .modal-content h5 {
+  font-weight: 500;
+  margin-bottom: 40px;
+}
+.profile-success-create .modal-content .btn {
+  padding: 13px 20px;
+}
+
 .enter-the-site .logo {
   margin: 40px;
 }
@@ -741,311 +876,6 @@ header .container .pages .page:hover .text {
   box-shadow: none;
 }
 
-.modal-tracker-card {
-  display: none;
-  /* схована за замовчуванням */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-}
-.modal-tracker-card .modal-content {
-  position: relative;
-  max-width: 783px;
-  width: 80%;
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px;
-}
-.modal-tracker-card .modal-content .btn-close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.modal-tracker-card .modal-content .modal-body {
-  height: auto;
-  background-color: #F9F9F9;
-  border-radius: 20px;
-  padding: 16px 8px;
-  margin-bottom: 16px;
-}
-.modal-tracker-card .modal-content .modal-body .cards-position {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-.modal-tracker-card .modal-content .modal-body .cards-position .position {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.71;
-}
-.modal-tracker-card .modal-content .modal-body .cards-position .control-buttons {
-  display: none;
-}
-.modal-tracker-card .modal-content .modal-body .job-details {
-  display: flex;
-  gap: 26px;
-  margin-bottom: 24px;
-}
-.modal-tracker-card .modal-content .modal-body .job-details .items {
-  display: flex;
-  align-items: center;
-}
-.modal-tracker-card .modal-content .modal-body .job-details .items img {
-  width: 16px;
-  margin-right: 4px;
-}
-.modal-tracker-card .modal-content .modal-body .job-details .items .item {
-  font-size: 12px;
-  line-height: 1.5;
-  color: #707A8A;
-}
-.modal-tracker-card .modal-content .modal-body .match {
-  width: 96px;
-  height: 28px;
-  font-size: 14px;
-  line-height: 1.43;
-  color: #707A8A;
-  text-align: center;
-  border: 0.5px solid #1D5BBF;
-  border-radius: 28px;
-  padding: 3px 8px;
-}
-
-.modal-add-vacation {
-  display: none;
-  position: fixed;
-  z-index: 2;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-.modal-add-vacation .modal-content {
-  width: 90%;
-  background-color: #fff;
-  max-width: 806px;
-  margin: 50px auto;
-  padding: 30px 40px;
-  border-radius: 60px;
-  position: relative;
-}
-.modal-add-vacation .modal-content .modal-close {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  background: none;
-  border: none;
-  font-size: 31px;
-  cursor: pointer;
-  padding: 0 10px 6px;
-}
-.modal-add-vacation .modal-content .modal-close:hover {
-  background-color: #DDE3ED;
-  border-radius: 22px;
-}
-.modal-add-vacation .modal-content .modal-close img {
-  width: 24px;
-}
-.modal-add-vacation .modal-content h5 {
-  text-align: center;
-  margin-bottom: 12px;
-}
-.modal-add-vacation .modal-content .small-text {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.modal-add-vacation .modal-content form {
-  width: 100%;
-}
-.modal-add-vacation .modal-content form .field {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-.modal-add-vacation .modal-content form .field label {
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1.33;
-  color: #434A54;
-  display: block;
-}
-.modal-add-vacation .modal-content form .field input,
-.modal-add-vacation .modal-content form .field textarea {
-  width: 450px;
-  font-size: 20px;
-  line-height: 1.5;
-  color: #434A54;
-  border-radius: 20px;
-  outline: 0.5px solid #8E99AB;
-  border: none;
-  padding: 13px 24px;
-}
-.modal-add-vacation .modal-content form .field input:hover,
-.modal-add-vacation .modal-content form .field textarea:hover {
-  outline: 1px solid #1D5BBF;
-}
-.modal-add-vacation .modal-content form .field input:focus,
-.modal-add-vacation .modal-content form .field textarea:focus {
-  outline: 2px solid #1D5BBF;
-}
-.modal-add-vacation .modal-content form .field .skills-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.modal-add-vacation .modal-content form .field textarea {
-  min-height: 80px;
-}
-.modal-add-vacation .modal-content form .btn {
-  display: block;
-  padding: 16px 124px;
-  margin: 0 auto;
-}
-
-.registration .logo {
-  margin: 40px;
-}
-.registration h5 {
-  text-align: center;
-  margin-bottom: 60px;
-}
-.registration form {
-  width: 523px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto 230px;
-}
-.registration form fieldset {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 36px;
-}
-.registration form fieldset .field {
-  margin-bottom: 24px;
-}
-.registration form fieldset .field .small-text {
-  text-align: left;
-  margin-bottom: 8px;
-}
-.registration form fieldset .field input {
-  width: 100%;
-  font-size: 20px;
-  line-height: 1.5;
-  letter-spacing: 2px;
-  outline: 0.5px solid #8E99AB;
-  border: none;
-  border-radius: 20px;
-  padding: 13px 56px;
-  cursor: pointer;
-}
-.registration form fieldset .field input:hover {
-  outline: 1px solid #1D5BBF;
-}
-.registration form fieldset .field input:focus {
-  outline: 2px solid #1D5BBF;
-}
-.registration form fieldset .field input.name {
-  background: url("assets/img/person.svg") no-repeat 24px center;
-}
-.registration form fieldset .field input.email {
-  background: url("assets/img/pencil.svg") no-repeat 24px center;
-}
-.registration form fieldset .field input.password {
-  background: url("assets/img/lock.svg") no-repeat 24px center;
-  margin-bottom: 8px;
-}
-.registration form fieldset .field input.error {
-  outline: 2px solid #DE1B1B;
-}
-.registration form fieldset .field.password-field {
-  position: relative;
-  width: 100%;
-}
-.registration form fieldset .field.password-field input {
-  padding-right: 50px;
-}
-.registration form fieldset .field.password-field input[type=password] {
-  font-size: 41px;
-  line-height: 1;
-  padding: 0 56px 6px;
-}
-.registration form fieldset .field.password-field .toggle-password {
-  border: none;
-  position: absolute;
-  top: 48px;
-  right: 18px;
-  background: none;
-  cursor: pointer;
-  padding: 6px;
-}
-.registration form fieldset .field.password-field .toggle-password #eye {
-  width: 24px;
-}
-.registration form fieldset .field .info-lock {
-  display: none;
-  font-size: 16px;
-}
-.registration form fieldset .field .info-lock.show {
-  display: block;
-}
-.registration form fieldset .field .info-lock .warning {
-  display: flex;
-  margin-bottom: 4px;
-}
-.registration form fieldset .field .info-lock .warning img {
-  width: 24px;
-  margin-right: 8px;
-}
-.registration form fieldset .field .info-lock .warning .enter-correct {
-  font-size: 16px;
-  color: #DE1B1B;
-}
-.registration form .btn.btn-primary {
-  padding: 16px 73px;
-}
-
-.profile-success-create {
-  display: none; /* схована за замовчуванням */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-}
-.profile-success-create .modal-content {
-  width: 100%;
-  max-width: 783px;
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1.27;
-  text-align: center;
-  background: #fff;
-  border-radius: 40px;
-  padding: 52px 24px;
-}
-.profile-success-create .modal-content h5 {
-  font-weight: 500;
-  margin-bottom: 40px;
-}
-.profile-success-create .modal-content .btn {
-  padding: 13px 20px;
-}
-
 .main-page .greeting {
   margin: 0 40px 60px;
 }
@@ -1066,6 +896,9 @@ header .container .pages .page:hover .text {
 .main-page .activities .item {
   width: 277px;
   text-align: center;
+  background-color: #F0F5FC;
+  border-radius: 60px;
+  padding: 40px 0;
 }
 .main-page .activities .item .number {
   font-size: 48px;
@@ -1257,6 +1090,209 @@ header .container .pages .page:hover .text {
 }
 .main-page .feedback .btn {
   padding: 16px 74px;
+}
+
+.modal-add-vacation {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal-add-vacation .modal-content {
+  width: 90%;
+  background-color: #fff;
+  max-width: 806px;
+  margin: 50px auto;
+  padding: 30px 40px;
+  border-radius: 60px;
+  position: relative;
+}
+.modal-add-vacation .modal-content .modal-close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  background: none;
+  border: none;
+  font-size: 31px;
+  cursor: pointer;
+  padding: 0 10px 6px;
+}
+.modal-add-vacation .modal-content .modal-close:hover {
+  background-color: #DDE3ED;
+  border-radius: 22px;
+}
+.modal-add-vacation .modal-content .modal-close img {
+  width: 24px;
+}
+.modal-add-vacation .modal-content h5 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+.modal-add-vacation .modal-content .small-text {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.modal-add-vacation .modal-content form {
+  width: 100%;
+}
+.modal-add-vacation .modal-content form .field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.modal-add-vacation .modal-content form .field label {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.33;
+  color: #434A54;
+  display: block;
+}
+.modal-add-vacation .modal-content form .field input,
+.modal-add-vacation .modal-content form .field textarea {
+  width: 450px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #434A54;
+  border-radius: 20px;
+  outline: 0.5px solid #8E99AB;
+  border: none;
+  padding: 13px 24px;
+}
+.modal-add-vacation .modal-content form .field input:hover,
+.modal-add-vacation .modal-content form .field textarea:hover {
+  outline: 1px solid #1D5BBF;
+}
+.modal-add-vacation .modal-content form .field input:focus,
+.modal-add-vacation .modal-content form .field textarea:focus {
+  outline: 2px solid #1D5BBF;
+}
+.modal-add-vacation .modal-content form .field .skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.modal-add-vacation .modal-content form .field textarea {
+  min-height: 80px;
+}
+.modal-add-vacation .modal-content form .btn {
+  display: block;
+  padding: 16px 124px;
+  margin: 0 auto;
+}
+
+.modal-tracker-card {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.modal-tracker-card .modal-content {
+  position: relative;
+  max-width: 783px;
+  width: 80%;
+  background: #EBEFF5;
+  border-radius: 40px;
+  padding: 24px;
+}
+.modal-tracker-card .modal-content .modal-body {
+  height: auto;
+  background-color: #EBEFF5;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.modal-tracker-card .modal-content .modal-body .modal-card-content {
+  margin-bottom: 32px;
+}
+.modal-tracker-card .modal-content .modal-body .job-title {
+  background-color: #fff;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .position-and-control {
+  margin-bottom: 27px;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .position-and-control .position {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.27;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .position-and-control .control-buttons {
+  display: none;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .job-details {
+  display: flex;
+  gap: 26px;
+  margin-bottom: 16px;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .job-details .items {
+  display: flex;
+  align-items: center;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .job-details .items img {
+  width: 24px;
+  margin-right: 4px;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .job-details .items .item {
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+}
+.modal-tracker-card .modal-content .modal-body .job-title .match {
+  width: 135px;
+  height: 36px;
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+  text-align: center;
+  border: 0.5px solid #1D5BBF;
+  border-radius: 18px;
+  padding: 4px 12px;
+}
+.modal-tracker-card .modal-content .modal-body .characteristic-name {
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+.modal-tracker-card .modal-content .modal-body .characteristic-name .title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.56;
+  color: #58606E;
+  margin-bottom: 8px;
+}
+.modal-tracker-card .modal-content .modal-body .format,
+.modal-tracker-card .modal-content .modal-body .required-skills-item,
+.modal-tracker-card .modal-content .modal-body .descripion {
+  font-size: 18px;
+  line-height: 1.56;
+  color: #707A8A;
+}
+.modal-tracker-card .modal-content .modal-body .required-skills .required-skills-list .required-skills-item {
+  display: flex;
+  margin-bottom: 8px;
+}
+.modal-tracker-card .modal-content .modal-body .required-skills .required-skills-list .required-skills-item img {
+  width: 4px;
+  margin-right: 8px;
+}
+.modal-tracker-card .modal-content .modal-body .job-description .descripion {
+  word-break: break-word; /* переносить довгі слова */
+  overflow-wrap: break-word; /* сучасний аналог для довгих слів */
+}
+.modal-tracker-card .modal-content .btn-primary {
+  display: block;
+  padding: 13px 61px;
+  margin: 0 auto;
 }
 
 .vacansy .title-block {
@@ -1476,31 +1512,31 @@ header .container .pages .page:hover .text {
   opacity: 0.5;
   transform: translateX(30px);
 }
-.tracker .status-board .status-column .status-cards .swiper-slide .cards-position {
+.tracker .status-board .status-column .status-cards .swiper-slide .position-and-control {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
 }
-.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .position {
+.tracker .status-board .status-column .status-cards .swiper-slide .position-and-control .position {
   font-size: 14px;
   font-weight: 600;
   line-height: 1.71;
 }
-.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons {
+.tracker .status-board .status-column .status-cards .swiper-slide .position-and-control .control-buttons {
   display: flex;
 }
-.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons button {
+.tracker .status-board .status-column .status-cards .swiper-slide .position-and-control .control-buttons button {
   width: 24px;
   height: 24px;
   background-color: inherit;
   border: none;
   padding: 0;
 }
-.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons button:hover {
+.tracker .status-board .status-column .status-cards .swiper-slide .position-and-control .control-buttons button:hover {
   background-color: #EBEFF5;
   border-radius: 12px;
 }
-.tracker .status-board .status-column .status-cards .swiper-slide .cards-position .control-buttons button img {
+.tracker .status-board .status-column .status-cards .swiper-slide .position-and-control .control-buttons button img {
   width: 16px;
 }
 .tracker .status-board .status-column .status-cards .swiper-slide .job-details {
@@ -1522,15 +1558,17 @@ header .container .pages .page:hover .text {
   color: #707A8A;
 }
 .tracker .status-board .status-column .status-cards .swiper-slide .match {
-  width: 96px;
-  height: 28px;
+  width: 101px;
   font-size: 14px;
   line-height: 1.43;
   color: #707A8A;
   text-align: center;
-  border: 0.5px solid #1D5BBF;
+  outline: 0.5px solid #1D5BBF;
   border-radius: 28px;
-  padding: 3px 8px;
+  padding: 4px 8px;
+}
+.tracker .status-board .status-column .status-cards .swiper-slide .characteristic-name {
+  display: none;
 }
 
 .profile .title-block {
@@ -1729,6 +1767,4 @@ header .container .pages .page:hover .text {
 footer {
   margin-top: auto;
 }
-
-/*должен подключаться последним*/
 /*# sourceMappingURL=style.css.map */
