@@ -22,7 +22,7 @@
          border: none;
          border-radius: 39px;
          padding: 13px 24px 13px 56px;
-   
+
          &::placeholder {
             font-size: 20px;
             line-height: 1.5;
@@ -32,11 +32,11 @@
          &:hover {
             outline: 1px solid $blue70;
          }
-      
+
          &:focus {
             background-color: $grey-blue10;
             outline: 2px solid $blue70;
-      
+
             &::placeholder {
                font-size: 20px;
                line-height: 1.5;
@@ -129,7 +129,7 @@
                   transform: translateX(30px);
                }
 
-               .cards-position {
+               .position-and-control {
                   display: flex;
                   justify-content: space-between;
                   margin-bottom: 24px;
@@ -142,7 +142,7 @@
 
                   .control-buttons {
                      display: flex;
-                     
+
                      button {
                         width: 24px;
                         height: 24px;
@@ -161,21 +161,21 @@
                      }
                   }
                }
-   
+
                .job-details {
                   display: flex;
                   gap: 26px;
                   margin-bottom: 24px;
-   
+
                   .items {
                      display: flex;
                      align-items: center;
-   
+
                      img {
                         width: 16px;
                         margin-right: 4px;
                      }
-   
+
                      .item {
                         font-size: 12px;
                         line-height: 1.5;
@@ -183,17 +183,20 @@
                      }
                   }
                }
-   
+
                .match {
-                  width: 96px;
-                  height: 28px;
+                  width: 101px;
                   font-size: 14px;
                   line-height: 1.43;
                   color: $secondary-color;
                   text-align: center;
-                  border: 0.5px solid $blue70;
+                  outline: 0.5px solid $blue70;
                   border-radius: 28px;
-                  padding: 3px 8px;
+                  padding: 4px 8px;
+               }
+
+               .characteristic-name {
+                  display: none;
                }
             }
          }

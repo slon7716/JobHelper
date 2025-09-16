@@ -1,0 +1,114 @@
+@use 'variables' as *;
+
+.swiper-slide {
+   width: 332px;
+   height: 500px;
+   background-color: $grey-blue20;
+   border-radius: 40px;
+   padding: 20px 12px;
+
+   .job-title {
+      background-color: #fff;
+      border-radius: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 23px 24px;
+      margin-bottom: 16px;
+      
+      .position {
+         font-size: 16px;
+         font-weight: 600;
+      }
+
+      .job-details {
+         display: flex;
+         gap: 25px;
+
+         .items {
+            display: flex;
+            align-items: center;
+
+            img {
+               width: 16px;
+               margin-right: 4px;
+            }
+
+            .item {
+               font-size: 14px;
+               line-height: 1.43;
+               color: $secondary-color;
+            }
+         }
+      }
+
+      .match {
+         width: 94px;
+         font-size: 14px;
+         line-height: 1.43;
+         color: $secondary-color;
+         text-align: center;
+         border: 0.5px solid $blue70;
+         border-radius: 28px;
+         padding: 3px 0;
+      }
+   }
+
+   .characteristic-name {
+      padding: 0 24px;
+      margin-bottom: 16px;
+
+      .title {
+         font-size: 14px;
+         font-weight: 600;
+         line-height: 1.43;
+         color: $grey-blue80;
+         margin-bottom: 8px;
+      }
+   }
+
+   .format,
+   .required-skills-item,
+   .descripion {
+      font-size: 14px;
+      line-height: 1.43;
+      color: $secondary-color;
+   }
+   
+   .required-skills {
+      .required-skills-list {
+         .required-skills-item {
+            display: flex;
+            margin-bottom: 8px;
+            
+            img {
+               width: 4px;
+               margin-right: 8px;
+            }
+         }
+      }
+   }
+
+   .job-description {
+      .descripion {
+         word-break: break-word; /* переносить довгі слова */
+         overflow-wrap: break-word; /* сучасний аналог для довгих слів */
+      }
+   }
+
+   .btns {
+      text-align: center;
+
+      .btn {
+         font-size: 14px;
+         line-height: 1.43;
+         padding: 10px 23px;
+
+         &.btn-secondary {
+            background-color: #fff;
+            padding: 9px 19px;
+            margin-right: 40px;
+         }
+      }
+   }
+}

@@ -1,8 +1,7 @@
 @use 'variables' as *;
 
 .modal-tracker-card {
-   display: none;
-   /* схована за замовчуванням */
+   display: none;  // схована за замовчуванням
    position: fixed;
    top: 0;
    left: 0;
@@ -17,76 +16,124 @@
       position: relative;
       max-width: 783px;
       width: 80%;
-      background: #fff;
-      border-radius: 12px;
+      background: $grey-blue20;
+      border-radius: 40px;
       padding: 24px;
-
-      .btn-close-modal {
-         position: absolute;
-         top: 10px;
-         right: 10px;
-         font-size: 20px;
-         background: none;
-         border: none;
-         cursor: pointer;
-      }
 
       .modal-body {
          height: auto;
-         background-color: $grey-blue10;
+         background-color: $grey-blue20;
          border-radius: 20px;
-         padding: 16px 8px;
-         margin-bottom: 16px;
+         margin-bottom: 20px;
 
-         .cards-position {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-
-            .position {
-               font-size: 14px;
-               font-weight: 600;
-               line-height: 1.71;
-            }
-
-            .control-buttons {
-               display: none;
-            }
+         .modal-card-content {
+            margin-bottom: 32px;
          }
 
-         .job-details {
+         .job-title {
+            background-color: #fff;
+            border-radius: 32px;
             display: flex;
-            gap: 26px;
+            flex-direction: column;
+            padding: 24px;
             margin-bottom: 24px;
 
-            .items {
+            .position-and-control {
+               margin-bottom: 27px;
+   
+               .position {
+                  font-size: 30px;
+                  font-weight: 700;
+                  line-height: 1.27;
+               }
+   
+               .control-buttons {
+                  display: none;
+               }
+            }
+
+            .job-details {
                display: flex;
-               align-items: center;
-
-               img {
-                  width: 16px;
-                  margin-right: 4px;
+               gap: 26px;
+               margin-bottom: 16px;
+   
+               .items {
+                  display: flex;
+                  align-items: center;
+   
+                  img {
+                     width: 24px;
+                     margin-right: 4px;
+                  }
+   
+                  .item {
+                     font-size: 18px;
+                     line-height: 1.56;
+                     color: $secondary-color;
+                  }
                }
+            }
+   
+            .match {
+               width: 135px;
+               height: 36px;
+               font-size: 18px;
+               line-height: 1.56;
+               color: $secondary-color;
+               text-align: center;
+               border: 0.5px solid $blue70;
+               border-radius: 18px;
+               padding: 4px 12px;
+            }
+         }
 
-               .item {
-                  font-size: 12px;
-                  line-height: 1.5;
-                  color: $secondary-color;
+         .characteristic-name {
+            padding: 0 24px;
+            margin-bottom: 24px;
+
+            .title {
+               font-size: 18px;
+               font-weight: 600;
+               line-height: 1.56;
+               color: $grey-blue80;
+               margin-bottom: 8px;
+            }
+         }
+
+         .format,
+         .required-skills-item,
+         .descripion {
+            font-size: 18px;
+            line-height: 1.56;
+            color: $secondary-color;
+         }
+         
+         .required-skills {
+            .required-skills-list {
+               .required-skills-item {
+                  display: flex;
+                  margin-bottom: 8px;
+                  
+                  img {
+                     width: 4px;
+                     margin-right: 8px;
+                  }
                }
             }
          }
 
-         .match {
-            width: 96px;
-            height: 28px;
-            font-size: 14px;
-            line-height: 1.43;
-            color: $secondary-color;
-            text-align: center;
-            border: 0.5px solid $blue70;
-            border-radius: 28px;
-            padding: 3px 8px;
+         .job-description {
+            .descripion {
+               word-break: break-word; /* переносить довгі слова */
+               overflow-wrap: break-word; /* сучасний аналог для довгих слів */
+            }
          }
+      }
+
+      .btn-primary {
+         display: block;
+         padding: 13px 61px;
+         margin: 0 auto;
       }
    }
 }

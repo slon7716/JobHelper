@@ -24,6 +24,9 @@
       .item {
          width: 277px;
          text-align: center;
+         background-color: $blue10;
+         border-radius: 60px;
+         padding: 40px 0;
 
          .number {
             font-size: 48px;
@@ -199,9 +202,6 @@
 
          &-navigation {
             height: 30px;
-            // margin-top: 0;
-            // margin-bottom: 103px;
-            // margin-left: calc(50% - 83px);
       
             .swiper-button-prev,
             .swiper-button-next {
