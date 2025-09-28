@@ -37,7 +37,7 @@ if (textarea && button) {
   });
 }
 
-            // показати/приховати символи паролю
+            // Показати/приховати символи паролю
 const toggleButtons = document.querySelectorAll('.toggle-password');
 const passwordInputs = document.querySelectorAll('.password');
 

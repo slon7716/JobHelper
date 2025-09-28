@@ -574,20 +574,16 @@
                     <label for="format">Формат роботи</label>
                     <input id="format" type="text" name="format" required>
                 </div>
-                <div class="field">
-                    <label>Необхідні навички (не більше 3)</label>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <input type="text" name="skills[]">
-                        </div>
-                        <div class="skill-item">
-                            <input type="text" name="skills[]">
-                        </div>
-                        <div class="skill-item">
-                            <input type="text" name="skills[]">
+                <fieldset class="field">
+                    <div class="field-row">
+                        <legend>Необхідні навички (не більше 3)</legend>
+                        <div class="skills-list">
+                            <div class="skill-item"><input type="text" name="skills[]"></div>
+                            <div class="skill-item"><input type="text" name="skills[]"></div>
+                            <div class="skill-item"><input type="text" name="skills[]"></div>
                         </div>
                     </div>
-                </div>
+                </fieldset>
                 <div class="field">
                     <label for="description">Опис вакансії</label>
                     <textarea id="description" name="description"></textarea>
@@ -605,6 +601,7 @@
     <script src="assets/js/tracker.js"></script>
     <script src="assets/js/modal-tracker-card.js"></script>
     <script src="assets/js/registration-and-login.js"></script>
+    <script src="assets/js/profile.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>
 
