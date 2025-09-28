@@ -30,52 +30,73 @@
          <div class="upload-resume">Завантаж своє резюме</div>
          <img src="assets/img/download.svg" alt="download">
       </div>
+      <form class="edit-form">
+
+         <label for="sername">Ім'я та прізвище</label>
+         <input type="text" id="sername" name="sername">
+         <label for="profession">Професія</label>
+         <input type="text" id="profession" name="profession">
+         <label for="location-basic">Локація</label>
+         <input type="text" id="location-basic" name="location">
+         <label for="foto">Фото (URL)</label>
+         <input type="text" id="foto" name="foto">
+         <button type="submit" class="btn btn-primary">Зберегти</button>
+         <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+       </form>
    </div>
    <div class="wish-to-vacancy section">
       <button class="edit-btn" type="button">
-         <img src="assets/img/pencil.svg" alt="pencil">
+        <img src="assets/img/pencil.svg" alt="pencil">
       </button>
       <div class="title">Твої побажання до вакансій</div>
       <div class="job-details">
-         <div class="job-details-name">
-            <div class="job-details-title">Назва вакансії</div>
-            <div class="job-details-choices">
-               <div class="job-details-choice">Senior Frontend Developer</div>
-            </div>
-         </div>
-         <div class="job-details-name">
-            <div class="job-details-title">Тип зайнятості</div>
-            <div class="job-details-choices">
-               <div class="job-details-choice">Повна зайнятість</div>
-               <div class="job-details-choice">Неповна зайнятість</div>
-            </div>
-         </div>
-         <div class="job-details-name">
-            <div class="job-details-title">Локація</div>
-            <div class="job-details-choices">
-               <div class="job-details-choice">
-                  <img src="assets/img/location.svg" alt="location">Київ
-               </div>
-            </div>
-         </div>
-         <div class="job-details-name">
-            <div class="job-details-title">Формат роботи</div>
-            <div class="job-details-choices">
-               <div class="job-details-choice">Офіс</div>
-               <div class="job-details-choice">Віддалено</div>
-               <div class="job-details-choice">Гібридний формат</div>
-            </div>
-         </div>
-         <div class="job-details-name">
-            <div class="job-details-title">Досвід</div>
-            <div class="job-details-choices">
-               <div class="job-details-choice">0 - 1 рік</div>
-               <div class="job-details-choice">1 - 3 роки</div>
-               <div class="job-details-choice">3 - 5 років</div>
-               <div class="job-details-choice">5+ років</div>
-            </div>
-         </div>
+        <div class="job-details-group" data-field="title">
+          <div class="job-details-title">Назва вакансії</div>
+          <div class="job-details-choices"></div>
+        </div>
+        <div class="job-details-group" data-field="employmentType">
+          <div class="job-details-title">Тип зайнятості</div>
+          <div class="job-details-choices"></div>
+        </div>
+        <div class="job-details-group" data-field="location">
+          <div class="job-details-title">Локація</div>
+          <div class="job-details-choices"></div>
+        </div>
+        <div class="job-details-group" data-field="workFormat">
+          <div class="job-details-title">Формат роботи</div>
+          <div class="job-details-choices"></div>
+        </div>
+        <div class="job-details-group" data-field="experience">
+          <div class="job-details-title">Досвід</div>
+          <div class="job-details-choices"></div>
+        </div>
       </div>
+      <form class="edit-form">
+        <div class="form-group">
+          <label for="title">Назва вакансії</label>
+          <input type="text" id="title" name="title">
+        </div>
+        <div class="form-group">
+          <label for="employmentType">Тип зайнятості (через коми)</label>
+          <input type="text" id="employmentType" name="employmentType">
+        </div>
+        <div class="form-group">
+          <label for="location-wish">Локація (через коми)</label>
+          <input type="text" id="location-wish" name="location">
+        </div>
+        <div class="form-group">
+          <label for="workFormat">Формат роботи (через коми)</label>
+          <input type="text" id="workFormat" name="workFormat">
+        </div>
+        <div class="form-group">
+          <label for="experience">Досвід</label>
+          <input type="text" id="experience" name="experience">
+        </div>
+        <div class="btns">
+           <button type="submit" class="btn btn-primary">Зберегти</button>
+           <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+        </div>
+      </form>
    </div>
    <div class="account-settings section">
       <button class="edit-btn" type="button">
@@ -88,6 +109,16 @@
          <div class="account-setting">Змінити мову</div>
          <div class="account-setting">Видалити акаунт</div>
       </div>
+      <form class="edit-form">
+         <label for="email">Імейл</label>
+         <input type="text" id="email" name="email">
+         <label for="password">Пароль</label>
+         <input type="text" id="password" name="password">
+         <label for="language">Мова</label>
+         <input type="text" id="language" name="language">
+         <button type="submit" class="btn btn-primary">Зберегти</button>
+         <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+       </form>
    </div>
    <button class="btn btn-primary" type="button" id="logoutBtn">Вийти з акаунту</button>
 </div>

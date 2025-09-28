@@ -3,6 +3,9 @@ const loginForm = document.querySelector('.registration, .enter-the-site');
 if (loginForm) {
   const inputs = loginForm.querySelectorAll('input[type="text"], input[type="password"], input[type="email"]');
   const loginBtn = loginForm.querySelector('#loginBtn');
+  const emailInput = loginForm.querySelector('.email');
+  const passwordInput = loginForm.querySelector('.password');
+  const incorrectBlock = loginForm.querySelector('.incorrect');
 
   // Перевірка пароля
   const isPasswordValid = password => /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/.test(password);
@@ -47,6 +50,22 @@ if (loginForm) {
   // Слухаємо всі інпути
   inputs.forEach(input => input.addEventListener('input', checkInputs));
   checkInputs();
+
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+  
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+  
+    // Проста перевірка (тут можна поставити свої "правильні" дані)
+    if (email === "test@mail.com" && password === "123456") {
+      window.location.href = "main-page.html"; // перехід на головну
+      return; // обов'язково зупиняємо далі
+    }
+  
+    // якщо невірні дані – показати повідомлення
+    incorrectBlock.style.display = "flex";
+  });
 
   // Додаткова логіка для реєстрації
   if (loginForm.classList.contains('registration')) {

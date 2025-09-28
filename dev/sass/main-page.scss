@@ -91,7 +91,9 @@
                height: 500px;
                background-color: $grey-blue20;
                border-radius: 40px;
-               padding: 20px 12px;
+               display: flex;
+               flex-direction: column;
+               padding: 12px;
 
                .job-title {
                   background-color: #fff;
@@ -99,7 +101,7 @@
                   display: flex;
                   flex-direction: column;
                   gap: 16px;
-                  padding: 23px 24px;
+                  padding: 18px 24px;
                   margin-bottom: 16px;
                   
                   .position {
@@ -149,7 +151,7 @@
                      font-weight: 600;
                      line-height: 1.43;
                      color: $grey-blue80;
-                     margin-bottom: 8px;
+                     margin-bottom: 6px;
                   }
                }
 
@@ -165,7 +167,11 @@
                   .required-skills-list {
                      .required-skills-item {
                         display: flex;
-                        margin-bottom: 8px;
+                        margin-bottom: 6px;
+
+                        &:last-child {
+                           margin-bottom: 0;
+                        }
                         
                         img {
                            width: 4px;
@@ -184,6 +190,8 @@
 
                .btns {
                   text-align: center;
+                  padding-bottom: 4px;
+                  margin-top: auto;
 
                   .btn {
                      font-size: 14px;
@@ -205,7 +213,7 @@
       
             .swiper-button-prev,
             .swiper-button-next {
-               top: 586px;
+               top: 570px;
                width: 30px;
                height: 30px;
 

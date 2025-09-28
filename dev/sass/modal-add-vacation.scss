@@ -10,16 +10,16 @@
    .modal-content {
       width: 90%;
       background-color: #fff;
-      max-width: 806px;
-      margin: 50px auto;
-      padding: 30px 40px;
+      max-width: 800px;
+      margin: 10px auto;
+      padding: 24px 32px;
       border-radius: 60px;
       position: relative;
 
       .modal-close {
          position: absolute;
-         top: 30px;
-         right: 40px;
+         top: 24px;
+         right: 32px;
          background: none;
          border: none;
          font-size: 31px;
@@ -38,12 +38,12 @@
 
       h5 {
          text-align: center;
-         margin-bottom: 12px;
+         margin-bottom: 10px;
       }
 
       .small-text {
          text-align: center;
-         margin-bottom: 40px;
+         margin-bottom: 30px;
       }
 
       form {
@@ -55,24 +55,40 @@
             justify-content: space-between;
             margin-bottom: 24px;
 
-            label {
-               font-size: 24px;
-               font-weight: 500;
-               line-height: 1.33;
+            .field-row {
+               width: 100%;
+               display: flex;
+               align-items: center;
+               justify-content: space-between;
+
+               .skills-list {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 8px;
+               }
+            }
+
+            label,
+            legend {
+               max-width: 202px;
+               font-size: 20px;
+               line-height: 1.5;
+               font-weight: 600;
                color: $grey-blue90;
-               display: block;
+               margin: 0;
             }
    
             input,
             textarea {
-               width: 450px;
+               width: 500px;
                font-size: 20px;
                line-height: 1.5;
                color: $grey-blue90;
                border-radius: 20px;
                outline: 0.5px solid $grey-blue60;
                border: none;
-               padding: 13px 24px;
+               padding: 10px 20px;
+               resize: none;
 
                &:hover {
                   outline: 1px solid $blue70;
@@ -82,21 +98,15 @@
                   outline: 2px solid $blue70;
                }
             }
-
-            .skills-list {
-               display: flex;
-               flex-direction: column;
-               gap: 8px;
-            }
-   
+            
             textarea {
                min-height: 80px;
             }
          }
-         
+
          .btn {
             display: block;
-            padding: 16px 124px;
+            padding: 13px 124px;
             margin: 0 auto;
          }
       }

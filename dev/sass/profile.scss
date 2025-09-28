@@ -16,6 +16,10 @@
       padding: 24px;
       margin: 0 40px 16px;
 
+      &.editing {
+         outline: 2px solid $blue70;
+      }
+
       .edit-btn {
          position: absolute;
          top: 24px;
@@ -35,6 +39,7 @@
 
       .title {
          font-size: 24px;
+         font-weight: 500;
          line-height: 1.33;
          margin-bottom: 38px;
       }   
@@ -138,10 +143,10 @@
          flex-wrap: wrap;
          gap: 24px;
 
-         .job-details-name {
+         .job-details-group {
             .job-details-title {
                font-size: 20px;
-               margin-bottom: 16px;
+               margin: 0 0 16px 5px;
             }
 
             .job-details-choices {
@@ -191,6 +196,59 @@
       display: block;
       margin: 56px auto 100px;
    }
+
+   
+   .edit-form {
+      display: none;
+      
+      &.active {
+         display: block;
+
+         .form-group {
+            margin-bottom: 16px;
+         }
+
+         .job-details-choices {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+         }
+   
+         label {
+            font-size: 20px;
+            display: inline-block;
+            margin-right: 8px;
+         }
+   
+         input {
+            width: 600px;
+            font-size: 18px;
+            line-height: 1.56;
+            color: $secondary-color;
+            outline: 1px solid $grey-blue40;
+            border: none;
+            box-shadow: none;
+            border-radius: 30px;
+            padding: 16px;
+   
+            &:focus {
+               border: none;
+               box-shadow: none;
+               outline: 2px solid $blue70;
+            }
+         }
+   
+         .btns {
+            display: flex;
+            justify-content: center;
+      
+            .btn {
+               padding: 0;
+               margin: 0 16px;
+            }
+         }
+      }
+   }
 }
 
 .modal-logout {
@@ -231,5 +289,5 @@
             height: 56px;
          }
       }
-   } 
+   }
 }
