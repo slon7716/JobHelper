@@ -1,5 +1,21 @@
 const modal = document.getElementById('forgotPasswordModal');
 if (modal) {
+
+  // ---------------------------
+  // MOCK fetch для локального тестування (успішна відповідь)
+  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
+  // ---------------------------
+  // window.fetch = async function (url, options) {
+  //   console.log("Mock fetch called:", url, options);
+  //   // Імітуємо успішну відповідь від сервера
+  //   return {
+  //     ok: true,
+  //     status: 200,
+  //     json: async () => ({ message: "Error" })
+  //   };
+  // };
+  // ---------------------------
+  
   const steps = {
     email: modal.querySelector('.step-email'),
     code: modal.querySelector('.step-code'),
@@ -43,11 +59,27 @@ if (modal) {
   });
 
   const emailForm = steps.email.querySelector('.modal-form');
-  emailForm.addEventListener('submit', e => {
+  emailForm.addEventListener('submit', async e => {
     e.preventDefault();
-    showStep('code');
-    const codeText = steps.code.querySelector('.modal-header p');
-    codeText.textContent = `Ми надіслали код на ${emailInput.value}. Введіть його нижче, щоб підтвердити вашу особу.`;
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailInput.value })
+      });
+  
+      if (response.ok) {
+        // --- Показуємо крок із кодом ---
+        showStep('code');
+        const codeText = steps.code.querySelector('.modal-header p');
+        codeText.textContent = `Ми надіслали код на ${emailInput.value}. Введіть його нижче, щоб підтвердити вашу особу.`;
+      } else {
+        alert("❌ Не вдалося надіслати код. Перевірте email і спробуйте ще раз.");
+      }
+    } catch (error) {
+      console.error("Помилка:", error);
+      alert("⚠️ Сервер недоступний.");
+    }
   });
 
   // --- Код підтвердження ---
@@ -81,8 +113,8 @@ if (modal) {
 
   function checkPasswords() {
     const value = newPasswordInput.value.trim();
+    const confirmValue = confirmPasswordInput.value.trim();
     const valid = isPasswordValidModal(value);
-    const match = value === confirmPasswordInput.value && confirmPasswordInput.value.trim() !== '';
 
     // Підсвічуємо помилку тільки після першого символу
     if (value.length > 0 && !valid) {
@@ -93,7 +125,8 @@ if (modal) {
       warningBlock.style.display = 'none';
     }
 
-    saveBtn.disabled = !(valid && match);
+      // Кнопка активна тільки якщо пароль валідний і confirmPassword не пустий
+    saveBtn.disabled = !(valid && confirmValue.length > 0);
   }
 
   newPasswordInput.addEventListener('input', checkPasswords);
@@ -101,6 +134,22 @@ if (modal) {
 
   steps.newPassword.querySelector('.modal-form').addEventListener('submit', e => {
     e.preventDefault();
+  
+    const value = newPasswordInput.value.trim();
+    const confirmValue = confirmPasswordInput.value.trim();
+    const errorMessage = steps.newPassword.querySelector('.error-message');
+  
+    if (value !== confirmValue) {
+      // Якщо паролі не співпадають — показуємо повідомлення
+      errorMessage.textContent = "Паролі не співпадають";
+      errorMessage.style.display = "block";
+      return; // зупиняємо, не переходимо далі
+    } else {
+      // Якщо все ок — прибираємо помилку
+      errorMessage.textContent = "";
+      errorMessage.style.display = "none"
+    }
+  
     showStep('success');
-  });
+  });  
 }

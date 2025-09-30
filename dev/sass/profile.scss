@@ -47,11 +47,14 @@
 
    .basic-data {
       .personal-data {
-         width: 100%;
-         height: 194px;
-         display: flex;
+         flex-direction: column;
          gap: 40px;
          margin-bottom: 40px;
+         
+         .fpi {
+            display: flex;
+            gap: 40px;
+         }
 
          .foto {
             text-align: center;
@@ -123,16 +126,26 @@
 
       .resume {
          display: flex;
-         align-items: center;
-
+         
          .upload-resume {
             font-size: 20px;
             font-weight: 500;
-            margin-right: 16px;
+            margin-right: 10px;
          }
+         
+         .download {
+            padding: 0 6px;
+            border: none;
+            background-color: transparent;
 
-         img {
-            width: 24px;
+            &:hover {
+               background-color: $grey-blue20;
+               border-radius: 18px;
+            }
+
+            img {
+               width: 24px;
+            }
          }
       }
    }
@@ -176,6 +189,7 @@
       .account-settings-list {
          display: flex;
          justify-content: space-between;
+         gap: 8px;
 
          .account-setting {
             width: 260px;
@@ -189,14 +203,6 @@
          }
       }
    }
-
-   .btn {
-      width: 325px;
-      height: 62px;
-      display: block;
-      margin: 56px auto 100px;
-   }
-
    
    .edit-form {
       display: none;
@@ -228,8 +234,8 @@
             outline: 1px solid $grey-blue40;
             border: none;
             box-shadow: none;
-            border-radius: 30px;
-            padding: 16px;
+            border-radius: 25px;
+            padding: 11px 16px;
    
             &:focus {
                border: none;
@@ -241,13 +247,21 @@
          .btns {
             display: flex;
             justify-content: center;
+            padding-top: 16px;
       
             .btn {
-               padding: 0;
+               width: 150px;
+               padding: 10px;
                margin: 0 16px;
             }
          }
       }
+   }
+      
+   #logoutBtn {
+      display: block;
+      padding: 16px 78px;
+      margin: 56px auto 100px;
    }
 }
 

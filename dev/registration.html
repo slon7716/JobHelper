@@ -1,23 +1,29 @@
 @@include('templates/head.html')
+
 <div class="registration">
    <a class="logo" href="index.html">
       <img src="assets/img/briefcase.svg" alt="briefcase">
       <div class="name">JobHelper</div>
    </a>
    <h5>Створення профілю</h5>
-   <form action="#">
+
+   <form id="registration-form" action="#">
       <fieldset>
          <div class="field">
-            <div class="small-text">Ім’я та прізвище</div>
-            <input class="name" type="text" name="personal">
+            <div class="small-text">Ім’я</div>
+            <input class="first-name" type="text" name="first-name" required>
+         </div>
+         <div class="field">
+            <div class="small-text">Прізвище</div>
+            <input class="last-name" type="text" name="last-name" required>
          </div>
          <div class="field">
             <div class="small-text">Email</div>
-            <input class="email" type="email" name="personal">
+            <input class="email" type="email" name="email" required>
          </div>
          <div class="field password-field">
-            <div class="small-text">Пароль для входу</div>
-            <input class="password" type="password" name="personal">
+            <div class="small-text">Пароль</div>
+            <input class="password" type="password" name="password" required>
             <button type="button" class="toggle-password" tabindex="-1">
                <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
             </button>
@@ -26,44 +32,30 @@
                   <img src="assets/img/info-red.svg" alt="info">
                   <p class="enter-correct">Введіть коректний пароль:</p>
                </div>
-               <p class="instruction">Від 8 до 20 символів/ 1 велику літеру/ 1 або більше цифр/ 1 або 
-                  більше спеціальних символів (наприклад: ! @ # $ %)
+               <p class="instruction">
+                  Від 8 до 20 символів / 1 велика літера / 1 або більше цифр / 1 або більше спеціальних символів (наприклад: ! @ # $ %)
                </p>
             </div>
          </div>
+         <div class="field password-field">
+            <div class="small-text">Повторіть пароль</div>
+            <input class="repeat-password" type="password" name="repeat-password" required>
+            <button type="button" class="toggle-password" tabindex="-1">
+               <img id="eye" src="assets/img/eye-grey.svg" alt="Show/Hide">
+            </button>
+            <div class="error-message"></div>
+         </div>
       </fieldset>
-      <button id="loginBtn" class="btn btn-primary" disabled>Зареєструватися</button>
+
+      <button id="login-btn" class="btn btn-primary" disabled>Зареєструватися</button>
    </form>
 </div>
-<div class="profile-success-create" id="loginModal">
+
+<div class="profile-success-create" id="login-modal" style="display:none;">
    <div class="modal-content">
       <h5>Профіль успішно створено!</h5>
-      <a id="startFinding" href="main-page.html" class="btn btn-primary">Почати пошук</a>
+      <a id="start-finding" href="main-page.html" class="btn btn-primary">Почати пошук</a>
    </div>
 </div>
-@@include('templates/footer.html')
 
-<!-- <div class="info-symbols">
-   <div class="title">
-      <img src="assets/img/info.svg" alt="info">
-      <div class="small-text">Ваш пароль має містити:</div>
-   </div>
-   <div class="list">
-      <div class="item">
-         <img src="assets/img/ellipse-green.svg" alt="circle">
-         <i>Від 8 до 20 символів</i>
-      </div>
-      <div class="item">
-         <img src="assets/img/ellipse-green.svg" alt="circle">
-         <i>1 велику літеру</i>
-      </div>
-      <div class="item">
-         <img src="assets/img/ellipse-green.svg" alt="circle">
-         <i>1 або більше цифр</i>
-      </div>
-      <div class="item">
-         <img src="assets/img/ellipse-green.svg" alt="circle">
-         <i>1 або більше спеціальних символів (наприклад: ! @ # $ %)</i>
-      </div>
-   </div>
-</div> -->
+@@include('templates/footer.html')

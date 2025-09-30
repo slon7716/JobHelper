@@ -15,7 +15,6 @@ const cardsSwiper = new Swiper('.swiper', {
   speed: 700,
   slidesPerView: 'auto',
   spaceBetween: 16,
-  // centeredSlides: true,
   freeMode: true,
   navigation: {
     nextEl: '.swiper-button-next',
@@ -39,7 +38,7 @@ if (textarea && button) {
 
             // Показати/приховати символи паролю
 const toggleButtons = document.querySelectorAll('.toggle-password');
-const passwordInputs = document.querySelectorAll('.password');
+const passwordInputs = document.querySelectorAll('.password, .repeat-password');
 
 toggleButtons.forEach((toggleBtn, index) => {
   const toggleIcon = toggleBtn.querySelector('img');

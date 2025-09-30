@@ -117,6 +117,7 @@
          .status-cards {
             .swiper-slide {
                height: auto;
+               max-height: 150px;
                background-color: $grey-blue10;
                outline: 0.5px solid $grey-blue30;
                border-radius: 20px;
@@ -130,7 +131,9 @@
                }
 
                .position-and-control {
+                  max-height: 24px;
                   display: flex;
+                  align-items: center;
                   justify-content: space-between;
                   margin-bottom: 24px;
 
@@ -163,8 +166,10 @@
                }
 
                .job-details {
+                  max-height: 18px;
                   display: flex;
-                  gap: 26px;
+                  justify-content: space-between;
+                  gap: 6px;
                   margin-bottom: 24px;
 
                   .items {

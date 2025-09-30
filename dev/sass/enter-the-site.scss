@@ -2,7 +2,7 @@
 
 .enter-the-site {
    .logo {
-      margin: 40px;
+      margin: 20px 40px;
    }
    
    h5 {
@@ -29,6 +29,7 @@
             margin-bottom: 24px;
             
             .small-text {
+               font-weight: 500;
                text-align: left;
                margin-bottom: 4px;
             }
@@ -37,6 +38,7 @@
                width: 100%;
                font-size: 20px;
                line-height: 1.5;
+               letter-spacing: 2px;
                outline: 0.5px solid $grey-blue60;
                border: none;
                border-radius: 20px;
