@@ -55,38 +55,51 @@
                 <img src="assets/img/pencil.svg" alt="pencil">
             </button>
             <div class="personal-data">
-                <div class="foto">
-                    <div class="picture">
-                        <img src="assets/img/person-100-grey.svg" alt="foto">
+                <div class="fpi">
+                    <div class="foto">
+                        <div class="picture">
+                            <img src="assets/img/person-100-grey.svg" alt="foto">
+                        </div>
+                        <p>Змінити фото</p>
                     </div>
-                    <p>Змінити фото</p>
-                </div>
-                <div class="personal-information">
-                    <div class="sername">Максим Коваленко</div>
-                    <div class="profession">Senior Frontend Developer</div>
-                    <div class="location">Київ, Україна</div>
-                    <div class="filling-profile">
-                        <div class="p">Заповнення профілю</div>
-                        <div class="procent-filling">90%</div>
+                    <div class="personal-information">
+                        <div class="sername">Максим Коваленко</div>
+                        <div class="profession">Senior Frontend Developer</div>
+                        <div class="location">Київ, Україна</div>
+                        <div class="filling-profile">
+                            <div class="p">Заповнення профілю</div>
+                            <div class="procent-filling">90%</div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="resume">
                 <div class="upload-resume">Завантаж своє резюме</div>
-                <img src="assets/img/download.svg" alt="download">
+                <button class="download" type="button">
+                    <img src="assets/img/download.svg" alt="download">
+                </button>
             </div>
             <form class="edit-form">
-
-                <label for="sername">Ім'я та прізвище</label>
-                <input type="text" id="sername" name="sername">
-                <label for="profession">Професія</label>
-                <input type="text" id="profession" name="profession">
-                <label for="location-basic">Локація</label>
-                <input type="text" id="location-basic" name="location">
-                <label for="foto">Фото (URL)</label>
-                <input type="text" id="foto" name="foto">
-                <button type="submit" class="btn btn-primary">Зберегти</button>
-                <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+                <div class="form-group">
+                    <label for="sername">Ім'я та прізвище</label>
+                    <input type="text" id="sername" name="sername">
+                </div>
+                <div class="form-group">
+                    <label for="profession">Професія</label>
+                    <input type="text" id="profession" name="profession">
+                </div>
+                <div class="form-group">
+                    <label for="location-basic">Локація</label>
+                    <input type="text" id="location-basic" name="location">
+                </div>
+                <div class="form-group">
+                    <label for="foto">Фото (URL)</label>
+                    <input type="text" id="foto" name="foto">
+                </div>
+                <div class="form-group btns">
+                    <button type="submit" class="btn btn-primary">Зберегти</button>
+                    <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+                </div>
             </form>
         </div>
         <div class="wish-to-vacancy section">
@@ -137,7 +150,7 @@
                     <label for="experience">Досвід</label>
                     <input type="text" id="experience" name="experience">
                 </div>
-                <div class="btns">
+                <div class="form-group btns">
                     <button type="submit" class="btn btn-primary">Зберегти</button>
                     <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
                 </div>
@@ -155,14 +168,22 @@
                 <div class="account-setting">Видалити акаунт</div>
             </div>
             <form class="edit-form">
-                <label for="email">Імейл</label>
-                <input type="text" id="email" name="email">
-                <label for="password">Пароль</label>
-                <input type="text" id="password" name="password">
-                <label for="language">Мова</label>
-                <input type="text" id="language" name="language">
-                <button type="submit" class="btn btn-primary">Зберегти</button>
-                <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+                <div class="form-group">
+                    <label for="email">Електронна пошта</label>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="text" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="language">Мова</label>
+                    <input type="text" id="language" name="language">
+                </div>
+                <div class="form-group btns">
+                    <button type="submit" class="btn btn-primary">Зберегти</button>
+                    <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+                </div>
             </form>
         </div>
         <button class="btn btn-primary" type="button" id="logoutBtn">Вийти з акаунту</button>
@@ -180,11 +201,12 @@
     </footer>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
-    <script src="assets/js/modal-overlay.js"></script>
     <script src="assets/js/modal-add-vacation.js"></script>
     <script src="assets/js/tracker.js"></script>
     <script src="assets/js/modal-tracker-card.js"></script>
-    <script src="assets/js/registration-and-login.js"></script>
+    <script src="assets/js/registration.js"></script>
+    <script src="assets/js/login.js"></script>
+    <script src="assets/js/modal-recovery-password.js"></script>
     <script src="assets/js/profile.js"></script>
     <script src="assets/js/custom.js"></script>
 </body>

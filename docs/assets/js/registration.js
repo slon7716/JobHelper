@@ -1,65 +1,109 @@
-// Беремо форму (на будь-якій сторінці вона одна головна)
-const form = document.querySelector('form');
-if (form) {
-  const inputs = form.querySelectorAll('input[type="text"], input[type="password"]');
-  const loginBtn = form.querySelector('#loginBtn');
-  // const togglePassword = form.querySelector('.toggle-password');
-  // const passwordInput = form.querySelector('.password');
+const registrationForm = document.getElementById('registration-form');
+const modalLogin = document.getElementById('login-modal');
+const startFinding = document.getElementById('start-finding');
 
-  // Функція для перевірки, чи всі інпути заповнені
-  function checkInputs() {
+if (registrationForm) {
+  const inputs = registrationForm.querySelectorAll('input');
+  const loginBtn = registrationForm.querySelector('#login-btn');
+  const passwordInput = registrationForm.querySelector('.password');
+  const repeatPasswordInput = registrationForm.querySelector('.repeat-password');
+  const infoLock = registrationForm.querySelector('.info-lock');
+  const errorMessage = registrationForm.querySelector('.error-message');
+
+  const isPasswordValid = password => /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/.test(password);
+
+  const checkInputs = () => {
     let allFilled = true;
+
     inputs.forEach(input => {
-      if (input.value.trim() === '') {
+      const value = input.value.trim();
+      if (!value) {
         allFilled = false;
+        input.classList.remove('error');
+        return;
+      }
+
+      if (input.classList.contains('email') && !input.checkValidity()) {
+        input.classList.add('error');
+        allFilled = false;
+      } else if (input.classList.contains('email')) {
+        input.classList.remove('error');
+      }
+
+      if (input.classList.contains('password') && !isPasswordValid(value)) {
+        input.classList.add('error');
+        allFilled = false;
+      } else if (input.classList.contains('password')) {
+        input.classList.remove('error');
       }
     });
-    loginBtn.disabled = !allFilled;
-  }
 
-  // Слухаємо всі інпути
-  inputs.forEach(input => {
-    input.addEventListener('input', checkInputs);
-  });
+    if (loginBtn) loginBtn.disabled = !allFilled;
+  };
 
-  // Показ/приховування пароля
-  // if (togglePassword && passwordInput) {
-  //   const toggleIcon = togglePassword.querySelector('#eye');
-  //   togglePassword.addEventListener('click', () => {
-  //     if (passwordInput.type === 'password') {
-  //       passwordInput.type = 'text';
-  //       toggleIcon.src = 'assets/img/eye.svg';
-  //     } else {
-  //       passwordInput.type = 'password';
-  //       toggleIcon.src = 'assets/img/eye-grey.svg';
-  //     }
-  //   });
-  // }
-   
-   // Регулярка для перевірки пароля
-  function isPasswordValid(password) {
-      const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/;
-      return regex.test(password);
-  }
- 
-   const registrationForm = document.querySelector('.registration form');
-   if (registrationForm) { // Якщо ми на сторінці реєстрації
-      const passwordInput = registrationForm.querySelector('.password');
-      const infoLock = registrationForm.querySelector('.info-lock');
- 
-      passwordInput.addEventListener('input', () => {
-         const value = passwordInput.value.trim();
- 
-         if (value.length === 0) {
-         // якщо поле порожнє — сховати блок
-            infoLock.classList.remove('show');
-         } else if (isPasswordValid(value)) {
-         // якщо пароль валідний — сховати
-            infoLock.classList.remove('show');
-         } else {
-         // якщо не валідний — показати
-            infoLock.classList.add('show');
-         }
+  inputs.forEach(input => input.addEventListener('input', () => {
+    checkInputs();
+    if (infoLock) {
+      const value = passwordInput.value.trim();
+      infoLock.classList.toggle('show', value.length > 0 && !isPasswordValid(value));
+    }
+  }));
+  checkInputs();
+
+  const showError = msg => {
+    if (errorMessage) {
+      errorMessage.textContent = msg;
+      errorMessage.style.display = 'block';
+    } else {
+      alert(msg);
+    }
+  };
+
+  const hideError = () => {
+    if (errorMessage) errorMessage.style.display = 'none';
+  };
+
+  registrationForm.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const firstName = registrationForm.querySelector('.first-name').value.trim();
+    const lastName = registrationForm.querySelector('.last-name').value.trim();
+    const email = registrationForm.querySelector('.email').value.trim();
+    const password = passwordInput.value.trim();
+    const repeatPassword = repeatPasswordInput.value.trim();
+
+    if (password !== repeatPassword) {
+      showError("Паролі не співпадають");
+      return;
+    }
+
+    const payload = { firstName, lastName, email, password, repeatPassword };
+
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-   } 
+
+      if (response.ok) {
+        hideError();
+        if (modalLogin) modalLogin.style.display = 'flex';
+      } else {
+        const data = await response.json();
+        showError(data.message || "Сталася помилка. Спробуйте ще раз.");
+      }
+
+    } catch (err) {
+      showError("Не вдалося підключитися до сервера");
+      console.error(err);
+    }
+  });
+}
+
+// ================= MODAL =================
+if (modalLogin) {
+  startFinding?.addEventListener('click', () => window.location.href = 'main-page.html');
+  modalLogin.addEventListener('click', e => { if (e.target === modalLogin) modalLogin.style.display = 'none'; });
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') modalLogin.style.display = 'none'; });
 }

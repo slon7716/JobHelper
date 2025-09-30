@@ -104,13 +104,6 @@ h5 {
   line-height: 1.27;
 }
 
-.container {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 12px;
-}
-
 .logo {
   width: 206px;
   height: 64px;
@@ -183,6 +176,13 @@ h5 {
   font-size: 20px;
   line-height: 1.5;
   color: #707A8A;
+}
+
+.error-message {
+  font-size: 18px;
+  color: #DE1B1B;
+  display: none;
+  margin-top: 8px;
 }
 
 header {
@@ -429,11 +429,11 @@ header .container .pages .page:hover .text {
 }
 
 .registration .logo {
-  margin: 40px;
+  margin: 20px 40px;
 }
 .registration h5 {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 .registration form {
   width: 523px;
@@ -447,12 +447,13 @@ header .container .pages .page:hover .text {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 36px;
+  margin-bottom: 26px;
 }
 .registration form fieldset .field {
   margin-bottom: 24px;
 }
 .registration form fieldset .field .small-text {
+  font-weight: 500;
   text-align: left;
   margin-bottom: 8px;
 }
@@ -479,9 +480,8 @@ header .container .pages .page:hover .text {
 .registration form fieldset .field input.email {
   background: url("assets/img/pencil.svg") no-repeat 24px center;
 }
-.registration form fieldset .field input.password {
+.registration form fieldset .field input.password, .registration form fieldset .field input.repeat-password {
   background: url("assets/img/lock.svg") no-repeat 24px center;
-  margin-bottom: 8px;
 }
 .registration form fieldset .field input.error {
   outline: 2px solid #DE1B1B;
@@ -519,7 +519,7 @@ header .container .pages .page:hover .text {
 }
 .registration form fieldset .field .info-lock .warning {
   display: flex;
-  margin-bottom: 4px;
+  margin: 8px 0 4px;
 }
 .registration form fieldset .field .info-lock .warning img {
   width: 24px;
@@ -564,7 +564,7 @@ header .container .pages .page:hover .text {
 }
 
 .enter-the-site .logo {
-  margin: 40px;
+  margin: 20px 40px;
 }
 .enter-the-site h5 {
   text-align: center;
@@ -589,6 +589,7 @@ header .container .pages .page:hover .text {
   margin-bottom: 24px;
 }
 .enter-the-site form fieldset .field .small-text {
+  font-weight: 500;
   text-align: left;
   margin-bottom: 4px;
 }
@@ -596,6 +597,7 @@ header .container .pages .page:hover .text {
   width: 100%;
   font-size: 20px;
   line-height: 1.5;
+  letter-spacing: 2px;
   outline: 0.5px solid #8E99AB;
   border: none;
   border-radius: 20px;
@@ -736,7 +738,7 @@ header .container .pages .page:hover .text {
 .modal-overlay .modal .modal-header {
   margin-bottom: 40px;
 }
-.modal-overlay .modal .modal-header h4 {
+.modal-overlay .modal .modal-header h5 {
   margin-bottom: 16px;
 }
 .modal-overlay .modal .modal-header p {
@@ -755,6 +757,7 @@ header .container .pages .page:hover .text {
   margin: 0 auto 40px;
 }
 .modal-overlay .modal .modal-form .field .small-text {
+  font-weight: 500;
   margin-bottom: 4px;
   margin-right: auto;
 }
@@ -1517,6 +1520,7 @@ header .container .pages .page:hover .text {
 }
 .tracker .status-board .status-column .status-cards .swiper-slide {
   height: auto;
+  max-height: 150px;
   background-color: #F9F9F9;
   outline: 0.5px solid #DDE3ED;
   border-radius: 20px;
@@ -1529,7 +1533,9 @@ header .container .pages .page:hover .text {
   transform: translateX(30px);
 }
 .tracker .status-board .status-column .status-cards .swiper-slide .position-and-control {
+  max-height: 24px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
 }
@@ -1556,8 +1562,10 @@ header .container .pages .page:hover .text {
   width: 16px;
 }
 .tracker .status-board .status-column .status-cards .swiper-slide .job-details {
+  max-height: 18px;
   display: flex;
-  gap: 26px;
+  justify-content: space-between;
+  gap: 6px;
   margin-bottom: 24px;
 }
 .tracker .status-board .status-column .status-cards .swiper-slide .job-details .items {
@@ -1625,11 +1633,13 @@ header .container .pages .page:hover .text {
   margin-bottom: 38px;
 }
 .profile .basic-data .personal-data {
-  width: 100%;
-  height: 194px;
-  display: flex;
+  flex-direction: column;
   gap: 40px;
   margin-bottom: 40px;
+}
+.profile .basic-data .personal-data .fpi {
+  display: flex;
+  gap: 40px;
 }
 .profile .basic-data .personal-data .foto {
   text-align: center;
@@ -1690,14 +1700,22 @@ header .container .pages .page:hover .text {
 }
 .profile .basic-data .resume {
   display: flex;
-  align-items: center;
 }
 .profile .basic-data .resume .upload-resume {
   font-size: 20px;
   font-weight: 500;
-  margin-right: 16px;
+  margin-right: 10px;
 }
-.profile .basic-data .resume img {
+.profile .basic-data .resume .download {
+  padding: 0 6px;
+  border: none;
+  background-color: transparent;
+}
+.profile .basic-data .resume .download:hover {
+  background-color: #EBEFF5;
+  border-radius: 18px;
+}
+.profile .basic-data .resume .download img {
   width: 24px;
 }
 .profile .wish-to-vacancy .job-details {
@@ -1729,6 +1747,7 @@ header .container .pages .page:hover .text {
 .profile .account-settings .account-settings-list {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 }
 .profile .account-settings .account-settings-list .account-setting {
   width: 260px;
@@ -1739,12 +1758,6 @@ header .container .pages .page:hover .text {
   outline: 1px solid #C8D1E0;
   border-radius: 30px;
   padding: 16px;
-}
-.profile .btn {
-  width: 325px;
-  height: 62px;
-  display: block;
-  margin: 56px auto 100px;
 }
 .profile .edit-form {
   display: none;
@@ -1773,8 +1786,8 @@ header .container .pages .page:hover .text {
   outline: 1px solid #C8D1E0;
   border: none;
   box-shadow: none;
-  border-radius: 30px;
-  padding: 16px;
+  border-radius: 25px;
+  padding: 11px 16px;
 }
 .profile .edit-form.active input:focus {
   border: none;
@@ -1784,10 +1797,17 @@ header .container .pages .page:hover .text {
 .profile .edit-form.active .btns {
   display: flex;
   justify-content: center;
+  padding-top: 16px;
 }
 .profile .edit-form.active .btns .btn {
-  padding: 0;
+  width: 150px;
+  padding: 10px;
   margin: 0 16px;
+}
+.profile #logoutBtn {
+  display: block;
+  padding: 16px 78px;
+  margin: 56px auto 100px;
 }
 
 .modal-logout {

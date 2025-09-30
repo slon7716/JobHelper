@@ -1,4 +1,19 @@
 if (document.querySelector('.main-page')) {
+
+  // ---------------------------
+  // MOCK fetch для локального тестування (успішна відповідь)
+  // ---------------------------
+  window.fetch = async function(url, options) {
+    console.log("Mock fetch called:", url, options);
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ message: "Успішно збережено" }),
+      text: async () => "Успішно збережено"
+    };
+  };
+  // ---------------------------
+  
   const openModal = document.getElementById('openModal');
   const closeModal = document.getElementById('closeModal');
   const modalCard = document.getElementById('jobModal');
@@ -80,97 +95,132 @@ if (document.querySelector('.main-page')) {
     }
 
     // Сабміт форми
-    jobForm.addEventListener('submit', (e) => {
+    jobForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+    
       const formData = new FormData(jobForm);
       const data = Object.fromEntries(formData.entries());
-
-      // Створюємо нову картку
-      const newSlide = document.createElement('div');
-      newSlide.classList.add('swiper-slide');
-
+    
       // Навички
-      const skillsHTML = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
-        .map(skillInput => skillInput.value.trim())
-        .filter(Boolean)
-        .map(skill => `
+      const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
+                          .map(input => input.value.trim())
+                          .filter(Boolean);
+    
+      const jobData = {
+        position: data.position,
+        company: data.company,
+        location: data.location,
+        salary: parseFloat(data.salary),
+        format: data.format,
+        description: data.description,
+        requiredSkills: skills
+      };
+    
+      try {
+        const token = localStorage.getItem("jwtToken"); // якщо потрібен токен
+        const res = await fetch("http://localhost:8080/api/jobs", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(jobData)
+        });
+    
+        // не додаємо картку, якщо сервер повернув помилку
+        if (!res.ok) {
+          const err = await res.text();
+          alert("Помилка від сервера: " + err);
+          return;
+        }
+    
+        // --- Якщо сервер відповів успішно, додаємо картку локально ---
+        const newSlide = document.createElement('div');
+        newSlide.classList.add('swiper-slide');
+    
+        const skillsHTML = skills.map(skill => `
           <div class="required-skills-item">
             <img src="assets/img/ellipse-grey.svg" alt="item">
             <div>${skill}</div>
           </div>
-        `).join('') || '&nbsp;'; // якщо пусто — пробіл
-
-      // Опис вакансії
-      const descriptionHTML = data.description?.trim() || '&nbsp;';
-
-      newSlide.innerHTML = `
-        <div class="job-title">
-          <div class="position">${data.position}</div>
-          <div class="job-details">
-            <div class="items">
-              <img src="assets/img/building.svg" alt="icon">
-              <div class="item company-name">${data.company}</div>
+        `).join('') || '&nbsp;';
+    
+        const descriptionHTML = data.description?.trim() || '&nbsp;';
+    
+        newSlide.innerHTML = `
+          <div class="job-title">
+            <div class="position">${data.position}</div>
+            <div class="job-details">
+              <div class="items">
+                <img src="assets/img/building.svg" alt="icon">
+                <div class="item company-name">${data.company}</div>
+              </div>
+              <div class="items">
+                <img src="assets/img/location.svg" alt="location">
+                <div class="item location">${data.location}</div>
+              </div>
+              <div class="items">
+                <img src="assets/img/pig.svg" alt="pig">
+                <div class="item salary">${data.salary}</div>
+              </div>
             </div>
-            <div class="items">
-              <img src="assets/img/location.svg" alt="location">
-              <div class="item location">${data.location}</div>
-            </div>
-            <div class="items">
-              <img src="assets/img/pig.svg" alt="pig">
-              <div class="item salary">${data.salary}</div>
+            <div class="match">00%</div>
+          </div>
+          <div class="characteristic-name work-format">
+            <div class="title">Формат роботи:</div>
+            <div class="format">${data.format}</div>
+          </div>
+          <div class="characteristic-name required-skills">
+            <div class="title">Необхідні навички:</div>
+            <div class="required-skills-list">
+              ${skillsHTML}
             </div>
           </div>
-          <div class="match">00%</div>
-        </div>
-        <div class="characteristic-name work-format">
-          <div class="title">Формат роботи:</div>
-          <div class="format">${data.format}</div>
-        </div>
-        <div class="characteristic-name required-skills">
-          <div class="title">Необхідні навички:</div>
-          <div class="required-skills-list">
-            ${skillsHTML}
+          <div class="characteristic-name job-description">
+            <div class="title">Опис вакансії:</div>
+            <div class="descripion">${descriptionHTML}</div>
           </div>
-        </div>
-        <div class="characteristic-name job-description">
-          <div class="title">Опис вакансії:</div>
-          <div class="descripion">${descriptionHTML}</div>
-        </div>
-        <div class="btns">
-          <button class="btn btn-secondary">Скасувати</button>
-          <button class="btn btn-primary">Зберегти</button>
-        </div>
-      `;
-
-      // Додаємо картку на початок
-      swiperWrapper.insertBefore(newSlide, swiperWrapper.firstChild);
-
-      // Слухач для кнопки “Скасувати”
-      const cancelBtn = newSlide.querySelector('.btn-secondary');
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', () => {
-          newSlide.remove();
-          saveSlides();
-        });
+          <div class="btns">
+            <button class="btn btn-secondary">Скасувати</button>
+            <button class="btn btn-primary">Зберегти</button>
+          </div>
+        `;
+    
+        // Додаємо на початок слайдера
+        swiperWrapper.insertBefore(newSlide, swiperWrapper.firstChild);
+    
+        // Слухач кнопки “Скасувати”
+        const cancelBtn = newSlide.querySelector('.btn-secondary');
+        if (cancelBtn) {
+          cancelBtn.addEventListener('click', () => {
+            newSlide.remove();
+            saveSlides();
+          });
+        }
+    
+        // Оновлюємо Swiper
+        if (typeof cardsSwiper !== 'undefined') {
+          cardsSwiper.update();
+          cardsSwiper.slideTo(0);
+        }
+    
+        // Зберігаємо локально
+        saveSlides();
+    
+        // Закриваємо модалку і чистимо форму
+        modalCard.style.display = 'none';
+        jobForm.reset();
+        if (submitBtn) submitBtn.disabled = true;
+    
+        alert("Вакансію додано на сервер та локально!");
+    
+      } catch (err) {
+        alert("Помилка мережі: " + err);
       }
-
-      // Оновлюємо Swiper
-      if (typeof cardsSwiper !== 'undefined') {
-        cardsSwiper.update();
-        cardsSwiper.slideTo(0);
-      }
-
-      // Зберігаємо картки після додавання нової
-      saveSlides();
-
-      // Закриваємо модалку і чистимо форму
-      modalCard.style.display = 'none';
-      jobForm.reset();
-      if (submitBtn) submitBtn.disabled = true;
     });
     
     // Слухач для кнопок "Зберегти" (на картках)
-    swiperWrapper.addEventListener('click', (e) => {
+    swiperWrapper.addEventListener('click', async (e) => {
       if (e.target.classList.contains('btn-primary')) {
         const slide = e.target.closest('.swiper-slide');
         if (!slide) return;
@@ -184,22 +234,43 @@ if (document.querySelector('.main-page')) {
           format: slide.querySelector('.format')?.textContent.trim() || '',
           skills: Array.from(slide.querySelectorAll('.required-skills-item div'))
             .map(el => el.textContent.trim())
-            .filter(Boolean), // це масив
+            .filter(Boolean),
           description: slide.querySelector('.descripion')?.textContent.trim() || ''
         };
     
-        // Додаємо у LocalStorage
-        const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
-        savedJobs.push(jobData);
-        localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+        try {
+          const token = localStorage.getItem("jwtToken"); // використовується, якщо потрібен
+          const res = await fetch("http://localhost:8080/api/jobs", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(jobData)
+          });
     
-        // Видаляємо картку зі слайдера
-        slide.remove();
-        saveSlides(); // щоб оновити jobSlides у LocalStorage
+          if (res.ok) {
+            // --- Додаємо до savedJobs для трекера заявок ---
+            const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+            savedJobs.push(jobData);
+            localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
     
-        // Оновлюємо Swiper
-        if (typeof cardsSwiper !== 'undefined') {
-          cardsSwiper.update();
+            // Видаляємо картку зі слайдера
+            slide.remove();
+            saveSlides(); // оновлюємо jobSlides
+    
+            // Оновлюємо Swiper
+            if (typeof cardsSwiper !== 'undefined') {
+              cardsSwiper.update();
+            }
+    
+            alert("Картку збережено та надіслано на сервер!");
+          } else {
+            const err = await res.text();
+            alert("Помилка при збереженні: " + err);
+          }
+        } catch (err) {
+          alert("Помилка мережі: " + err);
         }
       }
     });
