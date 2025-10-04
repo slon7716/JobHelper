@@ -4,13 +4,13 @@ if (document.querySelector('.main-page')) {
   // MOCK fetch для локального тестування (успішна відповідь)
   // ---------------------------
   window.fetch = async function(url, options) {
-    console.log("Mock fetch called:", url, options);
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({ message: "Успішно збережено" }),
-      text: async () => "Успішно збережено"
-    };
+   console.log("Mock fetch called:", url, options);
+   return {
+     ok: true,
+     status: 200,
+     json: async () => ({ message: "Успішно збережено" }),
+     text: async () => "Успішно збережено"
+   };
   };
   // ---------------------------
   
@@ -23,6 +23,23 @@ if (document.querySelector('.main-page')) {
   if (openModal && closeModal && modalCard && jobForm && swiperWrapper) {
     const submitBtn = jobForm.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true; // кнопка вимкнена на старті
+
+    const formatButtons = jobForm.querySelectorAll('.format-buttons button');
+    const formatInput = jobForm.querySelector('#format');
+    
+    formatButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active'); // перемикаємо активний стан
+    
+        // формуємо значення для прихованого поля
+        const activeValues = Array.from(formatButtons)
+          .filter(b => b.classList.contains('active'))
+          .map(b => b.dataset.value);
+    
+        formatInput.value = activeValues.join(', ');
+        checkFormValidity();
+      });
+    });
 
     // Функція перевірки перших 5 полів
     function checkFormValidity() {
@@ -107,13 +124,13 @@ if (document.querySelector('.main-page')) {
                           .filter(Boolean);
     
       const jobData = {
-        position: data.position,
+        title: data.position,                // position → title
+        description: data.description,
+        requiredSkills: skills,
         company: data.company,
         location: data.location,
         salary: parseFloat(data.salary),
-        format: data.format,
-        description: data.description,
-        requiredSkills: skills
+        workFormat: data.format              // format → workFormat
       };
     
       try {
@@ -164,7 +181,7 @@ if (document.querySelector('.main-page')) {
                 <div class="item salary">${data.salary}</div>
               </div>
             </div>
-            <div class="match">00%</div>
+            <div class="match">00% match</div>
           </div>
           <div class="characteristic-name work-format">
             <div class="title">Формат роботи:</div>

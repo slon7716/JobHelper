@@ -5,7 +5,7 @@
       <h5>Мій профіль</h5>
       <p class="small-text">Керуйтe своєю професійною інформацією</p>
    </div>
-   <div class="basic-data section">
+   <div class="basic-client-data section">
       <button class="edit-btn" type="button">
          <img src="assets/img/pencil.svg" alt="pencil">
       </button>
@@ -15,7 +15,7 @@
                <div class="picture">
                   <img src="assets/img/person-100-grey.svg" alt="foto">
                </div>
-               <p>Змінити фото</p>
+               <p>Фотографія</p>
             </div>
             <div class="personal-information">
                <div class="sername">Максим Коваленко</div>
@@ -29,10 +29,12 @@
          </div>
       </div>
       <div class="resume">
-         <div class="upload-resume">Завантаж своє резюме</div>
-         <button class="download" type="button">
+         <div class="upload-resume" id="uploadedResume">Завантаж своє резюме</div>
+         <input type="file" id="resumeFile"/>
+         <button class="download" type="button" id="uploadBtn">
             <img src="assets/img/download.svg" alt="download">
          </button>
+         <div class="small-text" id="resumeStatus"></div>
       </div>
       <form class="edit-form">
          <div class="form-group">
@@ -55,60 +57,60 @@
             <button type="submit" class="btn btn-primary">Зберегти</button>
             <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
          </div>
-      </form>      
+      </form>
    </div>
    <div class="wish-to-vacancy section">
       <button class="edit-btn" type="button">
-        <img src="assets/img/pencil.svg" alt="pencil">
+         <img src="assets/img/pencil.svg" alt="pencil">
       </button>
       <div class="title">Твої побажання до вакансій</div>
       <div class="job-details">
-        <div class="job-details-group" data-field="title">
-          <div class="job-details-title">Назва вакансії</div>
-          <div class="job-details-choices"></div>
-        </div>
-        <div class="job-details-group" data-field="employmentType">
-          <div class="job-details-title">Тип зайнятості</div>
-          <div class="job-details-choices"></div>
-        </div>
-        <div class="job-details-group" data-field="location">
-          <div class="job-details-title">Локація</div>
-          <div class="job-details-choices"></div>
-        </div>
-        <div class="job-details-group" data-field="workFormat">
-          <div class="job-details-title">Формат роботи</div>
-          <div class="job-details-choices"></div>
-        </div>
-        <div class="job-details-group" data-field="experience">
-          <div class="job-details-title">Досвід</div>
-          <div class="job-details-choices"></div>
-        </div>
+         <div class="job-details-group" data-field="title">
+            <div class="job-details-title">Назва вакансії</div>
+            <div class="job-details-choices"></div>
+         </div>
+         <div class="job-details-group" data-field="employmentType">
+            <div class="job-details-title">Тип зайнятості</div>
+            <div class="job-details-choices"></div>
+         </div>
+         <div class="job-details-group" data-field="location">
+            <div class="job-details-title">Локація</div>
+            <div class="job-details-choices"></div>
+         </div>
+         <div class="job-details-group" data-field="workFormat">
+            <div class="job-details-title">Формат роботи</div>
+            <div class="job-details-choices"></div>
+         </div>
+         <div class="job-details-group" data-field="experience">
+            <div class="job-details-title">Досвід</div>
+            <div class="job-details-choices"></div>
+         </div>
       </div>
       <form class="edit-form">
-        <div class="form-group">
-          <label for="title">Назва вакансії</label>
-          <input type="text" id="title" name="title">
-        </div>
-        <div class="form-group">
-          <label for="employmentType">Тип зайнятості (через коми)</label>
-          <input type="text" id="employmentType" name="employmentType">
-        </div>
-        <div class="form-group">
-          <label for="location-wish">Локація (через коми)</label>
-          <input type="text" id="location-wish" name="location">
-        </div>
-        <div class="form-group">
-          <label for="workFormat">Формат роботи (через коми)</label>
-          <input type="text" id="workFormat" name="workFormat">
-        </div>
-        <div class="form-group">
-          <label for="experience">Досвід</label>
-          <input type="text" id="experience" name="experience">
-        </div>
-        <div class="form-group btns">
-           <button type="submit" class="btn btn-primary">Зберегти</button>
-           <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
-        </div>
+         <div class="form-group">
+            <label for="title">Назва вакансії</label>
+            <input type="text" id="title" name="title">
+         </div>
+         <div class="form-group">
+            <label for="employmentType">Тип зайнятості (через коми)</label>
+            <input type="text" id="employmentType" name="employmentType">
+         </div>
+         <div class="form-group">
+            <label for="location-wish">Локація (через коми)</label>
+            <input type="text" id="location-wish" name="location">
+         </div>
+         <div class="form-group">
+            <label for="workFormat">Формат роботи (через коми)</label>
+            <input type="text" id="workFormat" name="workFormat">
+         </div>
+         <div class="form-group">
+            <label for="experience">Досвід</label>
+            <input type="text" id="experience" name="experience">
+         </div>
+         <div class="form-group btns">
+            <button type="submit" class="btn btn-primary">Зберегти</button>
+            <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+         </div>
       </form>
    </div>
    <div class="account-settings section">
@@ -117,29 +119,41 @@
       </button>
       <div class="title">Налаштування акаунту</div>
       <div class="account-settings-list">
-         <div class="account-setting">Змінити імейл</div>
-         <div class="account-setting">Змінити пароль</div>
-         <div class="account-setting">Змінити мову</div>
-         <div class="account-setting">Видалити акаунт</div>
+         <div class="account-setting-group">
+            <div class="account-setting-title">Електронна пошта</div>
+            <div class="account-setting-choice"></div>
+         </div>
+         <div class="account-setting-group">
+            <div class="account-setting-title">Пароль</div>
+            <div class="account-setting-choice"></div>
+         </div>
+         <div class="account-setting-group">
+            <div class="account-setting-title">Мова</div>
+            <div class="account-setting-choice"></div>
+         </div>
+         <div class="account-setting-group">
+            <div class="account-setting-title">Акаунт</div>
+            <div class="account-setting-choice">Видалити акаунт</div>
+         </div>
       </div>
       <form class="edit-form">
          <div class="form-group">
-           <label for="email">Електронна пошта</label>
-           <input type="text" id="email" name="email">
+            <label for="email">Електронна пошта</label>
+            <input type="text" id="email" name="email">
          </div>
          <div class="form-group">
-           <label for="password">Пароль</label>
-           <input type="text" id="password" name="password">
+            <label for="password">Пароль</label>
+            <input type="text" id="password" name="password">
          </div>
          <div class="form-group">
-           <label for="language">Мова</label>
-           <input type="text" id="language" name="language">
+            <label for="language">Мова</label>
+            <input type="text" id="language" name="language">
          </div>
          <div class="form-group btns">
-           <button type="submit" class="btn btn-primary">Зберегти</button>
-           <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
+            <button type="submit" class="btn btn-primary">Зберегти</button>
+            <button type="button" class="btn btn-secondary cancel-btn">Скасувати</button>
          </div>
-       </form>
+      </form>
    </div>
    <button class="btn btn-primary" type="button" id="logoutBtn">Вийти з акаунту</button>
 </div>

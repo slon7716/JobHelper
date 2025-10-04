@@ -25,8 +25,13 @@
         <input id="salary" type="text" name="salary" required>
       </div>
       <div class="field">
-        <label for="format">Формат роботи</label>
-        <input id="format" type="text" name="format" required>
+        <label>Формат роботи</label>
+        <div class="format-buttons">
+          <button type="button" data-value="Офісний">Офісний</button>
+          <button type="button" data-value="Віддалений">Віддалений</button>
+          <button type="button" data-value="Гібридний">Гібридний</button>
+        </div>
+        <input type="hidden" id="format" name="format">
       </div>
       <fieldset class="field">
         <div class="field-row">

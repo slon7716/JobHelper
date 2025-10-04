@@ -12,7 +12,7 @@ let profileData = JSON.parse(localStorage.getItem("profileData")) || {
     title: "Senior Frontend Developer",
     employmentType: ["Повна зайнятість"],
     location: "Київ",
-    workFormat: ["Офіснийний"],
+    workFormat: ["Офісний"],
     experience: ["3 - 5 років"]
   },
   accountSettings: {
@@ -24,8 +24,8 @@ let profileData = JSON.parse(localStorage.getItem("profileData")) || {
 
 // ====================== Функція рендеру профілю ======================
 function renderProfile() {
-  // --- basic-data ---
-  const basic = document.querySelector(".basic-data");
+  // --- basic-client-data ---
+  const basic = document.querySelector(".basic-client-data");
   if (basic) {
     basic.querySelector(".sername").textContent = profileData.basicData.sername;
     basic.querySelector(".profession").textContent = profileData.basicData.profession;
@@ -63,13 +63,10 @@ function renderProfile() {
   // --- account-settings ---
   const account = document.querySelector(".account-settings-list");
   if (account) {
-    const settings = account.querySelectorAll(".account-setting");
-    if (settings.length >= 4) {
-      settings[0].textContent = profileData.accountSettings.email || "Змінити імейл";
-      settings[1].textContent = profileData.accountSettings.password ? "*****" : "Змінити пароль";
-      settings[2].textContent = profileData.accountSettings.language || "Змінити мову";
-      settings[3].textContent = "Видалити акаунт";
-    }
+    const settings = account.querySelectorAll(".account-setting-choice");
+    settings[0].textContent = profileData.accountSettings.email || "Електронна пошта";
+    settings[1].textContent = profileData.accountSettings.password ? "**********" : "Пароль";
+    settings[2].textContent = profileData.accountSettings.language || "Мова";
   }
 }
 
@@ -82,7 +79,7 @@ document.querySelectorAll(".section").forEach(section => {
   const form = section.querySelector(".edit-form");
   let displayBlock;
 
-  if (section.classList.contains("basic-data")) displayBlock = section.querySelector(".personal-data");
+  if (section.classList.contains("basic-client-data")) displayBlock = section.querySelector(".personal-data");
   else if (section.classList.contains("wish-to-vacancy")) displayBlock = section.querySelector(".job-details");
   else if (section.classList.contains("account-settings")) displayBlock = section.querySelector(".account-settings-list");
 
@@ -92,7 +89,7 @@ document.querySelectorAll(".section").forEach(section => {
   form.classList.remove("active");
   displayBlock.style.display = "flex";
 
-  const resumeBlock = section.querySelector(".resume"); // для basic-data
+  const resumeBlock = section.querySelector(".resume"); // для basic-client-data
 
   if (editBtn) {
     editBtn.addEventListener("click", () => {
@@ -112,7 +109,7 @@ document.querySelectorAll(".section").forEach(section => {
         if (resumeBlock) resumeBlock.style.display = "none";
 
         // Заповнюємо форму даними
-        if (section.classList.contains("basic-data")) {
+        if (section.classList.contains("basic-client-data")) {
           form.sername.value = profileData.basicData.sername;
           form.profession.value = profileData.basicData.profession;
           form.location.value = profileData.basicData.location;
@@ -147,7 +144,7 @@ document.querySelectorAll(".section").forEach(section => {
   form.addEventListener("submit", e => {
     e.preventDefault();
 
-    if (section.classList.contains("basic-data")) {
+    if (section.classList.contains("basic-client-data")) {
       profileData.basicData.sername = form.sername.value;
       profileData.basicData.profession = form.profession.value;
       profileData.basicData.location = form.location.value;
@@ -170,9 +167,105 @@ document.querySelectorAll(".section").forEach(section => {
     section.classList.remove("editing");
     renderProfile();
 
-      // --- Відновлюємо видимість .resume після submit ---
-    if (section.classList.contains("basic-data") && resumeBlock) {
+    // --- Відновлюємо видимість .resume після submit ---
+    if (section.classList.contains("basic-client-data") && resumeBlock) {
       resumeBlock.style.display = "flex";
     }
   });
 });
+
+// ====================== Завантаження резюме ======================
+if (window.location.pathname.endsWith("profile.html")) {
+
+  // MOCK fetch для локального тестування (успішна відповідь)
+  // window.fetch = async function (url, options) {
+  //   console.log("Mock fetch called:", url, options);
+
+  //   // Додаємо невелику затримку для імітації реальної відповіді
+  //   await new Promise(resolve => setTimeout(resolve, 500));
+
+  //   // Повертаємо об'єкт, схожий на Response
+  //   return {
+  //     ok: true,
+  //     status: 200,
+  //     // Імітуємо JSON-відповідь з посиланням на файл
+  //     json: async () => ({
+  //       fileUrl: "http://localhost:8080/api/resumes/123", // приклад посилання
+  //       fileName: options.body.get("file").name
+  //     }),
+  //     text: async () => "Успішно збережено"
+  //   };
+  // };
+  // ---------------------------
+
+  const resumeInput = document.getElementById("resumeFile");
+  const resumeStatus = document.getElementById("resumeStatus");
+  const uploadedResume = document.getElementById("uploadedResume");
+  const uploadBtn = document.getElementById("uploadBtn");
+
+  // Клік по кнопці відкриває файловий діалог
+  uploadBtn.addEventListener("click", () => {
+    resumeInput.click();
+  });
+
+  resumeInput.addEventListener("change", async function () {
+    if (resumeInput.files.length === 0) return;
+  
+    const file = resumeInput.files[0];
+  
+    // Перевірка MIME-типу
+    const allowedTypes = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ];
+  
+    // Перевірка розширення на випадок, якщо браузер не визначив MIME
+    const allowedExtensions = ["pdf", "docx"];
+    const fileExt = file.name.split(".").pop().toLowerCase();
+  
+    if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExt)) {
+      resumeStatus.textContent = "❌ Будь ласка, завантажте файл у форматі PDF або DOCX";
+      resumeStatus.style.color = "#DE1B1B";
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("userId", 1); // TODO: Замінити на реальний ID користувача
+  
+    try {
+      const token = localStorage.getItem("jwtToken");
+  
+      const response = await fetch("http://localhost:8080/api/resumes/upload", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${token}` },
+        body: formData
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
+      }
+  
+      // Очікуємо JSON від сервера із посиланням на файл
+      const result = await response.json();
+  
+      // Оновлюємо profileData
+      profileData.basicData.resumeName = file.name;
+      profileData.basicData.resumeUrl = result.fileUrl;
+  
+      // Зберігаємо в localStorage
+      localStorage.setItem("profileData", JSON.stringify(profileData));
+  
+      // Відображаємо резюме
+      resumeStatus.textContent = "✅ Резюме успішно завантажено!";
+      resumeStatus.style.color = "green";
+      uploadedResume.innerHTML = `<a href="${profileData.basicData.resumeUrl}" target="_blank">${profileData.basicData.resumeName}</a>`;
+
+    } catch (error) {
+      console.error("Resume upload failed:", error);
+      resumeStatus.textContent = "❌ Помилка: " + error.message;
+      resumeStatus.style.color = "#DE1B1B";
+    }
+  });
+}
