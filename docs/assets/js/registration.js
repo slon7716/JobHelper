@@ -91,11 +91,11 @@ if (registrationForm) {
         if (modalLogin) modalLogin.style.display = 'flex';
       } else {
         const data = await response.json();
-        showError(data.message || "Сталася помилка. Спробуйте ще раз.");
+        alert(data.message || "Сталася помилка. Спробуйте ще раз.");
       }
 
     } catch (err) {
-      showError("Не вдалося підключитися до сервера");
+      alert("Не вдалося підключитися до сервера");
       console.error(err);
     }
   });

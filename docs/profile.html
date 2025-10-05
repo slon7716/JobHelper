@@ -34,7 +34,7 @@
                 </a>
                     <a class="page" href="tracker.html">
                     <img src="assets/img/track.svg" alt="track">
-                    <div class="text">Трекер заявок</div>
+                    <div class="text">Трекер пропозицій</div>
                 </a>
                     <a class="page" href="profile.html">
                     <img src="assets/img/person.svg" alt="person">
@@ -50,7 +50,7 @@
             <h5>Мій профіль</h5>
             <p class="small-text">Керуйтe своєю професійною інформацією</p>
         </div>
-        <div class="basic-data section">
+        <div class="basic-client-data section">
             <button class="edit-btn" type="button">
                 <img src="assets/img/pencil.svg" alt="pencil">
             </button>
@@ -60,7 +60,7 @@
                         <div class="picture">
                             <img src="assets/img/person-100-grey.svg" alt="foto">
                         </div>
-                        <p>Змінити фото</p>
+                        <p>Фотографія</p>
                     </div>
                     <div class="personal-information">
                         <div class="sername">Максим Коваленко</div>
@@ -74,10 +74,12 @@
                 </div>
             </div>
             <div class="resume">
-                <div class="upload-resume">Завантаж своє резюме</div>
-                <button class="download" type="button">
+                <div class="upload-resume" id="uploadedResume">Завантаж своє резюме</div>
+                <input type="file" id="resumeFile" />
+                <button class="download" type="button" id="uploadBtn">
                     <img src="assets/img/download.svg" alt="download">
                 </button>
+                <div class="small-text" id="resumeStatus"></div>
             </div>
             <form class="edit-form">
                 <div class="form-group">
@@ -162,10 +164,22 @@
             </button>
             <div class="title">Налаштування акаунту</div>
             <div class="account-settings-list">
-                <div class="account-setting">Змінити імейл</div>
-                <div class="account-setting">Змінити пароль</div>
-                <div class="account-setting">Змінити мову</div>
-                <div class="account-setting">Видалити акаунт</div>
+                <div class="account-setting-group">
+                    <div class="account-setting-title">Електронна пошта</div>
+                    <div class="account-setting-choice"></div>
+                </div>
+                <div class="account-setting-group">
+                    <div class="account-setting-title">Пароль</div>
+                    <div class="account-setting-choice"></div>
+                </div>
+                <div class="account-setting-group">
+                    <div class="account-setting-title">Мова</div>
+                    <div class="account-setting-choice"></div>
+                </div>
+                <div class="account-setting-group">
+                    <div class="account-setting-title">Акаунт</div>
+                    <div class="account-setting-choice">Видалити акаунт</div>
+                </div>
             </div>
             <form class="edit-form">
                 <div class="form-group">

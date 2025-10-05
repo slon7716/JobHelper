@@ -34,10 +34,10 @@ if (loginForm) {
     const password = passwordInput.value.trim();
 
     // Локальна перевірка для тесту
-    if (email === "test@mail.com" && password === "123456") {
-      window.location.href = "main-page.html";
-      return;
-    }
+    // if (email === "test@mail.com" && password === "123456") {
+    //   window.location.href = "main-page.html";
+    //   return;
+    // }
 
     try {
       const response = await fetch('http://localhost:8080/api/auth/login', {
@@ -56,7 +56,7 @@ if (loginForm) {
       const token = data.token || data.jwt || data.access_token;
       if (token) {
         localStorage.setItem("jwtToken", token);
-        window.location.href = "dashboard.html";
+        window.location.href = "main-page.html";
       } else {
         alert("Сервер не повернув токен!");
       }
