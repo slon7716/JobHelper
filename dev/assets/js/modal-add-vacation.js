@@ -124,13 +124,13 @@ if (document.querySelector('.main-page')) {
                           .filter(Boolean);
     
       const jobData = {
-        title: data.position,                // position → title
+        title: data.position,
         description: data.description,
         requiredSkills: skills,
         company: data.company,
         location: data.location,
         salary: parseFloat(data.salary),
-        workFormat: data.format              // format → workFormat
+        workFormat: data.format
       };
     
       try {
