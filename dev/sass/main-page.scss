@@ -80,7 +80,6 @@
       .vacancy-slider {
          .swiper {
             width: 100%;
-            // height: auto;
 
             .swiper-wrapper {
                margin-bottom: 24px;
@@ -111,7 +110,7 @@
                   }
 
                   .job-details {
-                     max-height: 18px;
+                     max-height: 20px;
                      display: flex;
                      justify-content: space-between;
                      gap: 10px;
@@ -125,10 +124,16 @@
                            margin-right: 4px;
                         }
 
-                        .item {
+                        .item,
+                        p {
                            font-size: 14px;
                            line-height: 1.43;
                            color: $secondary-color;
+                        }
+
+                        p {
+                           font-size: 18px;
+                           line-height: 1.12;
                         }
                      }
                   }
@@ -231,6 +236,7 @@
                top: 570px;
                width: 30px;
                height: 30px;
+               background-color: $grey-blue30;
 
                &::after {
                   display: none;
