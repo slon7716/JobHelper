@@ -7,15 +7,6 @@ if (cardModal) {
   closeModalBtn = cardModal.querySelector('.btn-primary');
 }
 
-// Функція для оновлення лічильників у всіх колонках
-function updateCounts() {
-  document.querySelectorAll('.status-column').forEach(col => {
-    const count = col.querySelectorAll('.swiper-slide').length;
-    const counter = col.querySelector('.status-count');
-    if (counter) counter.textContent = count;
-  });
-}
-
 // Обробка кліків по всій сторінці
 document.addEventListener('click', (e) => {
   // 1. Видалення картки
@@ -23,7 +14,6 @@ document.addEventListener('click', (e) => {
     const card = e.target.closest('.swiper-slide');
     if (card) {
       card.remove();
-      updateCounts();
     }
   }
 
@@ -31,7 +21,17 @@ document.addEventListener('click', (e) => {
   if (cardModal && e.target.closest('.btn-expand')) {
     const card = e.target.closest('.swiper-slide');
     if (card) {
-      modalBody.innerHTML = card.innerHTML; // копіюємо контент картки
+      // Копіюємо контент картки
+      modalBody.innerHTML = card.innerHTML;
+  
+      // Додаємо символ ₴ як окремий span тільки у модалці
+      const modalSalaryEl = modalBody.querySelector('.item.salary');
+      if (modalSalaryEl) {
+        const salaryValue = modalSalaryEl.textContent.replace('₴', '').trim();
+        modalSalaryEl.innerHTML = `<span style="font-size:20px; margin-right:2px;">₴</span>${salaryValue}`;
+      }
+  
+      // Відкриваємо модалку
       cardModal.style.display = 'flex';
     }
   }
@@ -60,10 +60,7 @@ document.addEventListener('click', (e) => {
       setTimeout(() => {
         nextColumn.querySelector('.status-cards').appendChild(card);
         card.classList.remove('moving');
-        updateCounts();
       }, 300); // має збігатися з transition у CSS
     }
   }
 });
-// Початковий підрахунок при завантаженні сторінки
-updateCounts();

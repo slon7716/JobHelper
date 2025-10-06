@@ -199,6 +199,7 @@ header .container .header-nav {
   margin: 0 40px;
 }
 header .container .pages {
+  max-height: 64px;
   display: flex;
   gap: 40px;
 }
@@ -968,7 +969,7 @@ header .container .pages .page:hover .text {
   font-weight: 600;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details {
-  max-height: 18px;
+  max-height: 20px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -981,10 +982,15 @@ header .container .pages .page:hover .text {
   width: 16px;
   margin-right: 4px;
 }
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items .item {
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items .item,
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items p {
   font-size: 14px;
   line-height: 1.43;
   color: #707A8A;
+}
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items p {
+  font-size: 18px;
+  line-height: 1.12;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .match {
   width: 94px;
@@ -1062,6 +1068,7 @@ header .container .pages .page:hover .text {
   top: 570px;
   width: 30px;
   height: 30px;
+  background-color: #DDE3ED;
 }
 .main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-prev::after,
 .main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-next::after {
@@ -1195,7 +1202,7 @@ header .container .pages .page:hover .text {
 }
 .modal-add-vacation .modal-content form .field label,
 .modal-add-vacation .modal-content form .field legend {
-  max-width: 202px;
+  max-width: 207px;
   font-size: 20px;
   line-height: 1.5;
   font-weight: 600;

@@ -1,19 +1,17 @@
 if (document.querySelector('.main-page')) {
-
   // ---------------------------
   // MOCK fetch для локального тестування (успішна відповідь)
   // ---------------------------
-  window.fetch = async function(url, options) {
-   console.log("Mock fetch called:", url, options);
-   return {
-     ok: true,
-     status: 200,
-     json: async () => ({ message: "Успішно збережено" }),
-     text: async () => "Успішно збережено"
-   };
-  };
+  // window.fetch = async function(url, options) {
+  //  console.log("Mock fetch called:", url, options);
+  //  return {
+  //    ok: true,
+  //    status: 200,
+  //    json: async () => ({ message: "Успішно збережено" }),
+  //    text: async () => "Успішно збережено"
+  //  };
+  // };
   // ---------------------------
-  
   const openModal = document.getElementById('openModal');
   const closeModal = document.getElementById('closeModal');
   const modalCard = document.getElementById('jobModal');
@@ -22,7 +20,7 @@ if (document.querySelector('.main-page')) {
 
   if (openModal && closeModal && modalCard && jobForm && swiperWrapper) {
     const submitBtn = jobForm.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true; // кнопка вимкнена на старті
+    if (submitBtn) submitBtn.disabled = true;
 
     const formatButtons = jobForm.querySelectorAll('.format-buttons button');
     const formatInput = jobForm.querySelector('#format');
@@ -126,7 +124,7 @@ if (document.querySelector('.main-page')) {
       const jobData = {
         title: data.position,
         description: data.description,
-        requiredSkills: skills,
+        requiredSkills: skills || [],
         company: data.company,
         location: data.location,
         salary: parseFloat(data.salary),

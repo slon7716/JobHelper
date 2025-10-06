@@ -1,5 +1,4 @@
 const modal = document.getElementById('forgotPasswordModal');
-if (modal) {
 
   // ---------------------------
   // MOCK fetch для локального тестування (успішна відповідь)
@@ -14,28 +13,27 @@ if (modal) {
   //   };
   // };
   // ---------------------------
-
+  
+if (modal) {
   const steps = {
     email: modal.querySelector('.step-email'),
     code: modal.querySelector('.step-code'),
     newPassword: modal.querySelector('.step-new-password'),
     success: modal.querySelector('.step-success-message')
   };
-
+  
+  // --- Відкриття/Закриття модалки ---
   const openBtn = document.querySelector('.forgot-password');
   const closeBtns = document.querySelectorAll('.modal-close');
-
-  // --- Відкриття модалки ---
   openBtn.addEventListener('click', e => {
     e.preventDefault();
     modal.style.display = 'flex';
     showStep('email');
   });
-
-  // --- Закриття модалки ---
   closeBtns.forEach(btn => btn.addEventListener('click', () => modal.style.display = 'none'));
   window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
-
+  
+  // --- Перемикання кроків модалки ---
   function showStep(stepName) {
     Object.values(steps).forEach(s => s.classList.remove('active'));
     if (steps[stepName]) steps[stepName].classList.add('active');
@@ -60,8 +58,8 @@ if (modal) {
     }
   });
 
+  // --- Відправка запиту на сервер ---
   const emailForm = steps.email.querySelector('.modal-form');
-
   emailForm.addEventListener('submit', async e => {
     e.preventDefault();
     try {
@@ -72,12 +70,11 @@ if (modal) {
       });
   
       if (response.ok) {
-        // --- Показуємо крок із кодом ('.step-code') ---
         showStep('code');
         const codeText = steps.code.querySelector('.modal-header p');
         codeText.textContent = `Ми надіслали код на ${emailInput.value}. Введіть його нижче, щоб підтвердити вашу особу.`;
       } else {
-        const result = await response.json();
+        // const result = await response.json();
         alert(result.message || "❌ Не вдалося надіслати код. Перевірте email і спробуйте ще раз.");
       }
     } catch (error) {
@@ -87,70 +84,52 @@ if (modal) {
   });
 
   // ==========================
-  // --- Код підтвердження ---
-  // ==========================
-  const codeForm = steps.code.querySelector('.modal-form');
-  const confirmationInput = steps.code.querySelector('#confirmationCode');
-  const resendLink = document.getElementById('resendCode');
-  
-  codeForm.addEventListener('submit', async e => {
-    e.preventDefault();
-  
-    const code = confirmationInput.value.trim();
-  
-    if (!code) {
-      alert("❌ Введіть код підтвердження");
-      return;
-    }
-  
-    try {
-      const response = await fetch("http://localhost:8080/api/auth/verify-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailInput.value, code })
-      });
-  
-      if (response.ok) {
-        showStep('newPassword'); // Код правильний — переходимо на новий пароль
-      } else {
-        const result = await response.json();
-        alert(result.message || "❌ Неправильний код. Спробуйте ще раз");
-        confirmationInput.value = '';
-      }
-    } catch (err) {
-      console.error("Помилка при перевірці коду:", err);
-      alert("⚠️ Сервер недоступний. Спробуйте пізніше.");
-    }
-  });
-
-  // ==========================
   // --- Повторна відправка коду підтвердження ---
   // ==========================
+  const resendLink = document.getElementById('resendCode');
   resendLink.addEventListener('click', async e => {
     e.preventDefault();
     confirmationInput.value = '';
-  
     resendLink.classList.add('resend-animate');
     setTimeout(() => resendLink.classList.remove('resend-animate'), 900);
-  
+
     try {
-      const response = await fetch("http://localhost:8080/api/auth/resend-code", {
+      const response = await fetch("http://localhost:8080/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailInput.value })
       });
-  
+
       if (response.ok) {
         const codeText = steps.code.querySelector('.modal-header p');
         codeText.textContent = `Код повторно надіслано на ${emailInput.value}. Перевірте пошту.`;
       } else {
-        const result = await response.json();
-        alert(result.message || "❌ Не вдалося надіслати код. Спробуйте ще раз");
+        alert("❌ Не вдалося повторно надіслати код.");
       }
     } catch (err) {
       console.error("Помилка при повторній відправці коду:", err);
       alert("⚠️ Сервер недоступний. Спробуйте пізніше.");
     }
+  });
+  
+  // ==========================
+  // --- Код підтвердження ---
+  // ==========================
+  const codeForm = steps.code.querySelector('.modal-form');
+  const confirmationInput = steps.code.querySelector('#confirmationCode');
+  
+  codeForm.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    const code = confirmationInput.value.trim();
+    if (!code) {
+      alert("❌ Введіть код підтвердження");
+      return;
+    }
+    
+    // ⚠️ Твій бекенд не має verify-code, тому просто переходимо на крок нового пароля,
+    // а сам код ми передамо далі як token у reset-password.
+    showStep('newPassword');
   });
   
   // ==========================
@@ -163,6 +142,7 @@ if (modal) {
 
   const isPasswordValidModal = password => /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%]).{8,20}$/.test(password);
 
+  // Перевірка валідності пароля
   function checkPasswords() {
     const value = newPasswordInput.value.trim();
     const confirmValue = confirmPasswordInput.value.trim();
@@ -182,14 +162,15 @@ if (modal) {
   newPasswordInput.addEventListener('input', checkPasswords);
   confirmPasswordInput.addEventListener('input', checkPasswords);
 
-  steps.newPassword.querySelector('.modal-form').addEventListener('submit', e => {
+  steps.newPassword.querySelector('.modal-form').addEventListener('submit', async e => {
     e.preventDefault();
 
-    const value = newPasswordInput.value.trim();
-    const confirmValue = confirmPasswordInput.value.trim();
+    const newPassword = newPasswordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
+    const token = confirmationInput.value.trim(); // <-- код із попереднього кроку
     const errorMessage = steps.newPassword.querySelector('.error-message');
 
-    if (value !== confirmValue) {
+    if (newPassword !== confirmPassword) {
       errorMessage.textContent = "Паролі не співпадають";
       errorMessage.style.display = "block";
       return;
@@ -198,6 +179,21 @@ if (modal) {
       errorMessage.style.display = "none";
     }
 
-    showStep('success');
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, newPassword })
+      });
+
+      if (response.ok) {
+        showStep('success');
+      } else {
+        alert("❌ Не вдалося змінити пароль. Можливо, код неправильний або застарів.");
+      }
+    } catch (err) {
+      console.error("Помилка при зміні пароля:", err);
+      alert("⚠️ Сервер недоступний.");
+    }
   });
 }
