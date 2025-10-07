@@ -1042,7 +1042,7 @@ header .container .pages .page:hover .text {
   background: #fff;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .descripion::-webkit-scrollbar-thumb {
-  background: #114599;
+  background: #1D5BBF;
   border-radius: 3px;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns {
@@ -1130,10 +1130,13 @@ header .container .pages .page:hover .text {
   width: 90%;
   background-color: #fff;
   max-width: 800px;
+  max-height: 95vh;
   margin: 10px auto;
   padding: 24px 32px;
   border-radius: 60px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .modal-add-vacation .modal-content .modal-close {
   position: absolute;
@@ -1160,48 +1163,58 @@ header .container .pages .page:hover .text {
   text-align: center;
   margin-bottom: 30px;
 }
-.modal-add-vacation .modal-content form {
+.modal-add-vacation .modal-content #jobForm {
   width: 100%;
+  overflow-y: auto;
+  padding: 2px 8px 0 0;
 }
-.modal-add-vacation .modal-content form .field {
+.modal-add-vacation .modal-content #jobForm::-webkit-scrollbar {
+  width: 8px;
+  background: #DDE3ED;
+}
+.modal-add-vacation .modal-content #jobForm::-webkit-scrollbar-thumb {
+  background: #1D5BBF;
+  border-radius: 3px;
+}
+.modal-add-vacation .modal-content #jobForm .field {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
 }
-.modal-add-vacation .modal-content form .field .format-buttons {
+.modal-add-vacation .modal-content #jobForm .field .format-buttons {
   width: 500px;
   display: flex;
   justify-content: space-between;
 }
-.modal-add-vacation .modal-content form .field .format-buttons button {
+.modal-add-vacation .modal-content #jobForm .field .format-buttons button {
   width: 150px;
   font-size: 20px;
   background-color: transparent;
   border-radius: 20px;
   border: none;
   outline: 0.5px solid #8E99AB;
-  padding: 13px;
+  padding: 16px 0;
 }
-.modal-add-vacation .modal-content form .field .format-buttons button.active {
+.modal-add-vacation .modal-content #jobForm .field .format-buttons button.active {
   background-color: #CFE0FC;
 }
-.modal-add-vacation .modal-content form .field .format-buttons button:hover {
+.modal-add-vacation .modal-content #jobForm .field .format-buttons button:hover {
   outline: 1px solid #1D5BBF;
 }
-.modal-add-vacation .modal-content form .field .field-row {
+.modal-add-vacation .modal-content #jobForm .field .field-row {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.modal-add-vacation .modal-content form .field .field-row .skills-list {
+.modal-add-vacation .modal-content #jobForm .field .field-row .skills-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.modal-add-vacation .modal-content form .field label,
-.modal-add-vacation .modal-content form .field legend {
+.modal-add-vacation .modal-content #jobForm .field label,
+.modal-add-vacation .modal-content #jobForm .field legend {
   max-width: 207px;
   font-size: 20px;
   line-height: 1.5;
@@ -1209,8 +1222,8 @@ header .container .pages .page:hover .text {
   color: #434A54;
   margin: 0;
 }
-.modal-add-vacation .modal-content form .field input,
-.modal-add-vacation .modal-content form .field textarea {
+.modal-add-vacation .modal-content #jobForm .field input,
+.modal-add-vacation .modal-content #jobForm .field textarea {
   width: 500px;
   font-size: 20px;
   line-height: 1.5;
@@ -1218,21 +1231,21 @@ header .container .pages .page:hover .text {
   border-radius: 20px;
   outline: 0.5px solid #8E99AB;
   border: none;
-  padding: 10px 20px;
+  padding: 13px 20px;
   resize: none;
 }
-.modal-add-vacation .modal-content form .field input:hover,
-.modal-add-vacation .modal-content form .field textarea:hover {
+.modal-add-vacation .modal-content #jobForm .field input:hover,
+.modal-add-vacation .modal-content #jobForm .field textarea:hover {
   outline: 1px solid #1D5BBF;
 }
-.modal-add-vacation .modal-content form .field input:focus,
-.modal-add-vacation .modal-content form .field textarea:focus {
+.modal-add-vacation .modal-content #jobForm .field input:focus,
+.modal-add-vacation .modal-content #jobForm .field textarea:focus {
   outline: 2px solid #1D5BBF;
 }
-.modal-add-vacation .modal-content form .field textarea {
+.modal-add-vacation .modal-content #jobForm .field textarea {
   min-height: 80px;
 }
-.modal-add-vacation .modal-content form .btn {
+.modal-add-vacation .modal-content #jobForm .btn {
   display: block;
   padding: 13px 124px;
   margin: 0 auto;

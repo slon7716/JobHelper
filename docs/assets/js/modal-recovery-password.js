@@ -1,20 +1,19 @@
 const modal = document.getElementById('forgotPasswordModal');
 
+if (modal) {
   // ---------------------------
   // MOCK fetch для локального тестування (успішна відповідь)
   // Видали або закоментуй цей блок, коли підключиш реальний сервер.
   // ---------------------------
-  // window.fetch = async function (url, options) {
-  //   console.log("Mock fetch called:", url, options);
-  //   return {
-  //     ok: true,
-  //     status: 200,
-  //     json: async () => ({ message: "Success" })
-  //   };
-  // };
+  window.fetch = async function (url, options) {
+    console.log("Mock fetch called:", url, options);
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ message: "Success" })
+    };
+  };
   // ---------------------------
-  
-if (modal) {
   const steps = {
     email: modal.querySelector('.step-email'),
     code: modal.querySelector('.step-code'),
@@ -187,10 +186,22 @@ if (modal) {
       });
 
       if (response.ok) {
+        // ✅ 1. Оновлюємо пароль у localStorage
+        localStorage.setItem("userPassword", newPassword);
+      
+        // ✅ 2. Якщо profileData уже є — оновлюємо і там
+        let profileData = JSON.parse(localStorage.getItem("profileData"));
+        if (profileData && profileData.accountSettings) {
+          profileData.accountSettings.password = newPassword;
+          localStorage.setItem("profileData", JSON.stringify(profileData));
+        }
+      
+        // ✅ 3. Переходимо на фінальний крок успіху
         showStep('success');
       } else {
         alert("❌ Не вдалося змінити пароль. Можливо, код неправильний або застарів.");
       }
+      
     } catch (err) {
       console.error("Помилка при зміні пароля:", err);
       alert("⚠️ Сервер недоступний.");

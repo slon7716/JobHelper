@@ -3,6 +3,19 @@ const modalLogin = document.getElementById('login-modal');
 const startFinding = document.getElementById('start-finding');
 
 if (registrationForm) {
+  // ---------------------------
+  // MOCK fetch для локального тестування (успішна відповідь)
+  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
+  // ---------------------------
+  window.fetch = async function (url, options) {
+    console.log("Mock fetch called:", url, options);
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ message: "Success" })
+    };
+  };
+  // ---------------------------
   const inputs = registrationForm.querySelectorAll('input');
   const loginBtn = registrationForm.querySelector('#login-btn');
   const passwordInput = registrationForm.querySelector('.password');
@@ -88,6 +101,9 @@ if (registrationForm) {
 
       if (response.ok) {
         hideError();
+          // Зберігаємо email і пароль у localStorage
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPassword", password);
         if (modalLogin) modalLogin.style.display = 'flex';
       } else {
         const data = await response.json();

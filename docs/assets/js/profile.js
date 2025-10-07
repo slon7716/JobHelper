@@ -18,9 +18,13 @@ let profileData = JSON.parse(localStorage.getItem("profileData")) || {
   accountSettings: {
     email: "",
     password: "",
-    language: ""
+    language: "Українська"
   }
 };
+
+// Підставляємо email/password із localStorage, якщо вони є
+if (localStorage.getItem("userEmail")) profileData.accountSettings.email = localStorage.getItem("userEmail");
+if (localStorage.getItem("userPassword")) profileData.accountSettings.password = localStorage.getItem("userPassword");
 
 // ====================== Функція рендеру профілю ======================
 function renderProfile() {
@@ -123,9 +127,12 @@ document.querySelectorAll(".section").forEach(section => {
           form.experience.value = w.experience.join(", ");
         } else if (section.classList.contains("account-settings")) {
           const a = profileData.accountSettings;
-          form.email.value = a.email;
-          form.password.value = a.password;
+          form.email.value = a.email;       // показуємо email
+          form.password.value = a.password; // показуємо реальний пароль
           form.language.value = a.language;
+          form.email.disabled = true;
+          form.password.disabled = true;
+          form.language.disabled = true;
         }
       }
     });
@@ -176,45 +183,19 @@ document.querySelectorAll(".section").forEach(section => {
 
 // ====================== Завантаження резюме ======================
 if (window.location.pathname.endsWith("profile.html")) {
-
-  // MOCK fetch для локального тестування (успішна відповідь)
-  // window.fetch = async function (url, options) {
-  //   console.log("Mock fetch called:", url, options);
-
-  //   // Додаємо невелику затримку для імітації реальної відповіді
-  //   await new Promise(resolve => setTimeout(resolve, 500));
-
-  //   // Повертаємо об'єкт, схожий на Response
-  //   return {
-  //     ok: true,
-  //     status: 200,
-  //     // Імітуємо JSON-відповідь з посиланням на файл
-  //     json: async () => ({
-  //       fileUrl: "http://localhost:8080/api/resumes/123", // приклад посилання
-  //       fileName: options.body.get("file").name
-  //     }),
-  //     text: async () => "Успішно збережено"
-  //   };
-  // };
-  // ---------------------------
-
   const resumeInput = document.getElementById("resumeFile");
   const resumeStatus = document.getElementById("resumeStatus");
   const uploadedResume = document.getElementById("uploadedResume");
   const uploadBtn = document.getElementById("uploadBtn");
 
   // Клік по кнопці відкриває файловий діалог
-  uploadBtn.addEventListener("click", () => {
-    resumeInput.click();
-  });
+  uploadBtn.addEventListener("click", () => resumeInput.click());
 
   resumeInput.addEventListener("change", async function () {
     if (resumeInput.files.length === 0) return;
   
     const file = resumeInput.files[0];
-  
-    // Перевірка MIME-типу
-    const allowedTypes = [
+    const allowedTypes = [ // Перевірка MIME-типу
       "application/pdf",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ];
@@ -242,19 +223,29 @@ if (window.location.pathname.endsWith("profile.html")) {
         body: formData
       });
   
+      // Тут обробляємо помилки HTTP
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(errorText);
+        console.log(errorText);
+        resumeStatus.textContent = "❌ Не вдалося завантажити резюме. Спробуйте ще раз.";
+        resumeStatus.style.color = "#DE1B1B";
+        return;
       }
-  
+    
       // Очікуємо JSON від сервера із посиланням на файл
       const result = await response.json();
+      // Перевіряємо, чи сервер повернув посилання на завантажений файл
+      if (!result.fileUrl) {
+        resumeStatus.textContent = "❌ Сервер не повернув посилання на файл";
+        resumeStatus.style.color = "#DE1B1B";
+        return;
+      }
   
       // Оновлюємо profileData
       profileData.basicData.resumeName = file.name;
       profileData.basicData.resumeUrl = result.fileUrl;
   
-      // Зберігаємо в localStorage
+      // Зберігаємо в localStorage метадані
       localStorage.setItem("profileData", JSON.stringify(profileData));
   
       // Відображаємо резюме
@@ -264,7 +255,7 @@ if (window.location.pathname.endsWith("profile.html")) {
 
     } catch (error) {
       console.error("Resume upload failed:", error);
-      resumeStatus.textContent = "❌ Помилка: " + error.message;
+      resumeStatus.textContent = "❌ Сервер недоступний або мережа не працює";
       resumeStatus.style.color = "#DE1B1B";
     }
   });
