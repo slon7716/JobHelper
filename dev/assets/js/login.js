@@ -33,11 +33,14 @@ if (loginForm) {
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
 
+    // ---------------------------
     // Локальна перевірка для тесту
+    // ---------------------------
     // if (email === "test@mail.com" && password === "123456") {
     //   window.location.href = "main-page.html";
     //   return;
     // }
+    // ---------------------------
 
     try {
       const response = await fetch('http://localhost:8080/api/auth/login', {

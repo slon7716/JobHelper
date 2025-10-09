@@ -7,14 +7,14 @@ if (registrationForm) {
   // MOCK fetch для локального тестування (успішна відповідь)
   // Видали або закоментуй цей блок, коли підключиш реальний сервер.
   // ---------------------------
-  window.fetch = async function (url, options) {
-    console.log("Mock fetch called:", url, options);
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({ message: "Success" })
-    };
-  };
+  // window.fetch = async function (url, options) {
+  //   console.log("Mock fetch called:", url, options);
+  //   return {
+  //     ok: true,
+  //     status: 200,
+  //     json: async () => ({ message: "Success" })
+  //   };
+  // };
   // ---------------------------
   const inputs = registrationForm.querySelectorAll('input');
   const loginBtn = registrationForm.querySelector('#login-btn');
