@@ -1,10 +1,11 @@
-const loginForm = document.querySelector('.enter-the-site');
+const enterTheSite = document.querySelector('.enter-the-site');
 
-if (loginForm) {
-  const emailInput = loginForm.querySelector('.email');
-  const passwordInput = loginForm.querySelector('.password');
-  const incorrectBlock = loginForm.querySelector('.incorrect');
-  const loginBtn = loginForm.querySelector('#loginBtn');
+if (enterTheSite) {
+  const loginForm = enterTheSite.querySelector('#loginForm');
+  const emailInput = enterTheSite.querySelector('.email');
+  const passwordInput = enterTheSite.querySelector('.password');
+  const incorrectBlock = enterTheSite.querySelector('.incorrect');
+  const loginBtn = enterTheSite.querySelector('#loginBtn');
 
   // Перевірка email і пароля на наявність символів
   const checkInputs = () => {
@@ -35,7 +36,7 @@ if (loginForm) {
 
     // ---------------------------
     // Локальна перевірка для тесту
-    // ---------------------------
+
     // if (email === "test@mail.com" && password === "123456") {
     //   window.location.href = "main-page.html";
     //   return;
@@ -50,6 +51,8 @@ if (loginForm) {
       });
 
       const data = await response.json();
+
+      console.log("Response from backend:", data);
 
       if (!response.ok) {
         if (incorrectBlock) incorrectBlock.style.display = "flex";

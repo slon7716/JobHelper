@@ -1,24 +1,11 @@
-const modal = document.getElementById('forgotPasswordModal');
+const forgotPassworModal = document.getElementById('forgotPasswordModal');
 
-if (modal) {
-  // ---------------------------
-  // MOCK fetch для локального тестування (успішна відповідь)
-  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
-  // ---------------------------
-  // window.fetch = async function (url, options) {
-  //   console.log("Mock fetch called:", url, options);
-  //   return {
-  //     ok: true,
-  //     status: 200,
-  //     json: async () => ({ message: "Success" })
-  //   };
-  // };
-  // ---------------------------
+if (forgotPassworModal) {
   const steps = {
-    email: modal.querySelector('.step-email'),
-    code: modal.querySelector('.step-code'),
-    newPassword: modal.querySelector('.step-new-password'),
-    success: modal.querySelector('.step-success-message')
+    email: forgotPassworModal.querySelector('.step-email'),
+    code: forgotPassworModal.querySelector('.step-code'),
+    newPassword: forgotPassworModal.querySelector('.step-new-password'),
+    success: forgotPassworModal.querySelector('.step-success-message')
   };
   
   // --- Відкриття/Закриття модалки ---
@@ -26,11 +13,11 @@ if (modal) {
   const closeBtns = document.querySelectorAll('.modal-close');
   openBtn.addEventListener('click', e => {
     e.preventDefault();
-    modal.style.display = 'flex';
+    forgotPassworModal.style.display = 'flex';
     showStep('email');
   });
-  closeBtns.forEach(btn => btn.addEventListener('click', () => modal.style.display = 'none'));
-  window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+  closeBtns.forEach(btn => btn.addEventListener('click', () => forgotPassworModal.style.display = 'none'));
+  window.addEventListener('click', e => { if (e.target === forgotPassworModal) forgotPassworModal.style.display = 'none'; });
   
   // --- Перемикання кроків модалки ---
   function showStep(stepName) {

@@ -1,21 +1,8 @@
 const registrationForm = document.getElementById('registration-form');
-const modalLogin = document.getElementById('login-modal');
-const startFinding = document.getElementById('start-finding');
+const modalLogin = document.getElementById('loginModal');
+const startFinding = document.getElementById('startFinding');
 
 if (registrationForm) {
-  // ---------------------------
-  // MOCK fetch для локального тестування (успішна відповідь)
-  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
-  // ---------------------------
-  // window.fetch = async function (url, options) {
-  //   console.log("Mock fetch called:", url, options);
-  //   return {
-  //     ok: true,
-  //     status: 200,
-  //     json: async () => ({ message: "Success" })
-  //   };
-  // };
-  // ---------------------------
   const inputs = registrationForm.querySelectorAll('input');
   const loginBtn = registrationForm.querySelector('#login-btn');
   const passwordInput = registrationForm.querySelector('.password');
@@ -63,6 +50,33 @@ if (registrationForm) {
   }));
   checkInputs();
 
+  // Автоматично ховаємо повідомлення про невідповідність паролів при введенні
+  if (passwordInput && repeatPasswordInput) {
+    const clearMismatchError = () => {
+      const p = passwordInput.value.trim();
+      const rp = repeatPasswordInput.value.trim();
+  
+      // Якщо наразі показане саме повідомлення про невідповідність — сховати його, коли паролі співпадуть
+      if (errorMessage && errorMessage.style.display === 'block' &&
+          p && rp && p === rp) {
+        hideError();
+        passwordInput.classList.remove('error');
+        repeatPasswordInput.classList.remove('error');
+        checkInputs(); // оновлюємо стан кнопки
+      }
+  
+      // Якщо повторний пароль введено і він НЕ співпадає — підсвічуємо поле
+      if (rp && p !== rp) {
+        repeatPasswordInput.classList.add('error');
+      } else {
+        repeatPasswordInput.classList.remove('error');
+      }
+    };
+  
+    repeatPasswordInput.addEventListener('input', clearMismatchError);
+    passwordInput.addEventListener('input', clearMismatchError);
+  }
+
   const showError = msg => {
     if (errorMessage) {
       errorMessage.textContent = msg;
@@ -87,12 +101,15 @@ if (registrationForm) {
 
     if (password !== repeatPassword) {
       showError("Паролі не співпадають");
+      if (repeatPasswordInput) repeatPasswordInput.classList.add('error');
+      if (passwordInput) passwordInput.classList.add('error');
       return;
     }
 
-    const payload = { firstName, lastName, email, password, repeatPassword };
+    const payload = { firstName, lastName, email, password };
 
     try {
+      console.log("Payload:", payload);
       const response = await fetch('http://localhost:8080/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -101,9 +118,8 @@ if (registrationForm) {
 
       if (response.ok) {
         hideError();
-          // Зберігаємо email і пароль у localStorage
+        // Зберігаємо email у localStorage для сторінки "Мій профіль"
         localStorage.setItem("userEmail", email);
-        localStorage.setItem("userPassword", password);
         if (modalLogin) modalLogin.style.display = 'flex';
       } else {
         const data = await response.json();
@@ -120,6 +136,4 @@ if (registrationForm) {
 // ================= MODAL =================
 if (modalLogin) {
   startFinding?.addEventListener('click', () => window.location.href = 'main-page.html');
-  modalLogin.addEventListener('click', e => { if (e.target === modalLogin) modalLogin.style.display = 'none'; });
-  window.addEventListener('keydown', e => { if (e.key === 'Escape') modalLogin.style.display = 'none'; });
 }
