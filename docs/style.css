@@ -532,7 +532,8 @@ header .container .pages .page:hover .text {
 }
 
 .profile-success-create {
-  display: none; /* схована за замовчуванням */
+  display: none;
+  /* схована за замовчуванням */
   position: fixed;
   top: 0;
   left: 0;
@@ -542,7 +543,7 @@ header .container .pages .page:hover .text {
   justify-content: center;
   align-items: center;
 }
-.profile-success-create .modal-content {
+.profile-success-create .login-modal {
   width: 100%;
   max-width: 783px;
   font-size: 30px;
@@ -553,12 +554,12 @@ header .container .pages .page:hover .text {
   border-radius: 40px;
   padding: 52px 24px;
 }
-.profile-success-create .modal-content h5 {
+.profile-success-create .login-modal h5 {
   font-weight: 500;
   margin-bottom: 40px;
 }
-.profile-success-create .modal-content .btn {
-  padding: 13px 20px;
+.profile-success-create .login-modal .btn {
+  padding: 13px 60px;
 }
 
 .enter-the-site .logo {

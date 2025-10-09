@@ -1,24 +1,11 @@
-const modal = document.getElementById('forgotPasswordModal');
+const forgotPassworModal = document.getElementById('forgotPasswordModal');
 
-if (modal) {
-  // ---------------------------
-  // MOCK fetch для локального тестування (успішна відповідь)
-  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
-  // ---------------------------
-  window.fetch = async function (url, options) {
-    console.log("Mock fetch called:", url, options);
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({ message: "Success" })
-    };
-  };
-  // ---------------------------
+if (forgotPassworModal) {
   const steps = {
-    email: modal.querySelector('.step-email'),
-    code: modal.querySelector('.step-code'),
-    newPassword: modal.querySelector('.step-new-password'),
-    success: modal.querySelector('.step-success-message')
+    email: forgotPassworModal.querySelector('.step-email'),
+    code: forgotPassworModal.querySelector('.step-code'),
+    newPassword: forgotPassworModal.querySelector('.step-new-password'),
+    success: forgotPassworModal.querySelector('.step-success-message')
   };
   
   // --- Відкриття/Закриття модалки ---
@@ -26,11 +13,11 @@ if (modal) {
   const closeBtns = document.querySelectorAll('.modal-close');
   openBtn.addEventListener('click', e => {
     e.preventDefault();
-    modal.style.display = 'flex';
+    forgotPassworModal.style.display = 'flex';
     showStep('email');
   });
-  closeBtns.forEach(btn => btn.addEventListener('click', () => modal.style.display = 'none'));
-  window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+  closeBtns.forEach(btn => btn.addEventListener('click', () => forgotPassworModal.style.display = 'none'));
+  window.addEventListener('click', e => { if (e.target === forgotPassworModal) forgotPassworModal.style.display = 'none'; });
   
   // --- Перемикання кроків модалки ---
   function showStep(stepName) {
@@ -117,7 +104,7 @@ if (modal) {
   const codeForm = steps.code.querySelector('.modal-form');
   const confirmationInput = steps.code.querySelector('#confirmationCode');
   
-  codeForm.addEventListener('submit', e => {
+  codeForm.addEventListener('submit', async e => {
     e.preventDefault();
     
     const code = confirmationInput.value.trim();
@@ -126,8 +113,25 @@ if (modal) {
       return;
     }
     
-    // ⚠️ Твій бекенд не має verify-code, тому просто переходимо на крок нового пароля,
-    // а сам код ми передамо далі як token у reset-password.
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: code })
+      });
+  
+      if (response.ok) {
+        showStep('newPassword');
+      } else if (response.status === 400) {
+        alert("❌ Код неправильний або застарів. Спробуйте ще раз.");
+      } else {
+        alert("⚠️ Помилка при перевірці коду. Спробуйте пізніше.");
+      }
+    } catch (err) {
+      console.error("Помилка при перевірці коду:", err);
+      alert("⚠️ Сервер недоступний.");
+    }
+
     showStep('newPassword');
   });
   
@@ -166,7 +170,7 @@ if (modal) {
 
     const newPassword = newPasswordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
-    const token = confirmationInput.value.trim(); // <-- код із попереднього кроку
+    const token = confirmationInput.value.trim(); // код із попереднього кроку
     const errorMessage = steps.newPassword.querySelector('.error-message');
 
     if (newPassword !== confirmPassword) {
@@ -186,17 +190,15 @@ if (modal) {
       });
 
       if (response.ok) {
-        // ✅ 1. Оновлюємо пароль у localStorage
+        // Оновлюємо пароль у localStorage
         localStorage.setItem("userPassword", newPassword);
-      
-        // ✅ 2. Якщо profileData уже є — оновлюємо і там
+        // Оновлюємо пароль у profileData
         let profileData = JSON.parse(localStorage.getItem("profileData"));
         if (profileData && profileData.accountSettings) {
           profileData.accountSettings.password = newPassword;
           localStorage.setItem("profileData", JSON.stringify(profileData));
         }
       
-        // ✅ 3. Переходимо на фінальний крок успіху
         showStep('success');
       } else {
         alert("❌ Не вдалося змінити пароль. Можливо, код неправильний або застарів.");

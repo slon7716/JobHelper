@@ -56,28 +56,16 @@ toggleButtons.forEach((toggleBtn, index) => {
   });
 });
 
-              // Вийти чи ні з акаунту
-const logoutBtn = document.getElementById('logoutBtn');
-const modalLogout = document.getElementById('logoutModal');
-const confirmLogout = document.getElementById('confirmLogout');
-const cancelLogout = document.getElementById('cancelLogout');
-
-if (logoutBtn && modalLogout) { // показати модалку
-  logoutBtn.addEventListener('click', () => {
-    modalLogout.style.display = 'flex';
-  });
-  // натиснули "скасувати"
-  cancelLogout.addEventListener('click', () => {
-    modalLogout.style.display = 'none';
-  });
-  // натиснули "так"
-  confirmLogout.addEventListener('click', () => {
-    window.location.href = 'index.html'; // редирект сторінку lending
-  });
-  // закриття по кліку поза модалкою
-  modalLogout.addEventListener('click', (e) => {
-    if (e.target === modalLogout) {
-      modalLogout.style.display = 'none';
-    }
-  });
-}
+  // ---------------------------
+  // MOCK fetch для локального тестування (успішна відповідь)
+  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
+  // ---------------------------
+  // window.fetch = async function (url, options) {
+  //   console.log("Mock fetch called:", url, options);
+  //   return {
+  //     ok: true,
+  //     status: 200,
+  //     json: async () => ({ message: "Success" })
+  //   };
+  // };
+  // ---------------------------
