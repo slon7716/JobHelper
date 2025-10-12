@@ -106,7 +106,7 @@ if (registrationForm) {
       return;
     }
 
-    const payload = { firstName, lastName, email, password };
+    const payload = { firstName, lastName, email, password, repeatPassword };
 
     try {
       console.log("Payload:", payload);

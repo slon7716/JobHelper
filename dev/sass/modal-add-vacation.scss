@@ -143,9 +143,14 @@
             }
          }
 
+         .btns {
+            display: flex;
+            margin-bottom: 4px;
+         }
+
          .btn {
             display: block;
-            padding: 13px 124px;
+            padding: 13px 64px;
             margin: 0 auto;
          }
       }
