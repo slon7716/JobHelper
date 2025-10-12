@@ -1,7 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const columns = document.querySelectorAll('.status-column .status-cards');
-  if (!columns.length) return;
+const tracker = document.querySelector(".tracker");
 
+if (tracker) {
   // Функція для оновлення лічильників
   function updateCounts() {
     document.querySelectorAll('.status-column').forEach(col => {
@@ -15,10 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveColumnsState() {
     const state = {};
     document.querySelectorAll('.status-column').forEach(col => {
-      const key = col.classList.contains('status-saved') ? 'saved' :
-                  col.classList.contains('status-in-progress') ? 'inProgress' :
-                  col.classList.contains('status-done') ? 'done' : null;
+      let key = null;
+      if (col.classList.contains('status-saved')) key = 'saved';
+      else if (col.classList.contains('status-in-progress')) key = 'inProgress';
+      else if (col.classList.contains('status-done')) key = 'done';
+      else if (col.classList.contains('status-offer')) key = 'offer';
+      else if (col.classList.contains('status-denied')) key = 'denied';
+  
       if (!key) return;
+  
       state[key] = Array.from(col.querySelectorAll('.swiper-slide')).map(card => card.dataset.job);
     });
     localStorage.setItem('columnsState', JSON.stringify(state));
@@ -108,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Додаємо картки з savedJobs лише якщо їх ще немає в columnsState
   const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
-  const jobsInColumns = new Set(
+  const jobsInColumns = new Set (
     Object.values(savedState).flat().map(str => str)
   );
   
@@ -126,9 +130,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Видалення
     if (e.target.closest('.btn-close')) {
+      const jobStr = card.dataset.job;
+  
+      // 1. Видаляємо з savedJobs
+      let savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
+      savedJobs = savedJobs.filter(j => JSON.stringify(j) !== jobStr);
+      localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+  
+      // 2. Видаляємо з columnsState
+      const columnsState = JSON.parse(localStorage.getItem('columnsState') || '{}');
+      for (const key of Object.keys(columnsState)) {
+        columnsState[key] = columnsState[key].filter(str => str !== jobStr);
+      }
+      localStorage.setItem('columnsState', JSON.stringify(columnsState));
+  
+      // 3. Видаляємо з DOM та оновлюємо лічильники
       card.remove();
       updateCounts();
-      saveColumnsState();
+  
       return;
     }
 
@@ -158,4 +177,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Початковий підрахунок при завантаженні сторінки
   updateCounts();
-});
+}

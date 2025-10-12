@@ -57,15 +57,36 @@ toggleButtons.forEach((toggleBtn, index) => {
 });
 
   // ---------------------------
-  // MOCK fetch для локального тестування (успішна відповідь)
+  // MOCK fetch для локального тестування
   // Видали або закоментуй цей блок, коли підключиш реальний сервер.
   // ---------------------------
-  // window.fetch = async function (url, options) {
-  //   console.log("Mock fetch called:", url, options);
-  //   return {
-  //     ok: true,
-  //     status: 200,
-  //     json: async () => ({ message: "Success" })
-  //   };
-  // };
+const mockScenario = 200; // 200 | 400 | 500 — тут перемикаєш
+
+window.fetch = async function (url, options) {
+  console.log("Mock fetch called:", url, options);
+  
+  if (mockScenario === 200) {
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ message: "Код підтверджено ✅" })
+    };
+  }
+  
+  if (mockScenario === 400) {
+    return {
+      ok: false,
+      status: 400,
+      json: async () => ({ message: "Код неправильний або застарів ❌" })
+    };
+  }
+  
+  if (mockScenario === 500) {
+    return {
+      ok: false,
+      status: 500,
+      json: async () => ({ message: "Проблема на сервері 💥" })
+    };
+  }
+}
   // ---------------------------

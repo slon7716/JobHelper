@@ -1016,7 +1016,7 @@ header .container .pages .page:hover .text {
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .format,
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills-item,
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .descripion {
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .description {
   font-size: 14px;
   line-height: 1.43;
   color: #707A8A;
@@ -1032,17 +1032,19 @@ header .container .pages .page:hover .text {
   width: 4px;
   margin-right: 8px;
 }
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .descripion {
-  word-break: break-word; /* переносить довгі слова - для Safari */
-  overflow-wrap: break-word; /* сучасний аналог для довгих слів */
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .description {
+  word-break: break-word;
+  /* переносить довгі слова - для Safari */
+  overflow-wrap: break-word;
+  /* сучасний аналог для довгих слів */
   max-height: 86px;
   overflow-y: auto;
 }
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .descripion::-webkit-scrollbar {
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .description::-webkit-scrollbar {
   width: 8px;
   background: #fff;
 }
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .descripion::-webkit-scrollbar-thumb {
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .description::-webkit-scrollbar-thumb {
   background: #1D5BBF;
   border-radius: 3px;
 }
@@ -1054,11 +1056,11 @@ header .container .pages .page:hover .text {
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns .btn {
   font-size: 14px;
   line-height: 1.43;
-  padding: 10px 23px;
+  padding: 10px 23.5px;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns .btn.btn-secondary {
   background-color: #fff;
-  padding: 9px 19px;
+  padding: 10px 28px;
   margin-right: 40px;
 }
 .main-page .recent-vacancies .vacancy-slider-navigation {
@@ -1246,9 +1248,13 @@ header .container .pages .page:hover .text {
 .modal-add-vacation .modal-content #jobForm .field textarea {
   min-height: 80px;
 }
+.modal-add-vacation .modal-content #jobForm .btns {
+  display: flex;
+  margin-bottom: 4px;
+}
 .modal-add-vacation .modal-content #jobForm .btn {
   display: block;
-  padding: 13px 124px;
+  padding: 13px 64px;
   margin: 0 auto;
 }
 
@@ -1342,7 +1348,7 @@ header .container .pages .page:hover .text {
 }
 .modal-tracker-card .modal-content .modal-body .format,
 .modal-tracker-card .modal-content .modal-body .required-skills-item,
-.modal-tracker-card .modal-content .modal-body .descripion {
+.modal-tracker-card .modal-content .modal-body .description {
   font-size: 18px;
   line-height: 1.56;
   color: #707A8A;
@@ -1355,9 +1361,11 @@ header .container .pages .page:hover .text {
   width: 4px;
   margin-right: 8px;
 }
-.modal-tracker-card .modal-content .modal-body .job-description .descripion {
-  word-break: break-word; /* переносить довгі слова */
-  overflow-wrap: break-word; /* сучасний аналог для довгих слів */
+.modal-tracker-card .modal-content .modal-body .job-description .description {
+  word-break: break-word;
+  /* переносить довгі слова */
+  overflow-wrap: break-word;
+  /* сучасний аналог для довгих слів */
 }
 .modal-tracker-card .modal-content .btn-primary {
   display: block;

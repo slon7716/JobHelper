@@ -8,89 +8,28 @@ if (mainPage) {
   const swiperWrapper = document.querySelector('.swiper-wrapper');
 
   if (openModal && closeModal && modalCard && jobForm && swiperWrapper) {
+    const formatButtons = jobForm.querySelectorAll('.format-buttons button');
+    const formatInput = jobForm.querySelector('#format');
     const submitBtn = jobForm.querySelector('button[type="submit"]');
     if (submitBtn) submitBtn.disabled = true;
 
-    const formatButtons = jobForm.querySelectorAll('.format-buttons button');
-    const formatInput = jobForm.querySelector('#format');
-
-    formatButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.classList.toggle('active'); // перемикаємо активний стан
-
-        // формуємо значення для прихованого поля
-        const activeValues = Array.from(formatButtons)
-          .filter(b => b.classList.contains('active'))
-          .map(b => b.dataset.value);
-
-        formatInput.value = activeValues.join(', ');
-        checkFormValidity();
-      });
-    });
-
-    // Функція перевірки перших 5 полів
-    function checkFormValidity() {
-      const mainFields = [
-        jobForm.querySelector('#position'),
-        jobForm.querySelector('#company'),
-        jobForm.querySelector('#location'),
-        jobForm.querySelector('#salary'),
-        jobForm.querySelector('#format')
-      ];
-      let allFilled = mainFields.every(field => (field.value || '').trim() !== '');
-      if (submitBtn) submitBtn.disabled = !allFilled;
-    }
-
-    // Додаємо слухачі до перших 5 полів
-    jobForm.querySelectorAll('#position, #company, #location, #salary, #format')
-      .forEach(el => el.addEventListener('input', checkFormValidity));
-
+    // --- Завантаження карток із LocalStorage при старті ---
+    const savedSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
     // Функція збереження карток у localStorage
     function saveSlides() {
-      const slidesHTML = Array.from(swiperWrapper.children).map(slide => slide.innerHTML);
-      localStorage.setItem('jobSlides', JSON.stringify(slidesHTML));
+      const slidesData = Array.from(swiperWrapper.children).map(slide => ({
+        slideId: slide.dataset.slideId, // зберігаємо унікальний id картки
+        html: slide.innerHTML           // і її вміст
+      }));
+      localStorage.setItem('jobSlides', JSON.stringify(slidesData));
     }
-
-    // Відкрити модалку
-    openModal.addEventListener('click', () => {
-      modalCard.style.display = 'block';
-      const firstField = jobForm.querySelector('input, textarea');
-      if (firstField) firstField.focus();
-      checkFormValidity();
-    });
-
-    // Закрити модалку
-    closeModal.addEventListener('click', () => {
-      modalCard.style.display = 'none';
-    });
-
-    // Закрити по кліку поза вікном
-    window.addEventListener('click', (e) => {
-      if (e.target === modalCard) {
-        modalCard.style.display = 'none';
-      }
-    });
-
-    // Завантаження карток із LocalStorage при старті
-    const savedSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
-
     if (savedSlides.length > 0) {
       swiperWrapper.innerHTML = ''; // очищаємо, щоб не було дублів
-
-      savedSlides.forEach(html => {
+      savedSlides.forEach(slideData => {
         const slide = document.createElement('div');
         slide.classList.add('swiper-slide');
-        slide.innerHTML = html;
-
-        // Додаємо слухач для кнопки “Скасувати”
-        const cancelBtn = slide.querySelector('.btn-secondary');
-        if (cancelBtn) {
-          cancelBtn.addEventListener('click', () => {
-            slide.remove();
-            saveSlides();
-          });
-        }
-
+        slide.dataset.slideId = slideData.slideId; // відновлюємо id
+        slide.innerHTML = slideData.html;          // відновлюємо HTML
         swiperWrapper.appendChild(slide);
       });
     } else {
@@ -98,13 +37,100 @@ if (mainPage) {
       saveSlides();
     }
 
-    // Сабміт форми
+    // --- Кнопки додавання та редагування ---
+    let addBtn = jobForm.querySelector('button[type="submit"]');
+    if (!addBtn) {
+      const btnContainer = jobForm.querySelector('.btns');
+      addBtn = document.createElement('button');
+      addBtn.type = 'submit';
+      addBtn.classList.add('btn', 'btn-primary');
+      addBtn.textContent = 'Додати';
+      btnContainer.appendChild(addBtn);
+    }
+    addBtn.disabled = true;
+
+    const saveChangesBtn = document.createElement('button');
+    saveChangesBtn.type = 'button';
+    saveChangesBtn.classList.add('btn', 'btn-primary');
+    saveChangesBtn.textContent = 'Зберегти зміни';
+
+    const deleteJobBtn = document.createElement('button');
+    deleteJobBtn.type = 'button';
+    deleteJobBtn.classList.add('btn', 'btn-secondary');
+    deleteJobBtn.textContent = 'Видалити картку';
+
+    // Функція перевірки заповнення перших 5 полів
+    function checkFormValidity(editBtn) {
+      if (!editBtn) return;
+
+      const mainFields = [
+        jobForm.querySelector('#position'),
+        jobForm.querySelector('#company'),
+        jobForm.querySelector('#location'),
+        jobForm.querySelector('#salary'),
+        jobForm.querySelector('#format')
+      ];
+
+      const allFilled = mainFields.every(field => (field.value || '').trim() !== '');
+      editBtn.disabled = !allFilled;
+    }
+    // --- формат роботи окремо, бо value ставиться програмно ---
+    function attachFormatListeners(targetButton) {
+      const currentFormatButtons = jobForm.querySelectorAll('.format-buttons button');
+
+      currentFormatButtons.forEach(btn => {
+        // Клонування для видалення старих слухачів
+        const newBtn = btn.cloneNode(true);
+        btn.replaceWith(newBtn);
+
+        newBtn.addEventListener('click', () => {
+          newBtn.classList.toggle('active');
+
+          const activeValues = Array.from(jobForm.querySelectorAll('.format-buttons button'))
+            .filter(b => b.classList.contains('active'))
+            .map(b => b.dataset.value);
+
+          formatInput.value = activeValues.join(', ');
+          checkFormValidity(targetButton);
+        });
+      });
+    }
+
+    attachFormatListeners(addBtn);
+
+    // --- Слухачі на поля (input + формат роботи) ---
+    const mainInputs = jobForm.querySelectorAll('#position, #company, #location, #salary, #format');
+    mainInputs.forEach(input => input.addEventListener('input', () => checkFormValidity(addBtn)));
+
+    // ==========================
+    // --- Додавання нової картки ---
+    // ==========================
+    // --- Відкрити модалку ---
+    openModal.addEventListener('click', () => {
+      modalCard.style.display = 'block';
+      jobForm.reset();
+      // Скидаємо формат роботи
+      formatButtons.forEach(b => b.classList.remove('active'));
+      formatInput.value = '';
+      // Скидаємо стан кнопки
+      addBtn.disabled = true;
+      // Фокус на перше поле
+      const firstField = jobForm.querySelector('input, textarea');
+      if (firstField) firstField.focus();
+      // Встановлюємо слухачі для формату для кнопки "Додати"
+      attachFormatListeners(addBtn);
+    });
+
+    // --- Закрити модалку ---
+    closeModal.addEventListener('click', () => modalCard.style.display = 'none');
+    window.addEventListener('click', e => { if (e.target === modalCard) modalCard.style.display = 'none'; });
+
+    // --- Сабміт форми ---
     jobForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const formData = new FormData(jobForm);
       const data = Object.fromEntries(formData.entries());
-
       // Навички
       const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
         .map(input => input.value.trim())
@@ -139,8 +165,10 @@ if (mainPage) {
         }
 
         // --- Якщо сервер відповів успішно, додаємо картку локально ---
+        const newSlideData = await res.json(); // сервер повертає створену картку разом з id
         const newSlide = document.createElement('div');
         newSlide.classList.add('swiper-slide');
+        newSlide.dataset.slideId = newSlideData.id; // зберігаємо id у data-attribute
 
         const skillsHTML = skills.map(skill => `
           <div class="required-skills-item">
@@ -182,25 +210,16 @@ if (mainPage) {
           </div>
           <div class="characteristic-name job-description">
             <div class="title">Опис вакансії:</div>
-            <div class="descripion">${descriptionHTML}</div>
+            <div class="description">${descriptionHTML}</div>
           </div>
           <div class="btns">
-            <button class="btn btn-secondary">Скасувати</button>
+            <button class="btn btn-secondary btn-edit">Змінити</button>
             <button class="btn btn-primary">Зберегти</button>
           </div>
         `;
 
         // Додаємо на початок слайдера
         swiperWrapper.insertBefore(newSlide, swiperWrapper.firstChild);
-
-        // Слухач кнопки “Скасувати”
-        const cancelBtn = newSlide.querySelector('.btn-secondary');
-        if (cancelBtn) {
-          cancelBtn.addEventListener('click', () => {
-            newSlide.remove();
-            saveSlides();
-          });
-        }
 
         // Оновлюємо Swiper
         if (typeof cardsSwiper !== 'undefined') {
@@ -230,7 +249,9 @@ if (mainPage) {
         if (!slide) return;
 
         // Збираємо дані з картки
+        const slideId = slide.dataset.slideId; // беремо id картки
         const jobData = {
+          id: slideId,
           position: slide.querySelector('.position')?.textContent.trim() || '',
           company: slide.querySelector('.company-name')?.textContent.trim() || '',
           location: slide.querySelector('.location')?.textContent.trim() || '',
@@ -239,11 +260,11 @@ if (mainPage) {
           skills: Array.from(slide.querySelectorAll('.required-skills-item div'))
             .map(el => el.textContent.trim())
             .filter(Boolean),
-          description: slide.querySelector('.descripion')?.textContent.trim() || ''
+          description: slide.querySelector('.description')?.textContent.trim() || ''
         };
 
         try {
-          const token = localStorage.getItem("jwtToken"); // використовується, якщо потрібен
+          const token = localStorage.getItem("jwtToken");
           const res = await fetch("http://localhost:8080/api/jobs", {
             method: "POST",
             headers: {
@@ -278,5 +299,216 @@ if (mainPage) {
         }
       }
     });
+
+    // ==========================
+    // --- Редагування картки зі слайдера ---
+    // ========================== 
+    // --- Функція модалки для редагування ---
+    function openEditModal(slide) {
+      modalCard.style.display = 'block';
+      jobForm.dataset.editingSlide = Array.from(swiperWrapper.children).indexOf(slide);
+
+      // Зміна заголовку
+      const modalHeaderTitle = modalCard.querySelector('.modal-header h5');
+      if (modalHeaderTitle) modalHeaderTitle.textContent = 'Редагування вакансії';
+
+      // Заповнюємо поля наявними даними
+      jobForm.querySelector('#position').value = slide.querySelector('.position')?.textContent.trim() || '';
+      jobForm.querySelector('#company').value = slide.querySelector('.company-name')?.textContent.trim() || '';
+      jobForm.querySelector('#location').value = slide.querySelector('.location')?.textContent.trim() || '';
+      jobForm.querySelector('#salary').value = slide.querySelector('.salary')?.textContent.trim() || '';
+      jobForm.querySelector('#format').value = slide.querySelector('.format')?.textContent.trim() || '';
+      jobForm.querySelector('#description').value = slide.querySelector('.description')?.textContent.trim() || '';
+
+      // Знімаємо старі слухачі і клонування
+      const formatContainer = jobForm.querySelector('.format-buttons');
+      formatContainer.innerHTML = formatContainer.innerHTML; // скидаємо слухачі
+      const newFormatButtons = jobForm.querySelectorAll('.format-buttons button');
+
+      // Додаємо нові слухачі
+      newFormatButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('active');
+          const activeValues = Array.from(newFormatButtons)
+            .filter(b => b.classList.contains('active'))
+            .map(b => b.dataset.value);
+          formatInput.value = activeValues.join(', ');
+          checkFormValidity(saveChangesBtn);
+        });
+      });
+
+      // Активуємо кнопки "формат роботи"
+      newFormatButtons.forEach(btn => {
+        btn.classList.toggle('active', slide.querySelector('.format')?.textContent.includes(btn.dataset.value));
+      });
+
+      // Навички
+      const skillInputs = jobForm.querySelectorAll('input[name="skills[]"]');
+      const skillDivs = slide.querySelectorAll('.required-skills-item div:last-child');
+      skillInputs.forEach((input, i) => {
+        input.value = skillDivs[i]?.textContent.trim() || '';
+      });
+
+      // Нові кнопки редагування
+      const btnContainer = jobForm.querySelector('.btns');
+      btnContainer.innerHTML = '';
+      btnContainer.appendChild(saveChangesBtn);
+      btnContainer.appendChild(deleteJobBtn);
+
+      // Слухачі на основні 5 полів
+      const inputs = jobForm.querySelectorAll('#position, #company, #location, #salary, #format');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => checkFormValidity(saveChangesBtn));
+      });
+
+      // Перевірка валідації (на основні 5 полів)
+      checkFormValidity(saveChangesBtn);
+    }
+
+    // --- Відкриття модалки для редагування ---
+    swiperWrapper.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('btn-edit')) return;
+      const slide = e.target.closest('.swiper-slide');
+      if (!slide) return;
+
+      openEditModal(slide);
+    });
+
+    // --- Збереження змін у картці ---
+    saveChangesBtn.addEventListener('click', async () => {
+      const index = jobForm.dataset.editingSlide;
+      const slide = swiperWrapper.children[index];
+      if (!slide) {
+        console.warn(`Картку з індексом ${index} не знайдено у swiperWrapper`);
+        return;
+      }
+      const slideId = slide.dataset.slideId; // беремо id із картки
+
+      const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
+        .map(input => input.value.trim())
+        .filter(Boolean);
+
+      const updatedData = {
+        position: jobForm.querySelector('#position').value.trim(),
+        company: jobForm.querySelector('#company').value.trim(),
+        location: jobForm.querySelector('#location').value.trim(),
+        salary: jobForm.querySelector('#salary').value.trim(),
+        format: jobForm.querySelector('#format').value.trim(),
+        skills,
+        description: jobForm.querySelector('#description').value.trim()
+      };
+
+      // --- Зберігаємо поточні значення для відкату на випадок помилки від сервера ---
+      const oldData = {
+        position: slide.querySelector('.position').textContent,
+        company: slide.querySelector('.company-name').textContent,
+        location: slide.querySelector('.location').textContent,
+        salary: slide.querySelector('.salary').textContent,
+        format: slide.querySelector('.format').textContent,
+        description: slide.querySelector('.description').textContent,
+        skills: Array.from(slide.querySelectorAll('.required-skills-item div')).map(el => el.textContent)
+      };
+
+      // Оновлюємо картку у DOM
+      slide.querySelector('.position').textContent = updatedData.position;
+      slide.querySelector('.company-name').textContent = updatedData.company;
+      slide.querySelector('.location').textContent = updatedData.location;
+      slide.querySelector('.salary').textContent = updatedData.salary;
+      slide.querySelector('.format').textContent = updatedData.format;
+      slide.querySelector('.description').textContent = updatedData.description;
+      const skillsList = slide.querySelector('.required-skills-list');
+      skillsList.innerHTML = skills.map(s => `
+        <div class="required-skills-item">
+          <img src="assets/img/ellipse-grey.svg" alt="item">
+          <div>${s}</div>
+        </div>
+      `).join('') || '&nbsp;';
+
+      saveSlides();
+
+      // Відправка змін на сервер
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const response = await fetch(`http://localhost:8080/api/applications/${slideId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(updatedData)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Server error ${response.status}: ${errorText}`);
+        }
+
+        const newSlideData = await response.json();
+        console.log("✅ Application updated:", newSlideData);
+
+      } catch (err) {
+        // --- Відкат DOM до старих значень при помилці від сервера ---
+        slide.querySelector('.position').textContent = oldData.position;
+        slide.querySelector('.company-name').textContent = oldData.company;
+        slide.querySelector('.location').textContent = oldData.location;
+        slide.querySelector('.salary').textContent = oldData.salary;
+        slide.querySelector('.format').textContent = oldData.format;
+        slide.querySelector('.description').textContent = oldData.description;
+        const skillsList = slide.querySelector('.required-skills-list');
+        skillsList.innerHTML = oldData.skills.map(s => `
+          <div class="required-skills-item">
+            <img src="assets/img/ellipse-grey.svg" alt="item">
+            <div>${s}</div>
+          </div>
+        `).join('') || '&nbsp;';
+        console.error("❌ Помилка оновлення даних картки:", err);
+        alert("Помилка мережі: " + err);
+      }
+
+      modalCard.style.display = 'none';
+    });
+
+    // --- Видалення картки ---
+    deleteJobBtn.addEventListener('click', async () => {
+      const index = jobForm.dataset.editingSlide;
+      const slide = swiperWrapper.children[index];
+      if (!slide) return;
+      if (!confirm("Видалити картку?")) return;
+      const slideId = slide.dataset.slideId; // беремо id із картки
+
+      slide.remove();
+      saveSlides();
+
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const response = await fetch(`http://localhost:8080/api/applications/${slideId}`, {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`
+          },
+        });
+
+        if (response.status === 204) {
+          alert(`Картку успішно видалено.`);
+          console.log(`✅ Card ${slideId} successfully deleted.`);
+          return;
+        }
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Server error ${response.status}: ${errorText}`);
+        }
+
+      } catch (err) {
+        console.error("❌ Error deleting card:", err);
+        alert("Помилка мережі: " + err.message);
+      }
+
+      modalCard.style.display = 'none';
+    });
+
+    // Закриття модалки
+    closeModal.addEventListener('click', () => modalCard.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modalCard) modalCard.style.display = 'none'; });
   }
 }

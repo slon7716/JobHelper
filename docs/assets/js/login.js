@@ -36,11 +36,10 @@ if (enterTheSite) {
 
     // ---------------------------
     // Локальна перевірка для тесту
-
-    // if (email === "test@mail.com" && password === "123456") {
-    //   window.location.href = "main-page.html";
-    //   return;
-    // }
+    if (email === "test@mail.com" && password === "123456") {
+      window.location.href = "main-page.html";
+      return;
+    }
     // ---------------------------
 
     try {
@@ -51,7 +50,6 @@ if (enterTheSite) {
       });
 
       const data = await response.json();
-
       console.log("Response from backend:", data);
 
       if (!response.ok) {

@@ -60,8 +60,9 @@ if (forgotPassworModal) {
         const codeText = steps.code.querySelector('.modal-header p');
         codeText.textContent = `Ми надіслали код на ${emailInput.value}. Введіть його нижче, щоб підтвердити вашу особу.`;
       } else {
-        // const result = await response.json();
-        alert(result.message || "❌ Не вдалося надіслати код. Перевірте email і спробуйте ще раз.");
+        const data = await response.json();
+        console.log("Response from backend:", data);
+        alert("❌ Не вдалося надіслати код. Перевірте email і спробуйте ще раз.");
       }
     } catch (error) {
       console.error("Помилка:", error);
@@ -90,6 +91,8 @@ if (forgotPassworModal) {
         const codeText = steps.code.querySelector('.modal-header p');
         codeText.textContent = `Код повторно надіслано на ${emailInput.value}. Перевірте пошту.`;
       } else {
+        const data = await response.json();
+        console.log("Response from backend:", data);
         alert("❌ Не вдалося повторно надіслати код.");
       }
     } catch (err) {
@@ -107,32 +110,28 @@ if (forgotPassworModal) {
   codeForm.addEventListener('submit', async e => {
     e.preventDefault();
     
-    const code = confirmationInput.value.trim();
-    if (!code) {
-      alert("❌ Введіть код підтвердження");
-      return;
-    }
-    
     try {
+      const code = confirmationInput.value.trim();
       const response = await fetch("http://localhost:8080/api/auth/verify-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: code })
       });
   
+      const data = await response.json();
       if (response.ok) {
         showStep('newPassword');
       } else if (response.status === 400) {
+        console.log("Response from backend:", data);
         alert("❌ Код неправильний або застарів. Спробуйте ще раз.");
       } else {
+        console.log("Response from backend:", data);
         alert("⚠️ Помилка при перевірці коду. Спробуйте пізніше.");
       }
     } catch (err) {
       console.error("Помилка при перевірці коду:", err);
       alert("⚠️ Сервер недоступний.");
     }
-
-    showStep('newPassword');
   });
   
   // ==========================
@@ -190,17 +189,10 @@ if (forgotPassworModal) {
       });
 
       if (response.ok) {
-        // Оновлюємо пароль у localStorage
-        localStorage.setItem("userPassword", newPassword);
-        // Оновлюємо пароль у profileData
-        let profileData = JSON.parse(localStorage.getItem("profileData"));
-        if (profileData && profileData.accountSettings) {
-          profileData.accountSettings.password = newPassword;
-          localStorage.setItem("profileData", JSON.stringify(profileData));
-        }
-      
         showStep('success');
       } else {
+        const data = await response.json();
+        console.log("Response from backend:", data);
         alert("❌ Не вдалося змінити пароль. Можливо, код неправильний або застарів.");
       }
       
