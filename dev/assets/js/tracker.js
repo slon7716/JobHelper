@@ -1,180 +1,85 @@
+import { renderJob } from '../js/renderJob.js';
+import { initCardControls } from '../js/cardControls.js';
+
 const tracker = document.querySelector(".tracker");
 
 if (tracker) {
-  // Функція для оновлення лічильників
+  const columns = ['saved', 'in-progress', 'done', 'offer', 'denied'];
+
+  // ==========================
+  // --- Функція оновлення лічильників ---
+  // ==========================
   function updateCounts() {
-    document.querySelectorAll('.status-column').forEach(col => {
-      const count = col.querySelectorAll('.swiper-slide').length;
+    columns.forEach(key => {
+      const col = document.querySelector(`.status-column.status-${key}`);
+      if (!col) return;
       const counter = col.querySelector('.status-count');
-      if (counter) counter.textContent = count;
+      const cards = col.querySelectorAll('.swiper-slide');
+      if (counter) counter.textContent = cards.length;
     });
   }
 
-  // Збереження стану колонок у localStorage
+  // ==========================
+  // --- Функція збереження стану карток ---
+  // ==========================
   function saveColumnsState() {
-    const state = {};
+    const allJobs = [];
     document.querySelectorAll('.status-column').forEach(col => {
-      let key = null;
-      if (col.classList.contains('status-saved')) key = 'saved';
-      else if (col.classList.contains('status-in-progress')) key = 'inProgress';
-      else if (col.classList.contains('status-done')) key = 'done';
-      else if (col.classList.contains('status-offer')) key = 'offer';
-      else if (col.classList.contains('status-denied')) key = 'denied';
-  
-      if (!key) return;
-  
-      state[key] = Array.from(col.querySelectorAll('.swiper-slide')).map(card => card.dataset.job);
+      const status = col.classList[1]; // saved, in-progress, done, offer, denied
+      col.querySelectorAll('.swiper-slide').forEach(card => {
+        if (!card.dataset.job) return; // на всяк випадок
+        const job = JSON.parse(card.dataset.job);
+        job.status = status; // актуальний статус
+        allJobs.push(job);
+      });
     });
-    localStorage.setItem('columnsState', JSON.stringify(state));
+    localStorage.setItem('savedJobs', JSON.stringify(allJobs));
   }
 
-  function renderJob(job, targetColumn = 'saved') {
-    const column = document.querySelector(`.status-column.status-${targetColumn} .status-cards`);
-    if (!column) return;
+  // Робимо renderJob глобально доступним
+  window.renderJob = renderJob;
 
-    const div = document.createElement('div');
-    div.classList.add('swiper-slide');
-    div.dataset.job = JSON.stringify(job); // зберігаємо дані картки
+  // ==========================
+  // --- Завантажуємо картки з LocalStorage ---
+  // ==========================
+  let savedJobs;
+  try {
+    savedJobs = JSON.parse(localStorage.getItem('savedJobs'));
+    if (!Array.isArray(savedJobs)) savedJobs = [];
+  } catch {
+    savedJobs = [];
+  }
 
-    div.innerHTML = `
-      <div class="job-title">
-        <div class="position-and-control">
-          <div class="position">${job.position}</div>
-          <div class="control-buttons">
-            <button type="button" class="btn-close">
-              <img src="assets/img/close-grey.svg" alt="close">
-            </button>
-            <button type="button" class="btn-expand">
-              <img src="assets/img/extand-grey.svg" alt="expand">
-            </button>
-            <button type="button" class="btn-transfer">
-              <img src="assets/img/transfer-grey.svg" alt="transfer">
-            </button>
-          </div>
-        </div>
-        <div class="job-details">
-          <div class="items">
-            <img src="assets/img/building.svg" alt="icon">
-            <div class="item company-name">${job.company}</div>
-          </div>
-          <div class="items">
-            <img src="assets/img/location.svg" alt="location">
-            <div class="item location">${job.location}</div>
-          </div>
-          <div class="items">
-            <img src="assets/img/pig.svg" alt="pig">
-            <div class="item salary">${job.salary}</div>
-          </div>
-        </div>
-        <div class="match">85% match</div>
-      </div>
-      <div class="characteristic-name work-format">
-        <div class="title">Формат роботи:</div>
-        <div class="format">${job.format}</div>
-      </div>
-      <div class="characteristic-name required-skills">
-        <div class="title">Необхідні навички:</div>
-        <div class="required-skills-list">
-          ${Array.isArray(job.skills) ? job.skills.map(skill => `
-            <div class="required-skills-item">
-              <img src="assets/img/ellipse-grey.svg" alt="item">
-              <div>${skill}</div>
-            </div>
-          `).join('') : ''}
-        </div>
-      </div>
-      <div class="characteristic-name job-description">
-        <div class="title">Опис вакансії:</div>
-        <div class="description">${job.description}</div>
-      </div>
-    `;
-    column.appendChild(div);
+  // ==========================
+  // --- Додаємо data-job для "старих" карток без dataset ---
+  // ==========================
+  document.querySelectorAll('.swiper-slide').forEach(card => {
+    if (!card.dataset.job) {
+      const job = {
+        id: card.dataset.jobId || crypto.randomUUID(),
+        title: card.querySelector('.position')?.textContent || '',
+        company: card.querySelector('.company-name')?.textContent || '',
+        location: card.querySelector('.location')?.textContent || '',
+        salary: card.querySelector('.salary')?.textContent || '',
+        workFormat: card.querySelector('.format')?.textContent || '',
+        requiredSkills: [],
+        description: card.querySelector('.description')?.textContent || ''
+      };
+      card.dataset.job = JSON.stringify(job);
+      // Встановлюємо jobId для унікальності (щоб renderJob не дублив)
+      card.dataset.jobId = job.id;
+    }
+  });
+
+  // Рендеримо картки з LocalStorage
+  savedJobs.forEach(job => renderJob(job, job.status || 'saved'));
+  updateCounts();
+      
+  // ==========================
+  // --- Ініціалізація кнопок картки ---
+  // ==========================
+  initCardControls(() => {
     updateCounts();
     saveColumnsState();
-  }
-
-  // Відновлюємо стан колонок після перезавантаження
-  const savedState = JSON.parse(localStorage.getItem('columnsState') || '{}');
-  for (const [colKey, jobs] of Object.entries(savedState)) {
-    jobs.forEach(jobStr => {
-      if (!jobStr) return;
-      let job;
-      try {
-        job = JSON.parse(jobStr);
-      } catch(e) {
-        console.warn('Невдалий парсинг job:', jobStr);
-        return;
-      }
-      if (!job || typeof job !== 'object') return;
-      renderJob(job, colKey);
-    });
-  }
-  
-  // Додаємо картки з savedJobs лише якщо їх ще немає в columnsState
-  const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
-  const jobsInColumns = new Set (
-    Object.values(savedState).flat().map(str => str)
-  );
-  
-  savedJobs.forEach(job => {
-    const jobStr = JSON.stringify(job);
-    if (!jobsInColumns.has(jobStr)) {   // <-- додаємо лише унікальні
-      renderJob(job, 'saved');
-    }
   });
-
-  // Обробка кліків для видалення та переміщення
-  document.addEventListener('click', e => {
-    const card = e.target.closest('.swiper-slide');
-    if (!card) return;
-
-    // Видалення
-    if (e.target.closest('.btn-close')) {
-      const jobStr = card.dataset.job;
-  
-      // 1. Видаляємо з savedJobs
-      let savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
-      savedJobs = savedJobs.filter(j => JSON.stringify(j) !== jobStr);
-      localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
-  
-      // 2. Видаляємо з columnsState
-      const columnsState = JSON.parse(localStorage.getItem('columnsState') || '{}');
-      for (const key of Object.keys(columnsState)) {
-        columnsState[key] = columnsState[key].filter(str => str !== jobStr);
-      }
-      localStorage.setItem('columnsState', JSON.stringify(columnsState));
-  
-      // 3. Видаляємо з DOM та оновлюємо лічильники
-      card.remove();
-      updateCounts();
-  
-      return;
-    }
-
-    // Переміщення вправо
-    if (e.target.closest('.btn-transfer')) {
-      const currentColumn = card.closest('.status-column');
-      const nextColumn = currentColumn ? currentColumn.nextElementSibling : null;
-      if (nextColumn) {
-        card.classList.add('moving');
-        setTimeout(() => {
-          nextColumn.querySelector('.status-cards').appendChild(card);
-          card.classList.remove('moving');
-          updateCounts();
-          saveColumnsState();
-        }, 300);
-      }
-    }
-  });
-
-  // Слухаємо LocalStorage події з інших сторінок
-  window.addEventListener('storage', e => {
-    if (e.key === 'lastAddedJob' && e.newValue) {
-      const job = JSON.parse(e.newValue);
-      renderJob(job, 'saved');
-    }
-  });
-
-  // Початковий підрахунок при завантаженні сторінки
-  updateCounts();
 }

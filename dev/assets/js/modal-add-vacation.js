@@ -57,7 +57,7 @@ if (mainPage) {
     const deleteJobBtn = document.createElement('button');
     deleteJobBtn.type = 'button';
     deleteJobBtn.classList.add('btn', 'btn-secondary');
-    deleteJobBtn.textContent = 'Видалити картку';
+    deleteJobBtn.textContent = 'Видалити вакансію';
 
     // Функція перевірки заповнення перших 5 полів
     function checkFormValidity(editBtn) {
@@ -138,12 +138,12 @@ if (mainPage) {
 
       const jobData = {
         title: data.position,
-        description: data.description,
-        requiredSkills: skills || [],
         company: data.company,
         location: data.location,
         salary: parseFloat(data.salary),
-        workFormat: data.format
+        workFormat: data.format,
+        requiredSkills: skills || [],
+        description: data.description
       };
 
       try {
@@ -249,15 +249,19 @@ if (mainPage) {
         if (!slide) return;
 
         // Збираємо дані з картки
-        const slideId = slide.dataset.slideId; // беремо id картки
+        // !!!!! <-> <-> <-> ВИДАЛИТИ наступні 3 рядки після підключення до сервера
+        if (!slide.dataset.slideId || slide.dataset.slideId === "undefined") {
+          slide.dataset.slideId = 'job-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+        }
+        const slideId = slide.dataset.slideId;
         const jobData = {
           id: slideId,
-          position: slide.querySelector('.position')?.textContent.trim() || '',
+          title: slide.querySelector('.position')?.textContent.trim() || '',
           company: slide.querySelector('.company-name')?.textContent.trim() || '',
           location: slide.querySelector('.location')?.textContent.trim() || '',
           salary: slide.querySelector('.salary')?.textContent.trim() || '',
-          format: slide.querySelector('.format')?.textContent.trim() || '',
-          skills: Array.from(slide.querySelectorAll('.required-skills-item div'))
+          workFormat: slide.querySelector('.format')?.textContent.trim() || '',
+          requiredSkills: Array.from(slide.querySelectorAll('.required-skills-item div'))
             .map(el => el.textContent.trim())
             .filter(Boolean),
           description: slide.querySelector('.description')?.textContent.trim() || ''
@@ -275,21 +279,22 @@ if (mainPage) {
           });
 
           if (res.ok) {
-            // --- Додаємо до savedJobs для трекера заявок ---
+            // Зберігаємо у savedJobs для трекера заявок
             const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
             savedJobs.push(jobData);
             localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
-
+            // Додаємо картку одразу у трекер
+            if (typeof window.renderJob === 'function') {
+              window.renderJob(jobData, 'saved');
+            }
             // Видаляємо картку зі слайдера
             slide.remove();
             saveSlides(); // оновлюємо jobSlides
-
             // Оновлюємо Swiper
             if (typeof cardsSwiper !== 'undefined') {
               cardsSwiper.update();
             }
-
-            alert("Картку збережено та надіслано на сервер!");
+            alert("Картку збережено у трекер та надіслано на сервер!");
           } else {
             const err = await res.text();
             alert("Помилка при збереженні: " + err);
@@ -389,32 +394,32 @@ if (mainPage) {
         .filter(Boolean);
 
       const updatedData = {
-        position: jobForm.querySelector('#position').value.trim(),
+        title: jobForm.querySelector('#position').value.trim(),
         company: jobForm.querySelector('#company').value.trim(),
         location: jobForm.querySelector('#location').value.trim(),
         salary: jobForm.querySelector('#salary').value.trim(),
-        format: jobForm.querySelector('#format').value.trim(),
-        skills,
+        workFormat: jobForm.querySelector('#format').value.trim(),
+        requiredSkills: skills || [],
         description: jobForm.querySelector('#description').value.trim()
       };
 
       // --- Зберігаємо поточні значення для відкату на випадок помилки від сервера ---
       const oldData = {
-        position: slide.querySelector('.position').textContent,
+        title: slide.querySelector('.position').textContent,
         company: slide.querySelector('.company-name').textContent,
         location: slide.querySelector('.location').textContent,
         salary: slide.querySelector('.salary').textContent,
-        format: slide.querySelector('.format').textContent,
+        workFormat: slide.querySelector('.format').textContent,
         description: slide.querySelector('.description').textContent,
-        skills: Array.from(slide.querySelectorAll('.required-skills-item div')).map(el => el.textContent)
+        requiredSkills: Array.from(slide.querySelectorAll('.required-skills-item div')).map(el => el.textContent)
       };
 
       // Оновлюємо картку у DOM
-      slide.querySelector('.position').textContent = updatedData.position;
+      slide.querySelector('.position').textContent = updatedData.title;
       slide.querySelector('.company-name').textContent = updatedData.company;
       slide.querySelector('.location').textContent = updatedData.location;
       slide.querySelector('.salary').textContent = updatedData.salary;
-      slide.querySelector('.format').textContent = updatedData.format;
+      slide.querySelector('.format').textContent = updatedData.workFormat;
       slide.querySelector('.description').textContent = updatedData.description;
       const skillsList = slide.querySelector('.required-skills-list');
       skillsList.innerHTML = skills.map(s => `
@@ -429,10 +434,12 @@ if (mainPage) {
       // Відправка змін на сервер
       try {
         const token = localStorage.getItem("jwtToken");
-        const response = await fetch(`http://localhost:8080/api/applications/${slideId}`, {
+        const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Accept": "application/json; charset=UTF-8",
             "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify(updatedData)
@@ -448,14 +455,14 @@ if (mainPage) {
 
       } catch (err) {
         // --- Відкат DOM до старих значень при помилці від сервера ---
-        slide.querySelector('.position').textContent = oldData.position;
+        slide.querySelector('.position').textContent = oldData.title;
         slide.querySelector('.company-name').textContent = oldData.company;
         slide.querySelector('.location').textContent = oldData.location;
         slide.querySelector('.salary').textContent = oldData.salary;
-        slide.querySelector('.format').textContent = oldData.format;
+        slide.querySelector('.format').textContent = oldData.workFormat;
         slide.querySelector('.description').textContent = oldData.description;
         const skillsList = slide.querySelector('.required-skills-list');
-        skillsList.innerHTML = oldData.skills.map(s => `
+        skillsList.innerHTML = oldData.requiredSkills.map(s => `
           <div class="required-skills-item">
             <img src="assets/img/ellipse-grey.svg" alt="item">
             <div>${s}</div>
@@ -473,7 +480,7 @@ if (mainPage) {
       const index = jobForm.dataset.editingSlide;
       const slide = swiperWrapper.children[index];
       if (!slide) return;
-      if (!confirm("Видалити картку?")) return;
+      if (!confirm("Ви дійсно хочете видалити картку?")) return;
       const slideId = slide.dataset.slideId; // беремо id із картки
 
       slide.remove();
@@ -481,7 +488,7 @@ if (mainPage) {
 
       try {
         const token = localStorage.getItem("jwtToken");
-        const response = await fetch(`http://localhost:8080/api/applications/${slideId}`, {
+        const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`

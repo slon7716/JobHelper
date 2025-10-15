@@ -66,10 +66,11 @@ window.fetch = async function (url, options) {
   console.log("Mock fetch called:", url, options);
   
   if (mockScenario === 200) {
+    // Генеруємо тестовий ID для картки
     return {
       ok: true,
       status: 200,
-      json: async () => ({ message: "Код підтверджено ✅" })
+      json: async () => ({ message: "Код підтверджено ✅", })
     };
   }
   

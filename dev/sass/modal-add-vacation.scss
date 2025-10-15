@@ -1,11 +1,11 @@
 @use 'variables' as *;
 
 .modal-add-vacation {
-   display: none;
+   background: rgba(0, 0, 0, 0.5);
    position: fixed;
+   display: none;
    z-index: 2;
    inset: 0;
-   background: rgba(0, 0, 0, 0.5);
 
    .modal-content {
       width: 90%;
@@ -149,6 +149,7 @@
          }
 
          .btn {
+            font-weight: 600;
             display: block;
             padding: 13px 64px;
             margin: 0 auto;
