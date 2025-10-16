@@ -61,10 +61,8 @@ toggleButtons.forEach((toggleBtn, index) => {
   // Видали або закоментуй цей блок, коли підключиш реальний сервер.
   // ---------------------------
 const mockScenario = 200; // 200 | 400 | 500 — тут перемикаєш
-
 window.fetch = async function (url, options) {
   console.log("Mock fetch called:", url, options);
-  
   if (mockScenario === 200) {
     // Генеруємо тестовий ID для картки
     return {
@@ -73,7 +71,6 @@ window.fetch = async function (url, options) {
       json: async () => ({ message: "Код підтверджено ✅", })
     };
   }
-  
   if (mockScenario === 400) {
     return {
       ok: false,
@@ -81,7 +78,6 @@ window.fetch = async function (url, options) {
       json: async () => ({ message: "Код неправильний або застарів ❌" })
     };
   }
-  
   if (mockScenario === 500) {
     return {
       ok: false,

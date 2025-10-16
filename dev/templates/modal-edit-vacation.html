@@ -1,0 +1,56 @@
+<div class="modal-edit-vacation" id="editModal">
+   <div class="modal-content">
+      <button class="modal-close" id="closeModalEdit">
+         <img src="assets/img/close.svg" alt="button">
+      </button>
+      <div class="modal-header">
+         <h5>Зробити зміни у вакансії</h5>
+         <p class="small-text">Змініть деталі вакансії за потребою</p>
+      </div>
+      <form id="jobFormEdit">
+         <div class="field">
+            <label for="position">Посада</label>
+            <input id="position" type="text" name="position" required>
+         </div>
+         <div class="field">
+            <label for="company">Компанія</label>
+            <input id="company" type="text" name="company" required>
+         </div>
+         <div class="field">
+            <label for="location">Локація</label>
+            <input id="location" type="text" name="location" required>
+         </div>
+         <div class="field">
+            <label for="salary">Зарплата (в гривні)</label>
+            <input id="salary" type="text" name="salary" required>
+         </div>
+         <div class="field">
+            <label>Формат роботи</label>
+            <div class="format-buttons">
+               <button type="button" data-value="Офісний">Офісний</button>
+               <button type="button" data-value="Віддалений">Віддалений</button>
+               <button type="button" data-value="Гібридний">Гібридний</button>
+            </div>
+            <input type="hidden" id="format" name="format">
+         </div>
+         <fieldset class="field">
+            <div class="field-row">
+               <legend>Необхідні навички (не більше 3)</legend>
+               <div class="skills-list">
+                  <div class="skill-item"><input type="text" name="skills[]"></div>
+                  <div class="skill-item"><input type="text" name="skills[]"></div>
+                  <div class="skill-item"><input type="text" name="skills[]"></div>
+               </div>
+            </div>
+         </fieldset>
+         <div class="field">
+            <label for="description">Опис вакансії</label>
+            <textarea id="description" name="description"></textarea>
+         </div>
+         <div class="btns">
+            <button id="saveChangesBtn" class="btn btn-primary">Зберегти зміни</button>
+            <button id="deleteJobBtn" type="button" class="btn btn-secondary">Видалити вакансію</button>
+         </div>
+      </form>
+   </div>
+</div>

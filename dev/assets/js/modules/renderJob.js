@@ -32,7 +32,7 @@ export function renderJob(job, targetColumn = 'saved') {
        <div class="job-details">
          <div class="items">
            <img src="assets/img/building.svg" alt="icon">
-           <div class="item company-name">${job.company}</div>
+           <div class="item company">${job.company}</div>
          </div>
          <div class="items">
            <img src="assets/img/location.svg" alt="location">

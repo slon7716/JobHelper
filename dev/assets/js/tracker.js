@@ -1,5 +1,5 @@
-import { renderJob } from '../js/renderJob.js';
-import { initCardControls } from '../js/cardControls.js';
+import { renderJob } from './modules/renderJob.js';
+import { initCardControls } from './modules/cardControls.js';
 
 const tracker = document.querySelector(".tracker");
 
@@ -58,7 +58,7 @@ if (tracker) {
       const job = {
         id: card.dataset.jobId || crypto.randomUUID(),
         title: card.querySelector('.position')?.textContent || '',
-        company: card.querySelector('.company-name')?.textContent || '',
+        company: card.querySelector('.company')?.textContent || '',
         location: card.querySelector('.location')?.textContent || '',
         salary: card.querySelector('.salary')?.textContent || '',
         workFormat: card.querySelector('.format')?.textContent || '',
@@ -74,7 +74,7 @@ if (tracker) {
   // Рендеримо картки з LocalStorage
   savedJobs.forEach(job => renderJob(job, job.status || 'saved'));
   updateCounts();
-      
+
   // ==========================
   // --- Ініціалізація кнопок картки ---
   // ==========================
