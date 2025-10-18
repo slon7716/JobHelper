@@ -146,7 +146,7 @@ export function modalAddVacation(cardsSwiper, saveSlides) {
         </div>
         <div class="btns">
           <button class="btn btn-secondary btn-edit">Змінити</button>
-          <button class="btn btn-primary">В трекер</button>
+          <button class="btn btn-primary move-to-tracker">В трекер</button>
         </div>
       `;
 

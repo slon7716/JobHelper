@@ -1578,19 +1578,19 @@ header .container .pages .page:hover .text {
 .modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected {
   outline: 2px solid #DDE3ED;
 }
-.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=status-saved] {
+.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=saved] {
   background-color: #CFE0FC;
 }
-.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=status-in-progress] {
+.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=in-progress] {
   background-color: #FFFBD5;
 }
-.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=status-done] {
+.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=interview] {
   background-color: #FFE9F3;
 }
-.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=status-offer] {
+.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=offer] {
   background-color: #E5FFE0;
 }
-.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=status-denied] {
+.modal-tracker-card-transfer .modal-content .modal-body .status-options li.selected[data-status=denied] {
   background-color: #FFE6E6;
 }
 .modal-tracker-card-transfer .modal-content .modal-body .status-options li:hover {

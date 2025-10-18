@@ -1,107 +1,102 @@
 export function initCardControls(updateCountsCallback) {
-   const cardModal = document.getElementById('cardModal');
+   const viewModal = document.getElementById('viewModal');
    const transferModal = document.getElementById('transferModal');
-
-   if (cardModal) {
-     const closeModalBtn = cardModal.querySelector('.btn-primary');
-     // Закрити модалку через кнопку "Добре"
-     closeModalBtn.addEventListener('click', () => {
-       cardModal.style.display = 'none';
-     });
-     // Закрити модалку при кліку поза контентом
-     cardModal.addEventListener('click', e => {
-       if (e.target === cardModal) {
-         cardModal.style.display = 'none';
+   let cardToMove = null;
+ 
+   // Закриття модалки перегляду картки
+   if (viewModal) {
+     const closeModalBtn = viewModal.querySelector('.btn-primary');
+     closeModalBtn.addEventListener('click', () => { viewModal.style.display = 'none'; });
+     viewModal.addEventListener('click', e => { if (e.target === viewModal) viewModal.style.display = 'none'; });
+   }
+ 
+   // Закриття модалки переміщення при кліку поза контентом
+   if (transferModal) {
+     transferModal.addEventListener('click', e => { 
+       if (e.target === transferModal) {
+         transferModal.style.display = 'none'; 
+         cardToMove = null;
        }
      });
    }
-
-   // --- Функція збереження нового стану LocalStorage ---
-   function saveColumnsState() {
-      const allJobs = [];
-      document.querySelectorAll('.status-column').forEach(col => {
-         const status = col.classList[1]; // saved, in-progress, done, offer, denied
-         col.querySelectorAll('.swiper-slide').forEach(card => {
-            const job = JSON.parse(card.dataset.job);
-            job.status = status;
-            allJobs.push(job);
-         });
-      });
-      localStorage.setItem('savedJobs', JSON.stringify(allJobs));
-    }
-
-   // ======= Логіка роботи з картками =======
-   document.addEventListener('click', e => {
-      const card = e.target.closest('.swiper-slide');
-      if (!card) return;
  
-  // --- Видалення картки ---
-      if (e.target.closest('.btn-delete')) {
-         if (!confirm("Ви дійсно хочете видалити картку?")) return;
-         card.remove();
-         saveColumnsState();
-         updateCountsCallback();
-         return;
-      }  
-
-      // --- Подивитись повну інформацію картки ---
-      if (e.target.closest('.btn-expand')) {
-         const modalBody = document.querySelector('#cardModal .modal-card-content');
-         modalBody.innerHTML = card.innerHTML;
-       
-         const modalSalaryEl = modalBody.querySelector('.item.salary');
-         if (modalSalaryEl) {
-           const salaryValue = modalSalaryEl.textContent.replace('₴', '').trim();
-           modalSalaryEl.innerHTML = `<span style="font-size:20px; margin-right:2px;">₴</span>${salaryValue}`;
-         }
-       
-         cardModal.style.display = 'flex';
-         return;
+   // Делегування подій на картки
+   document.addEventListener('click', e => {
+     const card = e.target.closest('.swiper-slide');
+     if (!card) return;
+ 
+     // --- Видалення картки ---
+     if (e.target.closest('.btn-delete')) {
+       if (!confirm("Ви дійсно хочете видалити картку?")) return;
+       card.remove();
+       updateCountsCallback();
+       return;
+     }
+ 
+     // --- Перегляд картки ---
+     if (e.target.closest('.btn-expand')) {
+       const modalBody = viewModal.querySelector('.modal-card-content');
+       modalBody.innerHTML = card.innerHTML;
+ 
+       const modalSalaryEl = modalBody.querySelector('.item.salary');
+       if (modalSalaryEl) {
+         const salaryValue = modalSalaryEl.textContent.replace('₴','').trim();
+         modalSalaryEl.innerHTML = `<span style="font-size:20px; margin-right:2px;">₴</span>${salaryValue}`;
        }
  
-      // --- Зміна статусу картки ---
-      if (e.target.closest('.btn-transfer')) {
-         const statusOptions = transferModal.querySelectorAll('.status-options li');
-         let selectedStatus = card.closest('.status-column').classList[1];
-         let cardToMove = card;
+       viewModal.style.display = 'flex';
+       return;
+     }
  
-         statusOptions.forEach(option => {
-            option.classList.toggle('selected', option.dataset.status === selectedStatus);
-            option.addEventListener('click', () => {
-               statusOptions.forEach(o => o.classList.remove('selected'));
-               option.classList.add('selected');
-               selectedStatus = option.dataset.status;
-            });
-         });
+     // --- Переміщення картки ---
+     if (e.target.closest('.btn-transfer')) {
+       cardToMove = card;
+       const oldColumn = card.closest('.status-column');
+       let selectedStatus = oldColumn.id; // беремо id замість класу
+       const statusOptions = transferModal.querySelectorAll('.status-options li');
  
-         transferModal.style.display = 'flex';
- 
-         // Підтвердити переміщення
-         const confirmBtn = document.getElementById('confirmTransfer');
-         confirmBtn.onclick = () => {
-            if (cardToMove && selectedStatus) {
-               const targetColumn = document.querySelector(`.${selectedStatus} .status-cards`);
-               targetColumn.appendChild(cardToMove);
-               saveColumnsState();
-               updateCountsCallback();
-               transferModal.style.display = 'none';
-               cardToMove = null;
-            }
+       // Встановлюємо початковий стан виділення статусу
+       statusOptions.forEach(option => {
+         option.classList.toggle('selected', option.dataset.status === selectedStatus);
+         option.onclick = () => {
+           statusOptions.forEach(o => o.classList.remove('selected'));
+           option.classList.add('selected');
+           selectedStatus = option.dataset.status;
          };
+       });
  
-         // Скасувати
-         document.getElementById('cancelTransfer').onclick = () => {
-            transferModal.style.display = 'none';
-            cardToMove = null;
-         };
+       transferModal.style.display = 'flex';
  
-            // Закрити модалку при кліку поза контентом
-         transferModal.onclick = (ev) => {
-            if (ev.target === transferModal) {
-               transferModal.style.display = 'none';
-               cardToMove = null;
-            }
-         };
-      }
+       // Підтвердити переміщення
+       const confirmBtn = document.getElementById('confirmTransfer');
+       confirmBtn.onclick = () => {
+         if (!cardToMove) return;
+ 
+         const selectedOption = transferModal.querySelector('.status-options li.selected');
+         if (!selectedOption) return;
+ 
+         const newStatus = selectedOption.dataset.status;
+         const oldColumn = cardToMove.closest('.status-column');
+ 
+         if (oldColumn.id !== newStatus) { // перевірка по id
+           const targetColumn = document.querySelector(`.status-column#${newStatus} .status-cards`);
+           if (targetColumn) {
+             targetColumn.appendChild(cardToMove);
+           }
+         }
+ 
+         cardToMove = null;
+         transferModal.style.display = 'none';
+         updateCountsCallback();
+       };
+ 
+       // Скасувати переміщення
+       const cancelBtn = document.getElementById('cancelTransfer');
+       cancelBtn.onclick = () => {
+         cardToMove = null;
+         transferModal.style.display = 'none';
+       };
+     }
    });
 }
+ 
