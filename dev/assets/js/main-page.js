@@ -38,7 +38,7 @@ if (mainPage) {
   // --- Функція для збору даних з картки ---
   function getJobDataFromSlide(slide) {
     return {
-      id: slide.dataset.slideId,
+      slideId: slide.dataset.slideId,
       title: slide.querySelector('.position')?.textContent.trim() || '',
       company: slide.querySelector('.company')?.textContent.trim() || '',
       location: slide.querySelector('.location')?.textContent.trim() || '',
