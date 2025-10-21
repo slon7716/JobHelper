@@ -1,5 +1,5 @@
-import { renderJob } from './modules/renderJob.js';
-import { initCardControls } from './modules/cardControls.js';
+import { renderJob } from './modules/render-job.js';
+import { initCardControls } from './modules/card-controls.js';
 
 const tracker = document.querySelector(".tracker");
 
@@ -74,22 +74,6 @@ if (tracker) {
           col.insertAdjacentHTML('beforeend', s.html);
         });
     });
-    // // Відновлюємо картки по статусу та порядку
-    // columns.forEach(status => {
-    //   const col = document.querySelector(`.status-column#${status} .status-cards`);
-    //   if (!col) return;
-
-    //   savedSlides
-    //     .filter(s => s.status === status)
-    //     .sort((a, b) => a.order - b.order)
-    //     .forEach(s => {
-    //       const exists = Array.from(document.querySelectorAll('.swiper-slide'))
-    //         .some(card => card.dataset.slideId === s.slideId);
-    //       if (exists) return;
-
-    //       col.insertAdjacentHTML('beforeend', s.html);
-    //     });
-    // });
 
     updateCounts();
   }
@@ -126,7 +110,6 @@ if (tracker) {
   // --- Ініціалізація кнопок картки ---
   // ==========================
   initCardControls(() => {
-    console.log('Колбек викликаний!'); // <- додатково для перевірки
     updateCounts();
     saveTrackerSlides();
   });

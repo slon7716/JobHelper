@@ -1,3 +1,5 @@
+import { renderSlide } from './render-slide.js';
+
 export function modalEditVacation(cardsSwiper, saveSlides) {
    const editModalCard = document.getElementById('editModal');
    const closeModalEdit = document.getElementById('closeModalEdit');
@@ -57,7 +59,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
    function openEditModal(slide) {
       editModalCard.style.display = 'block';
-      jobForm.dataset.editingSlide = Array.from(swiperWrapper.children).indexOf(slide);
+      jobForm.dataset.editingSlide = slide.dataset.slideId;
 
       // Заповнюємо поля наявними даними
       ['position', 'company', 'location', 'salary', 'format', 'description']
@@ -114,14 +116,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          }
 
          // --- Оновлюємо DOM тільки після успішного PUT ---
-         slide.querySelector('.position').textContent = updatedData.title;
-         slide.querySelector('.company').textContent = updatedData.company;
-         slide.querySelector('.location').textContent = updatedData.location;
-         slide.querySelector('.salary').textContent = updatedData.salary;
-         slide.querySelector('.format').textContent = updatedData.workFormat;
-         slide.querySelector('.description').textContent = updatedData.description;
-         slide.querySelector('.required-skills-list').innerHTML = renderSkillsList(updatedData.requiredSkills);
-
+         const newSlide = renderSlide({ ...updatedData, slideId });
+         swiperWrapper.replaceChild(newSlide, slide);
          saveSlides();
          if (cardsSwiper) {
             cardsSwiper.update();
@@ -139,29 +135,27 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
    // --- Видалення ---
    deleteJobBtn.addEventListener('click', async () => {
-      const index = jobForm.dataset.editingSlide;
-      const slide = swiperWrapper.children[index];
+      const slideId = slide.dataset.slideId;
+      const slide = Array.from(swiperWrapper.children).find(s => s.dataset.slideId === slideId);
       if (!slide) return;
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
-
-      const slideId = slide.dataset.slideId;
-      slide.remove();
-      saveSlides();
-
+      
       try {
          const token = localStorage.getItem("jwtToken");
          const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${token}` }
          });
-
+         
          if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`Server error ${response.status}: ${errorText}`);
          }
-
-         alert("Картку успішно видалено!");
+         
+         slide.remove();
+         saveSlides();
          editModalCard.style.display = 'none';
+         alert("Картку успішно видалено!");
       } catch (err) {
          console.error("❌ Помилка видалення:", err);
          alert("Помилка мережі: " + err);
