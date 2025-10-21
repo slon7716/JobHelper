@@ -1,3 +1,5 @@
+import { renderSlide } from './render-slide.js';
+
 export function modalAddVacation(cardsSwiper, saveSlides) {
   const openModal = document.getElementById('openModal');
   const closeModalAdd = document.getElementById('closeModalAdd');
@@ -60,10 +62,8 @@ export function modalAddVacation(cardsSwiper, saveSlides) {
   // --- Сабміт форми ---
   jobForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const formData = new FormData(jobForm);
     const data = Object.fromEntries(formData.entries());
-
     const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
       .map(input => input.value.trim())
       .filter(Boolean);
@@ -98,69 +98,15 @@ export function modalAddVacation(cardsSwiper, saveSlides) {
 
       // --- Якщо сервер відповів успішно, додаємо картку локально ---
       const newSlideData = await res.json(); // сервер повертає створену картку разом з id
-      const newSlide = document.createElement('div');
-      newSlide.classList.add('swiper-slide');
-      newSlide.dataset.slideId = newSlideData.id; // зберігаємо id у data-attribute
-
-      const skillsHTML = skills.map(skill => `
-        <div class="required-skills-item">
-          <img src="assets/img/ellipse-grey.svg" alt="item">
-          <div>${skill}</div>
-        </div>
-      `).join('') || '&nbsp;';
-
-      const descriptionHTML = data.description?.trim() || '&nbsp;';
-
-      newSlide.innerHTML = `
-        <div class="job-title">
-          <div class="position">${data.position}</div>
-          <div class="job-details">
-            <div class="items">
-              <img src="assets/img/building.svg" alt="icon">
-              <div class="item company">${data.company}</div>
-            </div>
-            <div class="items">
-              <img src="assets/img/location.svg" alt="location">
-              <div class="item location">${data.location}</div>
-            </div>
-            <div class="items">
-              <img src="assets/img/pig.svg" alt="pig">
-              <div class="item salary">${data.salary}</div>
-            </div>
-          </div>
-          <div class="match">00% match</div>
-        </div>
-        <div class="characteristic-name work-format">
-          <div class="title">Формат роботи:</div>
-          <div class="format">${data.format}</div>
-        </div>
-        <div class="characteristic-name required-skills">
-          <div class="title">Необхідні навички:</div>
-          <div class="required-skills-list">
-            ${skillsHTML}
-          </div>
-        </div>
-        <div class="characteristic-name job-description">
-          <div class="title">Опис вакансії:</div>
-          <div class="description">${descriptionHTML}</div>
-        </div>
-        <div class="btns">
-          <button class="btn btn-secondary btn-edit">Змінити</button>
-          <button class="btn btn-primary move-to-tracker">В трекер</button>
-        </div>
-      `;
-
+      const newSlide = renderSlide(newSlideData);
       // Додаємо картку на початок слайдера
       swiperWrapper.insertBefore(newSlide, swiperWrapper.firstChild);
-
       // Оновлюємо Swiper
       if (cardsSwiper) {
         cardsSwiper.update();
         cardsSwiper.slideTo(0);
       }
-
       saveSlides();
-
       // Закриваємо модалку і чистимо форму
       modalCard.style.display = 'none';
       jobForm.reset();

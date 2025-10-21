@@ -60,7 +60,7 @@ toggleButtons.forEach((toggleBtn, index) => {
   // MOCK fetch для локального тестування
   // Видали або закоментуй цей блок, коли підключиш реальний сервер.
   // ---------------------------
-const mockScenario = 200; // 200 | 400 | 500 — тут перемикаєш
+const mockScenario = 204; // 200 | 204 | 400 | 500 — тут перемикаєш
 window.fetch = async function (url, options) {
   console.log("Mock fetch called:", url, options);
   if (mockScenario === 200) {
@@ -69,6 +69,13 @@ window.fetch = async function (url, options) {
       ok: true,
       status: 200,
       json: async () => ({ message: "Код підтверджено ✅", })
+    };
+  }
+  if (mockScenario === 204) {
+    return {
+      ok: true,
+      status: 204,
+      text: async () => 'Видалення підтверджено ✅'
     };
   }
   if (mockScenario === 400) {

@@ -1,39 +1,11 @@
 import { modalAddVacation } from './modules/modal-add-vacation.js';
 import { modalEditVacation } from './modules/modal-edit-vacation.js';
+import { renderSlide } from './modules/render-slide.js';
 
 const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
   const swiperWrapper = document.querySelector('.swiper-wrapper');
-
-  // Функція збереження карток у localStorage
-  function saveSlides() {
-    const slidesData = Array.from(swiperWrapper.children).map(slide => ({
-      slideId: slide.dataset.slideId, // зберігаємо унікальний id картки
-      html: slide.innerHTML           // і її вміст
-    }));
-    localStorage.setItem('jobSlides', JSON.stringify(slidesData));
-  }
-
-  // --- Завантаження карток із LocalStorage при старті ---
-  const savedSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
-  if (savedSlides.length > 0) {
-    swiperWrapper.innerHTML = ''; // очищаємо, щоб не було дублів
-    savedSlides.forEach(slideData => {
-      const slide = document.createElement('div');
-      slide.classList.add('swiper-slide');
-      slide.dataset.slideId = slideData.slideId; // відновлюємо id
-      slide.innerHTML = slideData.html;          // відновлюємо HTML
-      swiperWrapper.appendChild(slide);
-    });
-  } else {
-    // Якщо LocalStorage пустий — зберігаємо початкові картки з HTML
-    saveSlides();
-  }
-
-  // --- Ініціалізація модалок ---
-  modalAddVacation(cardsSwiper, saveSlides);
-  modalEditVacation(cardsSwiper, saveSlides);
 
   // --- Функція для збору даних з картки ---
   function getJobDataFromSlide(slide) {
@@ -51,14 +23,65 @@ if (mainPage) {
     };
   }
 
+  // Функція збереження карток у localStorage
+  function saveSlides() {
+    const slidesData = Array.from(swiperWrapper.children)
+    .map(slide => getJobDataFromSlide(slide));
+    // Зберігаємо масив об’єктів у localStorage
+    localStorage.setItem('jobSlides', JSON.stringify(slidesData));
+  }
+
+  // --- Завантаження карток із сервера при старті ---
+  async function loadSlidesFromServer() {
+    const savedSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
+    
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const res = await fetch("http://localhost:8080/api/jobs", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      
+      if (!res.ok) {
+        throw new Error(`Помилка сервера: ${res.status}`);
+      }
+      
+      const jobs = await res.json();
+      // Якщо jobs не масив, кидаємо помилку
+      if (!Array.isArray(jobs)) throw new Error("Сервер повернув не масив");
+  
+      jobs.forEach(job => swiperWrapper.appendChild(renderSlide(job)));
+      // Зберігаємо локально як кеш
+      saveSlides();
+      
+    } catch (err) {
+      console.error("Сервер недоступний — використовується кеш з localStorage", err);
+      // fallback: якщо сервер недоступний, показуємо те, що є в localStorage
+      if (savedSlides.length) {
+        swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером локального кешу
+        savedSlides.forEach(jobData => swiperWrapper.appendChild(renderSlide(jobData)));
+      }
+    }
+
+    // Оновлюємо Swiper
+    if (typeof cardsSwiper !== 'undefined') {
+      cardsSwiper.update();
+    }
+  }
+  
+  // Викликаємо при старті сторінки
+  loadSlidesFromServer();
+
+  // --- Ініціалізація модалок ---
+  modalAddVacation(cardsSwiper, saveSlides);
+  modalEditVacation(cardsSwiper, saveSlides);
+
   // Слухач для кнопок "В трекер" (на картках)
   swiperWrapper.addEventListener('click', async (e) => {
     const target = e.target.closest('.move-to-tracker');
     if (!target) return;
     const slide = target.closest('.swiper-slide');
     if (!slide) return;
-
-    // Збираємо дані через функцію
+    // Збираємо дані картки
     const jobData = getJobDataFromSlide(slide);
 
     try {
@@ -83,12 +106,7 @@ if (mainPage) {
       savedJobs.push(jobData);
       localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
 
-      // Додаємо картку одразу у трекер
-      if (typeof window.renderJob === 'function') {
-        window.renderJob(jobData, 'saved');
-      }
-
-      // Видаляємо картку зі слайдера та оновлюємо
+      // Видаляємо картку зі слайдера та оновлюємо Swiper
       slide.remove();
       saveSlides();
       if (typeof cardsSwiper !== 'undefined') {
