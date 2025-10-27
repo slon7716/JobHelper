@@ -9,7 +9,7 @@ export function renderSlide(jobData) {
       <div>${skill}</div>
     </div>
   `).join('') || '&nbsp;';
- 
+  
   const descriptionHTML = jobData.description?.trim() || '&nbsp;';
  
   slide.innerHTML = `

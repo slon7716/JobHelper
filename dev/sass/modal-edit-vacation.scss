@@ -156,4 +156,12 @@
          }
       }
    }
+
+   .offline-mode .btn-edit,
+   .offline-mode .btn-delete,
+   .offline-mode .move-to-tracker {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+   }
 }

@@ -39,14 +39,16 @@
          }
       }
 
-      h5 {
-         text-align: center;
-         margin-bottom: 10px;
-      }
-
-      .small-text {
-         text-align: center;
+      .modal-header {
          margin-bottom: 30px;
+         h5 {
+            text-align: center;
+            margin-bottom: 10px;
+         }
+   
+         .small-text {
+            text-align: center;
+         }
       }
 
       #jobForm {

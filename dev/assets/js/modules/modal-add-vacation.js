@@ -1,6 +1,6 @@
 import { renderSlide } from './render-slide.js';
 
-export function modalAddVacation(cardsSwiper, saveSlides) {
+export function modalAddVacation(cardsSwiper, saveSlides, isServerAvailable) {
   const openModal = document.getElementById('openModal');
   const closeModalAdd = document.getElementById('closeModalAdd');
   const modalCard = document.getElementById('jobModal');
@@ -43,6 +43,11 @@ export function modalAddVacation(cardsSwiper, saveSlides) {
 
   // --- Відкрити модалку ---
   openModal.addEventListener('click', () => {
+    if (!isServerAvailable) {
+      alert("Сервер недоступний. Додати вакансію неможливо.");
+      return;
+    }
+
     modalCard.style.display = 'block';
     jobForm.reset();
 

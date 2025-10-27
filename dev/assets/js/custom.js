@@ -60,37 +60,39 @@ toggleButtons.forEach((toggleBtn, index) => {
   // MOCK fetch для локального тестування
   // Видали або закоментуй цей блок, коли підключиш реальний сервер.
   // ---------------------------
-const mockScenario = 204; // 200 | 204 | 400 | 500 — тут перемикаєш
+const mockScenario = 200; // 200 | 204 | 400 | 500 — тут перемикаєш
 window.fetch = async function (url, options) {
-  console.log("Mock fetch called:", url, options);
-  if (mockScenario === 200) {
-    // Генеруємо тестовий ID для картки
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({ message: "Код підтверджено ✅", })
-    };
-  }
-  if (mockScenario === 204) {
-    return {
-      ok: true,
-      status: 204,
-      text: async () => 'Видалення підтверджено ✅'
-    };
-  }
-  if (mockScenario === 400) {
-    return {
-      ok: false,
-      status: 400,
-      json: async () => ({ message: "Код неправильний або застарів ❌" })
-    };
-  }
-  if (mockScenario === 500) {
-    return {
-      ok: false,
-      status: 500,
-      json: async () => ({ message: "Проблема на сервері 💥" })
-    };
-  }
-}
+    console.log("Mock fetch called:", url, options);
+  
+    if (options.method === "DELETE") {
+      if (mockScenario === 200 || mockScenario === 204) {
+        return {
+          ok: true,
+          status: 204,
+          text: async () => 'Видалення підтверджено ✅'
+        };
+      }
+      if (mockScenario === 400) {
+        return { ok: false, status: 400, text: async () => 'Неправильний запит ❌' };
+      }
+      if (mockScenario === 500) {
+        return { ok: false, status: 500, text: async () => 'Помилка сервера 💥' };
+      }
+    }
+  
+    if (options.method === "PUT") {
+      if (mockScenario === 200) {
+        return { ok: true, status: 200, json: async () => ({ message: "Картка оновлена ✅" }) };
+      }
+      if (mockScenario === 400) {
+        return { ok: false, status: 400, json: async () => ({ message: "Помилка в даних ❌" }) };
+      }
+      if (mockScenario === 500) {
+        return { ok: false, status: 500, json: async () => ({ message: "Помилка сервера 💥" }) };
+      }
+    }
+  
+    // Для інших запитів — 200
+    return { ok: true, status: 200, json: async () => ({ message: "OK" }) };
+};
   // ---------------------------
