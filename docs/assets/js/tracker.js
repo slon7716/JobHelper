@@ -5,11 +5,10 @@ const tracker = document.querySelector(".tracker");
 
 if (tracker) {
   const columns = ['saved', 'in-progress', 'interview', 'offer', 'denied'];
-  const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides')) || [];
-  let savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
+  let isServerAvailable = false;
 
   // ==========================
-  // --- Функція оновлення лічильників ---
+  // --- Оновлення лічильників ---
   // ==========================
   function updateCounts() {
     columns.forEach(key => {
@@ -23,94 +22,94 @@ if (tracker) {
   updateCounts();
 
   // ==========================
-  // --- Збереження стану карток у трекері ---
+  // --- Збереження карток у localStorage ---
   // ==========================
   function saveTrackerSlides() {
-    const allCards = [];
+    const allCardsData = [];
 
     document.querySelectorAll('.status-column').forEach(col => {
       const status = col.id;
       col.querySelectorAll('.swiper-slide').forEach((card, index) => {
         const slideId = card.dataset.slideId;
         if (!slideId) return;
-
-        allCards.push({
+        // Збираємо дані картки
+        const jobData = {
           slideId,
-          html: card.outerHTML, // зберігаємо разом з data-slide-id
-          status,
-          order: index
-        });
+          title: card.querySelector('.position')?.textContent.trim() || '',
+          company: card.querySelector('.company')?.textContent.trim() || '',
+          location: card.querySelector('.location')?.textContent.trim() || '',
+          salary: card.querySelector('.salary')?.textContent.trim() || '',
+          workFormat: card.querySelector('.format')?.textContent.trim() || '',
+          requiredSkills: Array.from(card.querySelectorAll('.required-skills-item div'))
+            .map(el => el.textContent.trim())
+            .filter(Boolean),
+          description: card.querySelector('.description')?.textContent.trim() || '',
+          status,    // статус колонки
+          order: index  // позиція в колонці
+        };
+        allCardsData.push(jobData);
       });
     });
-
-    localStorage.setItem('trackerSlides', JSON.stringify(allCards));
+  
+    localStorage.setItem('trackerSlides', JSON.stringify(allCardsData));
   }
-
+  
   // ==========================
-  // --- Завантаження карток з LocalStorage ---
+  // --- Завантаження карток з сервера ---
   // ==========================
-  function loadTrackerSlides() {
-    let savedSlides = [];
+  async function loadTrackerSlidesFromServer() {
+    const savedLocalCards = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
+    const userId = 1;
+  
     try {
-      savedSlides = JSON.parse(localStorage.getItem('trackerSlides')) || [];
-    } catch {
-      savedSlides = [];
+      const token = localStorage.getItem("jwtToken");
+      const res = await fetch(`http://localhost:8080/api/applications/user/${userId}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+  
+      if (!res.ok) throw new Error(`Помилка сервера: ${res.status}`);
+  
+      const applications = await res.json();
+      if (!Array.isArray(applications)) throw new Error("Сервер недоступний або повернув не масив");
+  
+      // --- Очищаємо колонки
+      document.querySelectorAll('.status-cards').forEach(col => col.innerHTML = '');
+  
+      // --- Рендеримо всі картки з сервера
+      applications.forEach(job => {
+        const col = document.querySelector(`.status-column#${job.status} .status-cards`);
+        if (!col) return;
+        col.insertAdjacentHTML('beforeend', renderJob(job));
+      });
+  
+      // --- Синхронізуємо локально trackerSlides
+      localStorage.setItem('trackerSlides', JSON.stringify(applications));
+
+      isServerAvailable = true;
+
+    } catch (err) {
+      console.error("Використовується кеш localStorage:", err);
+      isServerAvailable = false; // сервер недоступний
+      // --- fallback: рендеримо локальні картки
+      document.querySelectorAll('.status-cards').forEach(col => col.innerHTML = '');
+      savedLocalCards.forEach(job => {
+        const col = document.querySelector(`.status-column#${job.status} .status-cards`);
+        if (!col) return;
+        col.insertAdjacentHTML('beforeend', renderJob(job));
+      });
     }
-
-    // ✅ 1. ОЧИЩАЄМО ВСІ СТАТИЧНІ КАРТКИ З HTML
-    document.querySelectorAll('.status-cards').forEach(col => {
-      col.innerHTML = '';
-    });
   
-    // ✅ 2. ВІДНОВЛЮЄМО КАРТКИ З LOCALSTORAGE
-    columns.forEach(status => {
-      const col = document.querySelector(`.status-column#${status} .status-cards`);
-      if (!col) return;
+    updateCounts();
   
-      savedSlides
-        .filter(s => s.status === status)
-        .sort((a, b) => a.order - b.order)
-        .forEach(s => {
-          col.insertAdjacentHTML('beforeend', s.html);
-        });
-    });
-
-    updateCounts();
+    // --- Ініціалізація кнопок картки ---
+    initCardControls(() => {
+      updateCounts();
+      saveTrackerSlides();
+    }, isServerAvailable);
   }
-
-  // Завантажуємо старі картки
-  loadTrackerSlides();
-
-  // ==========================
-  // --- Додавання вакансій, збережених на головній сторінці ---
-  // ==========================
-  if (savedJobs.length > 0) {
-    savedJobs.forEach(job => {
-      if (!trackerSlides.some(s => s.slideId === job.slideId)) {
-        const html = renderJob(job); // рендеримо картку
-        document.querySelector('#saved .status-cards').insertAdjacentHTML('beforeend', html);
-        trackerSlides.push({
-          slideId: job.slideId,
-          html,
-          status: 'saved',
-          order: trackerSlides.length
-        });
-      }
-    });
-
-    // Зберігаємо нові картки у localStorage
-    saveTrackerSlides();
-    // Очищаємо savedJobs
-    localStorage.setItem('savedJobs', JSON.stringify([]));
-    // Оновлюємо лічильники після рендеру
-    updateCounts();
-  }
-
-  // ==========================
-  // --- Ініціалізація кнопок картки ---
-  // ==========================
-  initCardControls(() => {
-    updateCounts();
-    saveTrackerSlides();
-  });
+  
+  loadTrackerSlidesFromServer();
 }

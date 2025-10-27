@@ -7,8 +7,10 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
    const formatInput = jobForm.querySelector('#format');
    const formatButtons = jobForm.querySelectorAll('.format-buttons button');
    const swiperWrapper = document.querySelector('.swiper-wrapper');
-   const deleteJobBtn = document.getElementById('deleteJobBtn');
    const saveChangesBtn = document.getElementById('saveChangesBtn');
+   const deleteJobBtn = document.getElementById('deleteJobBtn');
+   let currentSlide = null; // зберігаємо поточний слайд
+
    if (saveChangesBtn) saveChangesBtn.disabled = true;
 
    // --- Валідація ---
@@ -23,20 +25,9 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       saveChangesBtn.disabled = !mainFields.every(f => (f.value || '').trim() !== '');
    }
 
-   // --- Функція рендеру скілів ---
-   function renderSkillsList(skills) {
-      return skills.map(s => `
-       <div class="required-skills-item">
-         <img src="assets/img/ellipse-grey.svg" alt="item">
-         <div>${s}</div>
-       </div>
-     `).join('') || '&nbsp;';
-   }
-
-   // --- Слухачі на поля + формат-кнопки додаються один раз ---
+   // --- Слухачі на перші 4 поля + формат-кнопки ---
    jobForm.querySelectorAll('#position, #company, #location, #salary, #format')
       .forEach(input => input.addEventListener('input', checkFormValidity));
-
    formatButtons.forEach(btn => {
       btn.addEventListener('click', () => {
          btn.classList.toggle('active');
@@ -48,47 +39,32 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       });
    });
 
-   // --- Відкриття модалки ---
-   swiperWrapper.addEventListener('click', (e) => {
-      const btn = e.target.closest('.btn-edit');
-      if (!btn) return;
-      const slide = btn.closest('.swiper-slide');
-      if (!slide) return;
-      openEditModal(slide);
-   });
-
+   // Заповнюємо форму наявними даними
    function openEditModal(slide) {
+      currentSlide = slide;
       editModalCard.style.display = 'block';
-      jobForm.dataset.editingSlide = slide.dataset.slideId;
 
-      // Заповнюємо поля наявними даними
       ['position', 'company', 'location', 'salary', 'format', 'description']
          .forEach(id => jobForm.querySelector(`#${id}`).value = slide.querySelector(`.${id}`)?.textContent.trim() || '');
-
-      // Формат кнопок
-      formatButtons.forEach(btn => {
-         btn.classList.toggle('active', slide.querySelector('.format')?.textContent.includes(btn.dataset.value));
-      });
-
       // Навички
       const skillInputs = jobForm.querySelectorAll('input[name="skills[]"]');
       const skillDivs = slide.querySelectorAll('.required-skills-item div:last-child');
       skillInputs.forEach((input, i) => input.value = skillDivs[i]?.textContent.trim() || '');
+      // Перемикання кнопок "формат роботи"
+      formatButtons.forEach(btn => {
+         btn.classList.toggle('active', slide.querySelector('.format')?.textContent.includes(btn.dataset.value));
+      });
 
       checkFormValidity();
    }
 
    // --- Збереження змін ---
    saveChangesBtn.addEventListener('click', async () => {
-      const index = jobForm.dataset.editingSlide;
-      const slide = swiperWrapper.children[index];
-      if (!slide) return;
-
-      const slideId = slide.dataset.slideId;
+      if (!currentSlide) return;
+      const slideId = currentSlide.dataset.slideId;
       const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
          .map(i => i.value.trim())
          .filter(Boolean);
-
       const updatedData = {
          title: jobForm.querySelector('#position').value.trim(),
          company: jobForm.querySelector('#company').value.trim(),
@@ -117,7 +93,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
          // --- Оновлюємо DOM тільки після успішного PUT ---
          const newSlide = renderSlide({ ...updatedData, slideId });
-         swiperWrapper.replaceChild(newSlide, slide);
+         swiperWrapper.replaceChild(newSlide, currentSlide);
          saveSlides();
          if (cardsSwiper) {
             cardsSwiper.update();
@@ -135,9 +111,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
    // --- Видалення ---
    deleteJobBtn.addEventListener('click', async () => {
-      const slideId = slide.dataset.slideId;
-      const slide = Array.from(swiperWrapper.children).find(s => s.dataset.slideId === slideId);
-      if (!slide) return;
+      if (!currentSlide) return;
+      const slideId = currentSlide.dataset.slideId;
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
       
       try {
@@ -152,17 +127,22 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
             throw new Error(`Server error ${response.status}: ${errorText}`);
          }
          
-         slide.remove();
+         currentSlide.remove();
          saveSlides();
          editModalCard.style.display = 'none';
          alert("Картку успішно видалено!");
+         
       } catch (err) {
          console.error("❌ Помилка видалення:", err);
          alert("Помилка мережі: " + err);
       }
    });
-
+   
    // --- Закриття модалки ---
    closeModalEdit.addEventListener('click', () => editModalCard.style.display = 'none');
-   window.addEventListener('click', e => { if (e.target === editModalCard) editModalCard.style.display = 'none'; });
+   window.addEventListener('click', e => {
+      if (e.target === editModalCard) editModalCard.style.display = 'none';
+   });
+   
+   return { openEditModal };
 }

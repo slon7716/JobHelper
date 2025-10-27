@@ -1,9 +1,9 @@
-export function initCardControls(updateCountsCallback) {
+export function initCardControls(updateCountsCallback, isServerAvailable) {
   const viewModal = document.getElementById('viewModal');
   const transferModal = document.getElementById('transferModal');
   let cardToMove = null;
 
-   // Закриття модалки перегляду картки
+  // Закриття модалки перегляду картки
   if (viewModal) {
     const closeModalBtn = viewModal.querySelector('.btn-primary');
     closeModalBtn.addEventListener('click', () => { viewModal.style.display = 'none'; });
@@ -27,6 +27,10 @@ export function initCardControls(updateCountsCallback) {
 
     // --- Видалення картки ---
     if (e.target.closest('.btn-delete')) {
+      if (!isServerAvailable) {
+        alert("Сервер недоступний. Видалення не можливе.");
+        return;
+      }
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
       const slideId = card.dataset.slideId;
       try {
@@ -41,7 +45,7 @@ export function initCardControls(updateCountsCallback) {
           card.remove();
           updateCountsCallback();
           console.log(`✅ Card ${slideId} successfully deleted.`);
-          alert(`Картку №${slideId} успішно видалено.`);
+          alert(`Картку успішно видалено.`);
           return;
         }
         if (!response.ok) {
@@ -71,6 +75,10 @@ export function initCardControls(updateCountsCallback) {
 
     // --- Переміщення картки ---
     if (e.target.closest('.btn-transfer')) {
+      if (!isServerAvailable) {
+        alert("Сервер недоступний. Переміщення не можливе.");
+        return;
+      }
       cardToMove = card;
       const oldColumn = card.closest('.status-column');
       let selectedStatus = oldColumn.id; // беремо id замість класу

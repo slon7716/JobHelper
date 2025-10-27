@@ -1,11 +1,11 @@
 import { modalAddVacation } from './modules/modal-add-vacation.js';
 import { modalEditVacation } from './modules/modal-edit-vacation.js';
 import { renderSlide } from './modules/render-slide.js';
-
 const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
   const swiperWrapper = document.querySelector('.swiper-wrapper');
+  let isServerAvailable = false;
 
   // --- Функція для збору даних з картки ---
   function getJobDataFromSlide(slide) {
@@ -26,39 +26,44 @@ if (mainPage) {
   // Функція збереження карток у localStorage
   function saveSlides() {
     const slidesData = Array.from(swiperWrapper.children)
-    .map(slide => getJobDataFromSlide(slide));
+      .map(slide => getJobDataFromSlide(slide));
     // Зберігаємо масив об’єктів у localStorage
     localStorage.setItem('jobSlides', JSON.stringify(slidesData));
   }
 
   // --- Завантаження карток із сервера при старті ---
   async function loadSlidesFromServer() {
-    const savedSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
-    
+    const savedServerSlides = JSON.parse(localStorage.getItem('jobSlides') || '[]');
+
     try {
       const token = localStorage.getItem("jwtToken");
       const res = await fetch("http://localhost:8080/api/jobs", {
         headers: { "Authorization": `Bearer ${token}` }
       });
-      
+
       if (!res.ok) {
         throw new Error(`Помилка сервера: ${res.status}`);
       }
-      
+
       const jobs = await res.json();
-      // Якщо jobs не масив, кидаємо помилку
-      if (!Array.isArray(jobs)) throw new Error("Сервер повернув не масив");
-  
+      // Якщо jobs не масив, кидаємо помилку (без цього нічого не відобразиться )
+      if (!Array.isArray(jobs)) throw new Error("Сервер недоступний або повернув не масив");
+
+      isServerAvailable = true;
+
+      swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером
       jobs.forEach(job => swiperWrapper.appendChild(renderSlide(job)));
+
       // Зберігаємо локально як кеш
       saveSlides();
-      
+
     } catch (err) {
-      console.error("Сервер недоступний — використовується кеш з localStorage", err);
+      console.error("Використовується кеш з localStorage", err);
+      isServerAvailable = false;
       // fallback: якщо сервер недоступний, показуємо те, що є в localStorage
-      if (savedSlides.length) {
+      if (savedServerSlides.length) {
         swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером локального кешу
-        savedSlides.forEach(jobData => swiperWrapper.appendChild(renderSlide(jobData)));
+        savedServerSlides.forEach(jobData => swiperWrapper.appendChild(renderSlide(jobData)));
       }
     }
 
@@ -67,18 +72,40 @@ if (mainPage) {
       cardsSwiper.update();
     }
   }
-  
-  // Викликаємо при старті сторінки
   loadSlidesFromServer();
 
   // --- Ініціалізація модалок ---
-  modalAddVacation(cardsSwiper, saveSlides);
-  modalEditVacation(cardsSwiper, saveSlides);
+  modalAddVacation(cardsSwiper, saveSlides, isServerAvailable);
+  const { openEditModal } = modalEditVacation(cardsSwiper, saveSlides);
 
-  // Слухач для кнопок "В трекер" (на картках)
+  // --- Слухач для кнопок "Змінити" (на картках) ---
+  swiperWrapper.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-edit');
+    if (!btn) return;
+
+    if (!isServerAvailable) {
+      alert("Сервер недоступний. Зміни картки неможливі.");
+      return;
+    }
+
+    const slide = btn.closest('.swiper-slide');
+    if (!slide) return;
+
+    // Передаємо слайд у модалку
+    openEditModal(slide);
+  });
+
+  // --- Слухач для кнопок "В трекер" (на картках) ---
   swiperWrapper.addEventListener('click', async (e) => {
     const target = e.target.closest('.move-to-tracker');
     if (!target) return;
+
+    // якщо сервер недоступний — блокуємо
+    if (!isServerAvailable) {
+      alert("Сервер недоступний. Перенесення картки у трекер неможливе.");
+      return;
+    }
+
     const slide = target.closest('.swiper-slide');
     if (!slide) return;
     // Збираємо дані картки
@@ -101,10 +128,14 @@ if (mainPage) {
         return;
       }
 
-      // Зберігаємо у savedJobs для трекера
-      const savedJobs = JSON.parse(localStorage.getItem('savedJobs') || '[]');
-      savedJobs.push(jobData);
-      localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+      // Зберігаємо у localStorage (trackerSlides) для трекера
+      const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
+      trackerSlides.push({
+        ...jobData,
+        status: 'saved',       // бо всі нові картки потрапляють у колонку "saved"
+        order: trackerSlides.length
+      });
+      localStorage.setItem('trackerSlides', JSON.stringify(trackerSlides));
 
       // Видаляємо картку зі слайдера та оновлюємо Swiper
       slide.remove();
