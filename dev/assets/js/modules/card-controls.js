@@ -1,4 +1,4 @@
-export function initCardControls(updateCountsCallback, isServerAvailable) {
+export function initCardControls(updateCountsCallback, checkServer) {
   const viewModal = document.getElementById('viewModal');
   const transferModal = document.getElementById('transferModal');
   let cardToMove = null;
@@ -27,36 +27,40 @@ export function initCardControls(updateCountsCallback, isServerAvailable) {
 
     // --- Видалення картки ---
     if (e.target.closest('.btn-delete')) {
-      if (!isServerAvailable) {
+      if (!checkServer()) {
         alert("Сервер недоступний. Видалення не можливе.");
         return;
       }
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
-      const slideId = card.dataset.slideId;
+      const id = card.dataset.slideId;
+
       try {
         const token = localStorage.getItem("jwtToken");
-        const response = await fetch(`http://localhost:8080/api/applications/${slideId}`, {
+        const res = await fetch(`http://localhost:8080/api/applications/${id}`, {
           method: "DELETE",
           headers: {
-           "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`
           }
         });
-        if (response.status === 204) {
+
+        if (res.status === 204) {
           card.remove();
           updateCountsCallback();
-          console.log(`✅ Card ${slideId} successfully deleted.`);
+          console.log(`✅ Card ${id} successfully deleted.`);
           alert(`Картку успішно видалено.`);
           return;
         }
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Server error ${response.status}: ${errorText}`);
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          throw new Error(`Server error ${res.status}: ${errorText}`);
         }
       
       } catch (err) {
         console.error("❌ Error deleting card:", err);
         alert("Помилка при видаленні картки: " + err.message);
       }
+
       return;
     }
     
@@ -75,7 +79,7 @@ export function initCardControls(updateCountsCallback, isServerAvailable) {
 
     // --- Переміщення картки ---
     if (e.target.closest('.btn-transfer')) {
-      if (!isServerAvailable) {
+      if (!checkServer()) {
         alert("Сервер недоступний. Переміщення не можливе.");
         return;
       }
@@ -101,30 +105,40 @@ export function initCardControls(updateCountsCallback, isServerAvailable) {
         if (!cardToMove) return;
         const selectedOption = transferModal.querySelector('.status-options li.selected');
         if (!selectedOption) return;
-        const slideId = cardToMove.dataset.slideId;
         const oldColumn = cardToMove.closest('.status-column');
         const newStatus = selectedOption.dataset.status;
-        // перевірка по id чи не той самий статус
+        // перевірка чи не той самий статус
         if (oldColumn.id === newStatus) {
           transferModal.style.display = 'none';
           cardToMove = null;
           return;
         }
+        const id = card.dataset.slideId;
+        // --- Мапінг статусу для сервера
+        const statusMapToServer = {
+          'saved': 'PENDING',
+          'in-progress': 'IN_REVIEW',
+          'interview': 'INTERVIEW',
+          'offer': 'OFFER',
+          'denied': 'REJECTED',
+          'hired': 'HIRED'
+        };
+        const serverStatus = statusMapToServer[newStatus];
 
         try {
           const token = localStorage.getItem("jwtToken");
-          const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
+          const res = await fetch(`http://localhost:8080/api/applications/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({ status: newStatus })
+            body: JSON.stringify({ status: serverStatus })
           });
 
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Server error ${response.status}: ${errorText}`);
+          if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`Server error ${res.status}: ${errorText}`);
           }
 
           const targetColumn = document.querySelector(`.status-column#${newStatus} .status-cards`);
@@ -134,6 +148,7 @@ export function initCardControls(updateCountsCallback, isServerAvailable) {
           cardToMove = null;
           transferModal.style.display = 'none';
           updateCountsCallback();
+
         } catch (err) {
           console.error("❌ Помилка оновлення:", err);
           alert("Помилка мережі: " + err);

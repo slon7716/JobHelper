@@ -1,5 +1,6 @@
 import { renderJob } from './modules/render-job.js';
 import { initCardControls } from './modules/card-controls.js';
+import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.esm.js';
 
 const tracker = document.querySelector(".tracker");
 
@@ -11,13 +12,20 @@ if (tracker) {
   // --- Оновлення лічильників ---
   // ==========================
   function updateCounts() {
+    let savedCount = 0;
+    let inProgressCount = 0;
     columns.forEach(key => {
       const col = document.getElementById(key);
       if (!col) return;
       const counter = col.querySelector('.status-count');
       const cards = col.querySelectorAll('.swiper-slide');
       if (counter) counter.textContent = cards.length;
+      if (key === 'saved') savedCount = cards.length;
+      if (key === 'in-progress') inProgressCount = cards.length;
     });
+    // --- Зберігаємо перших 2 в localStorage для головної сторінки ---
+    localStorage.setItem('savedCount', savedCount);
+    localStorage.setItem('inProgressCount', inProgressCount);
   }
   updateCounts();
 
@@ -59,10 +67,11 @@ if (tracker) {
   // ==========================
   async function loadTrackerSlidesFromServer() {
     const savedLocalCards = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
-    const userId = 1;
   
     try {
       const token = localStorage.getItem("jwtToken");
+      const decoded = jwt_decode(token);
+      const userId = decoded.userId; // отримуємо userID з токена
       const res = await fetch(`http://localhost:8080/api/applications/user/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -77,10 +86,23 @@ if (tracker) {
   
       // --- Очищаємо колонки
       document.querySelectorAll('.status-cards').forEach(col => col.innerHTML = '');
-  
-      // --- Рендеримо всі картки з сервера
+
+      // --- Створюємо відповідність статусів з сервером
+      const statusMap = {
+        PENDING: 'saved',
+        IN_REVIEW: 'in-progress',
+        INTERVIEW: 'interview',
+        OFFER: 'offer',
+        REJECTED: 'denied',
+      };
+
+      // --- Рендеримо картки з сервера
       applications.forEach(job => {
-        const col = document.querySelector(`.status-column#${job.status} .status-cards`);
+        const mappedStatus = statusMap[job.status];
+        if (Array.isArray(job.requiredSkills)) { // прибираємо дублікати навичок
+          job.requiredSkills = [...new Set(job.requiredSkills)];
+        }
+        const col = document.querySelector(`.status-column#${mappedStatus} .status-cards`);
         if (!col) return;
         col.insertAdjacentHTML('beforeend', renderJob(job));
       });
@@ -108,7 +130,7 @@ if (tracker) {
     initCardControls(() => {
       updateCounts();
       saveTrackerSlides();
-    }, isServerAvailable);
+    }, () => isServerAvailable);
   }
   
   loadTrackerSlidesFromServer();

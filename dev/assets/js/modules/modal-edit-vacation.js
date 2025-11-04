@@ -80,7 +80,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
             method: "PUT",
             headers: {
-               "Content-Type": "application/json",
+               "Content-Type": "application/json; charset=UTF-8",
+               "Accept": "application/json; charset=UTF-8",
                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(updatedData)
@@ -92,13 +93,31 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          }
 
          // --- Оновлюємо DOM тільки після успішного PUT ---
-         const newSlide = renderSlide({ ...updatedData, slideId });
-         swiperWrapper.replaceChild(newSlide, currentSlide);
-         saveSlides();
-         if (cardsSwiper) {
-            cardsSwiper.update();
-            cardsSwiper.slideTo(0);
+         const setText = (selector, value) => {
+            const el = currentSlide.querySelector(`.${selector}`);
+            if (el) el.textContent = value || '';
+         };
+         setText('position', updatedData.title);
+         setText('company', updatedData.company);
+         setText('location', updatedData.location);
+         setText('salary', updatedData.salary);
+         setText('format', updatedData.workFormat);
+         setText('description', updatedData.description);
+      
+         // --- Навички ---
+         const skillsContainer = currentSlide.querySelector('.required-skills');
+         if (skillsContainer) {
+            skillsContainer.innerHTML = '';
+            updatedData.requiredSkills.forEach(skill => {
+              const item = document.createElement('div');
+              item.className = 'required-skills-item';
+              item.innerHTML = `<div><span>${skill}</span></div>`;
+              skillsContainer.appendChild(item);
+            });
          }
+
+         if (typeof saveSlides === 'function') saveSlides();
+         if (cardsSwiper) cardsSwiper.update();
 
          editModalCard.style.display = 'none';
          alert("Картку успішно оновлено!");

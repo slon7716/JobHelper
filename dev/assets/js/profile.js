@@ -182,6 +182,27 @@ if (profilePage) {
       }
     });
   });
+
+  // ====================== ATS-оцінка резюме ======================
+  async function loadATSEvaluation(resumeId) {
+    const atsElement = document.getElementById('evaluateResume');
+    if (!atsElement) return;
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/ats-evaluation/resume/${resumeId}`);
+      if (!response.ok) throw new Error(`Помилка ${response.status}`);
+  
+      const data = await response.json();
+      const atsScore = typeof data === 'number' ? data : data.score;
+  
+      const scoreValue = (atsScore != null && !isNaN(atsScore)) ? atsScore : 0;
+      atsElement.textContent = `${scoreValue}%`;
+  
+    } catch (err) {
+      console.error('Помилка при завантаженні ATS-оцінки:', err);
+      atsElement.textContent = '—';
+    }
+  }  
   
   // ====================== Завантаження резюме ======================
   if (window.location.pathname.endsWith("profile.html")) {

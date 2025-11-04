@@ -6,7 +6,12 @@
 
       .title {
          display: flex;
+         align-items: center;
          margin-bottom: 16px;
+
+         h3 {
+            font-weight: 700;
+         }
 
          img {
             width: 60px;
@@ -29,10 +34,9 @@
          padding: 40px 0;
 
          .number {
-            font-size: 48px;
             font-weight: 700;
-            line-height: 1.22;
             color: $blue80;
+            margin-bottom: 8px;
          }
 
          .activity {

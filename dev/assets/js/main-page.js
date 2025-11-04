@@ -1,11 +1,26 @@
 import { modalAddVacation } from './modules/modal-add-vacation.js';
 import { modalEditVacation } from './modules/modal-edit-vacation.js';
 import { renderSlide } from './modules/render-slide.js';
+import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.esm.js';
+
 const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
   const swiperWrapper = document.querySelector('.swiper-wrapper');
   let isServerAvailable = false;
+
+  // Відображення кількості у activities
+  const activities = document.querySelector('.activities');
+  if (activities) {
+    const savedEl = activities.querySelector('#savedCount');
+    const inProgressEl = activities.querySelector('#inProgressCount');
+
+    const savedCount = localStorage.getItem('savedCount') || 0;
+    const inProgressCount = localStorage.getItem('inProgressCount') || 0;
+
+    if (savedEl) savedEl.textContent = savedCount;
+    if (inProgressEl) inProgressEl.textContent = inProgressCount;
+  };
 
   // --- Функція для збору даних з картки ---
   function getJobDataFromSlide(slide) {
@@ -71,11 +86,13 @@ if (mainPage) {
     if (typeof cardsSwiper !== 'undefined') {
       cardsSwiper.update();
     }
+    
+    // --- Ініціалізація модалки додавання картки-слайду ---
+    modalAddVacation(cardsSwiper, saveSlides, () => isServerAvailable);
   }
   loadSlidesFromServer();
 
-  // --- Ініціалізація модалок ---
-  modalAddVacation(cardsSwiper, saveSlides, isServerAvailable);
+  // --- Ініціалізація модалки редагування ---
   const { openEditModal } = modalEditVacation(cardsSwiper, saveSlides);
 
   // --- Слухач для кнопок "Змінити" (на картках) ---
@@ -113,13 +130,16 @@ if (mainPage) {
 
     try {
       const token = localStorage.getItem("jwtToken");
-      const res = await fetch("http://localhost:8080/api/jobs", {
+      const decoded = jwt_decode(token);
+      const userId = decoded.userId;
+      const jobId = slide.dataset.slideId;
+      const res = await fetch("http://localhost:8080/api/applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(jobData)
+        body: JSON.stringify({ userId, jobId })
       });
 
       if (!res.ok) {
@@ -128,7 +148,7 @@ if (mainPage) {
         return;
       }
 
-      // Зберігаємо у localStorage (trackerSlides) для трекера
+      // У разі успішної відповіді сервера зберігаємо у localStorage (trackerSlides) для трекера
       const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
       trackerSlides.push({
         ...jobData,

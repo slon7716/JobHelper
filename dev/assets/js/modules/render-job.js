@@ -1,7 +1,7 @@
 export function renderJob(job) {
   // --- Генеруємо повний HTML картки ---
   const html = `
-  <div class="swiper-slide" data-slide-id="${job.slideId}">
+  <div class="swiper-slide" data-slide-id="${job.id}">
     <div class="job-title">
       <div class="position-and-control">
         <div class="position">${job.title}</div>

@@ -1,6 +1,6 @@
 import { renderSlide } from './render-slide.js';
 
-export function modalAddVacation(cardsSwiper, saveSlides, isServerAvailable) {
+export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
   const openModal = document.getElementById('openModal');
   const closeModalAdd = document.getElementById('closeModalAdd');
   const modalCard = document.getElementById('jobModal');
@@ -43,7 +43,7 @@ export function modalAddVacation(cardsSwiper, saveSlides, isServerAvailable) {
 
   // --- Відкрити модалку ---
   openModal.addEventListener('click', () => {
-    if (!isServerAvailable) {
+    if (!getServerStatus()) {
       alert("Сервер недоступний. Додати вакансію неможливо.");
       return;
     }
@@ -88,7 +88,8 @@ export function modalAddVacation(cardsSwiper, saveSlides, isServerAvailable) {
       const res = await fetch("http://localhost:8080/api/jobs", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=UTF-8",
+          "Accept": "application/json; charset=UTF-8",
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(jobData)
