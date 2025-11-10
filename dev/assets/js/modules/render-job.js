@@ -1,4 +1,7 @@
 export function renderJob(job) {
+  // Якщо match є в jobData, використовуємо його, інакше --
+  const matchValue = job.match ?? '--';
+
   // --- Генеруємо повний HTML картки ---
   const html = `
   <div class="swiper-slide" data-slide-id="${job.id}">
@@ -31,7 +34,7 @@ export function renderJob(job) {
           <div class="item salary">${job.salary}</div>
         </div>
       </div>
-      <div class="match">85% match</div>
+      <div class="match">${matchValue}% match</div>
     </div>
 
     <div class="characteristic-name work-format">

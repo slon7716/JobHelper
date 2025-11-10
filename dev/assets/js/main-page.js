@@ -30,6 +30,7 @@ if (mainPage) {
       company: slide.querySelector('.company')?.textContent.trim() || '',
       location: slide.querySelector('.location')?.textContent.trim() || '',
       salary: slide.querySelector('.salary')?.textContent.trim() || '',
+      match: slide.querySelector('.match')?.textContent.trim() || '--',
       workFormat: slide.querySelector('.format')?.textContent.trim() || '',
       requiredSkills: Array.from(slide.querySelectorAll('.required-skills-item div'))
         .map(el => el.textContent.trim())
@@ -67,15 +68,20 @@ if (mainPage) {
       isServerAvailable = true;
 
       swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером
-      jobs.forEach(job => swiperWrapper.appendChild(renderSlide(job)));
+      jobs.forEach(job => {
+        const slide = renderSlide(job);
+        swiperWrapper.appendChild(slide);
+        const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+        if (resumeId) updateMatchForSlide(slide, resumeId);
+      });
 
-      // Зберігаємо локально як кеш
+      // Зберігаємо локально
       saveSlides();
 
     } catch (err) {
       console.error("Використовується кеш з localStorage", err);
       isServerAvailable = false;
-      // fallback: якщо сервер недоступний, показуємо те, що є в localStorage
+      // fallback: якщо сервер недоступний, показуємо з localStorage
       if (savedServerSlides.length) {
         swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером локального кешу
         savedServerSlides.forEach(jobData => swiperWrapper.appendChild(renderSlide(jobData)));
@@ -91,6 +97,25 @@ if (mainPage) {
     modalAddVacation(cardsSwiper, saveSlides, () => isServerAvailable);
   }
   loadSlidesFromServer();
+
+  // Оновлення match для всіх карток
+  async function updateMatchForSlide(slide, resumeId) {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const res = await fetch(`http://localhost:8080/api/ai-resume-analysis/${resumeId}`, {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+  
+      if (!res.ok) return;
+  
+      const data = await res.json();
+      const matchEl = slide.querySelector('.match');
+      if (matchEl) matchEl.textContent = `${data.match ?? "--"}% match`;
+    } catch (err) {
+      console.warn("Не вдалося отримати match:", err);
+      matchEl.textContent = "--% match";
+    }
+  }
 
   // --- Ініціалізація модалки редагування ---
   const { openEditModal } = modalEditVacation(cardsSwiper, saveSlides);
@@ -152,7 +177,7 @@ if (mainPage) {
       const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
       trackerSlides.push({
         ...jobData,
-        status: 'saved',       // бо всі нові картки потрапляють у колонку "saved"
+        status: 'saved',       // картки потрапляють у колонку "saved"
         order: trackerSlides.length
       });
       localStorage.setItem('trackerSlides', JSON.stringify(trackerSlides));

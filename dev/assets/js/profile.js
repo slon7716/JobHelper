@@ -9,7 +9,8 @@ if (profilePage) {
       location: "Київ, Україна",
       foto: "",
       resumeName: "",
-      resumeUrl: ""
+      resumeUrl: "",
+      resumeId: null
     },
     wishToVacancy: {
       title: "Senior Frontend Developer",
@@ -74,8 +75,16 @@ if (profilePage) {
       settings[1].textContent = profileData.accountSettings.password || "**********";
       settings[2].textContent = profileData.accountSettings.language || "Мова";
     }
+    
+      // --- ATS-оцінка резюме ---
+    if (profileData.basicData.resumeId) {
+      loadATSEvaluation(profileData.basicData.resumeId);
+    } else {
+      const atsElement = document.getElementById('evaluateResume');
+      if (atsElement) atsElement.textContent = '—';
+    }
   }
-  
+
   // Викликаємо рендер на старті
   renderProfile();
   
@@ -189,7 +198,14 @@ if (profilePage) {
     if (!atsElement) return;
   
     try {
-      const response = await fetch(`http://localhost:8080/api/ats-evaluation/resume/${resumeId}`);
+      const token = localStorage.getItem("jwtToken");
+      const response = await fetch(`http://localhost:8080/api/ats-evaluation/resume/${resumeId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      
       if (!response.ok) throw new Error(`Помилка ${response.status}`);
   
       const data = await response.json();
@@ -204,88 +220,123 @@ if (profilePage) {
     }
   }  
   
-  // ====================== Завантаження резюме ======================
-  if (window.location.pathname.endsWith("profile.html")) {
-    const resumeInput = document.getElementById("resumeFile");
-    const resumeStatus = document.getElementById("resumeStatus");
-    const uploadedResume = document.getElementById("uploadedResume");
-    const uploadBtn = document.getElementById("uploadBtn");
+  // ====================== ЗАВАНТАЖЕННЯ РЕЗЮМЕ ======================
+  const resumeInput = document.getElementById("resumeFile");
+  const resumeStatus = document.getElementById("resumeStatus");
+  const uploadedResume = document.getElementById("uploadedResume");
+  const uploadBtn = document.getElementById("uploadBtn");
+
+  // Клік по кнопці відкриває файловий діалог
+  uploadBtn.addEventListener("click", () => resumeInput.click());
+
+  resumeInput.addEventListener("change", async function () {
+    if (resumeInput.files.length === 0) return;
   
-    // Клік по кнопці відкриває файловий діалог
-    uploadBtn.addEventListener("click", () => resumeInput.click());
+    const file = resumeInput.files[0];
+    const allowedTypes = [ // Перевірка MIME-типу
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ];
   
-    resumeInput.addEventListener("change", async function () {
-      if (resumeInput.files.length === 0) return;
-    
-      const file = resumeInput.files[0];
-      const allowedTypes = [ // Перевірка MIME-типу
-        "application/pdf",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      ];
-    
-      // Перевірка розширення на випадок, якщо браузер не визначив MIME
-      const allowedExtensions = ["pdf", "docx"];
-      const fileExt = file.name.split(".").pop().toLowerCase();
-    
-      if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExt)) {
-        resumeStatus.textContent = "❌ Будь ласка, завантажте файл у форматі PDF або DOCX";
+    // Перевірка розширення на випадок, якщо браузер не визначив MIME
+    const allowedExtensions = ["pdf", "docx"];
+    const fileExt = file.name.split(".").pop().toLowerCase();
+  
+    if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExt)) {
+      resumeStatus.textContent = "❌ Будь ласка, завантажте файл у форматі PDF або DOCX";
+      resumeStatus.style.color = "#DE1B1B";
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("userId", 1); // Замінити на реальний ID користувача
+  
+    try {
+      const token = localStorage.getItem("jwtToken");
+  
+      const response = await fetch("http://localhost:8080/api/resumes/upload", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${token}` },
+        body: formData
+      });
+  
+      // Тут обробляємо помилки HTTP
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.log(errorText);
+        resumeStatus.textContent = "❌ Не вдалося завантажити резюме. Спробуйте ще раз.";
         resumeStatus.style.color = "#DE1B1B";
         return;
       }
     
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("userId", 1); // TODO: Замінити на реальний ID користувача
-    
-      try {
-        const token = localStorage.getItem("jwtToken");
-    
-        const response = await fetch("http://localhost:8080/api/resumes/upload", {
-          method: "POST",
-          headers: { "Authorization": `Bearer ${token}` },
-          body: formData
-        });
-    
-        // Тут обробляємо помилки HTTP
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.log(errorText);
-          resumeStatus.textContent = "❌ Не вдалося завантажити резюме. Спробуйте ще раз.";
-          resumeStatus.style.color = "#DE1B1B";
-          return;
-        }
-      
-        // Очікуємо JSON від сервера із посиланням на файл
-        const result = await response.json();
+      // Очікуємо JSON від сервера із посиланням на файл
+      const result = await response.json();
 
-        // Перевіряємо, чи сервер повернув посилання на завантажений файл
-        if (!result.fileUrl) {
-          resumeStatus.textContent = "❌ Сервер не повернув посилання на файл";
-          resumeStatus.style.color = "#DE1B1B";
+      // Перевіряємо, чи сервер повернув посилання на завантажений файл
+      if (!result.fileUrl) {
+        resumeStatus.textContent = "❌ Сервер не повернув посилання на файл";
+        resumeStatus.style.color = "#DE1B1B";
+        return;
+      }
+  
+      // Оновлюємо profileData
+      profileData.basicData.resumeName = file.name;
+      profileData.basicData.resumeUrl = result.fileUrl;
+      profileData.basicData.resumeId = result.resumeId;
+
+      // Зберігаємо в localStorage метадані
+      localStorage.setItem("profileData", JSON.stringify(profileData));
+  
+      // Відображаємо повідомлення
+      resumeStatus.textContent = "✅ Резюме успішно завантажено!";
+      resumeStatus.style.color = "green";
+
+      // Відображаємо назву резюме як посилання
+      uploadedResume.innerHTML = `<span class="resume-link">${file.name}</span>`;
+      addResumeClickHandler(profileData.basicData.resumeId);
+
+      // Завантажуємо ATS-оцінку
+      loadATSEvaluation(result.resumeId);
+      renderProfile();
+
+    } catch (error) {
+      console.error("Resume upload failed:", error);
+      resumeStatus.textContent = "❌ Сервер недоступний або мережа не працює";
+      resumeStatus.style.color = "#DE1B1B";
+    }
+  });
+
+  // ====================== ВІДКРИТТЯ РЕЗЮМЕ ======================
+  if (profileData?.basicData?.resumeName) {
+    uploadedResume.innerHTML = `<span class="resume-link">${profileData.basicData.resumeName}</span>`;
+    addResumeClickHandler(profileData.basicData.resumeId);
+  }
+  
+  function addResumeClickHandler(resumeId) {
+    const token = localStorage.getItem("jwtToken");
+    uploadedResume.addEventListener("click", async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/resumes/${resumeId}/file`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) {
+          alert("Не вдалося завантажити файл з сервера");
           return;
         }
-    
-        // Оновлюємо profileData
-        profileData.basicData.resumeName = file.name;
-        profileData.basicData.resumeUrl = result.fileUrl;
-    
-        // Зберігаємо в localStorage метадані
-        localStorage.setItem("profileData", JSON.stringify(profileData));
-    
-        // Відображаємо резюме
-        resumeStatus.textContent = "✅ Резюме успішно завантажено!";
-        resumeStatus.style.color = "green";
-        uploadedResume.innerHTML = `<a href="${profileData.basicData.resumeUrl}" target="_blank">${profileData.basicData.resumeName}</a>`;
-  
-      } catch (error) {
-        console.error("Resume upload failed:", error);
-        resumeStatus.textContent = "❌ Сервер недоступний або мережа не працює";
-        resumeStatus.style.color = "#DE1B1B";
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      } catch (err) {
+        console.error("Помилка при завантаженні:", err);
+        alert("Сервер недоступний або сталася помилка мережі");
       }
     });
   }
 
-                // Вийти чи ні з акаунту
+  // ====================== ВИЙТИ З АККАУНТУ ======================
   const logoutBtn = document.getElementById('logoutBtn');
   const modalLogout = document.getElementById('logoutModal');
   const confirmLogout = document.getElementById('confirmLogout');

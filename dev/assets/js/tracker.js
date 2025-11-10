@@ -23,7 +23,7 @@ if (tracker) {
       if (key === 'saved') savedCount = cards.length;
       if (key === 'in-progress') inProgressCount = cards.length;
     });
-    // --- Зберігаємо перших 2 в localStorage для головної сторінки ---
+    // --- Зберігаємо перших 2 показники в localStorage для головної сторінки ---
     localStorage.setItem('savedCount', savedCount);
     localStorage.setItem('inProgressCount', inProgressCount);
   }
@@ -58,16 +58,16 @@ if (tracker) {
         allCardsData.push(jobData);
       });
     });
-  
+
     localStorage.setItem('trackerSlides', JSON.stringify(allCardsData));
   }
-  
+
   // ==========================
   // --- Завантаження карток з сервера ---
   // ==========================
   async function loadTrackerSlidesFromServer() {
     const savedLocalCards = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
-  
+
     try {
       const token = localStorage.getItem("jwtToken");
       const decoded = jwt_decode(token);
@@ -78,12 +78,12 @@ if (tracker) {
           "Content-Type": "application/json"
         }
       });
-  
+
       if (!res.ok) throw new Error(`Помилка сервера: ${res.status}`);
-  
+
       const applications = await res.json();
       if (!Array.isArray(applications)) throw new Error("Сервер недоступний або повернув не масив");
-  
+
       // --- Очищаємо колонки
       document.querySelectorAll('.status-cards').forEach(col => col.innerHTML = '');
 
@@ -106,7 +106,34 @@ if (tracker) {
         if (!col) return;
         col.insertAdjacentHTML('beforeend', renderJob(job));
       });
-  
+
+      const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+      if (resumeId) {
+        for (const slide of document.querySelectorAll('.swiper-slide')) {
+          try {
+            const resMatch = await fetch(`http://localhost:8080/api/ai-resume-analysis/${resumeId}`, {
+              headers: { "Authorization": `Bearer ${token}` }
+            });
+            const matchEl = slide.querySelector('.match');
+            if (!resMatch.ok) {
+              if (matchEl) matchEl.textContent = "--% match";
+              continue;
+            }
+            const data = await resMatch.json();
+            if (matchEl) matchEl.textContent = `${data.match ?? "--"}% match`;
+          } catch (err) {
+            const matchEl = slide.querySelector('.match');
+            if (matchEl) matchEl.textContent = "--% match";
+            console.warn("Не вдалося отримати match:", err);
+          }
+        };
+      } else { // Якщо resumeId немає, встановлюємо "--% match"
+        document.querySelectorAll('.swiper-slide').forEach(slide => {
+          const matchEl = slide.querySelector('.match');
+          if (matchEl) matchEl.textContent = "--% match";
+        });
+      }
+
       // --- Синхронізуємо локально trackerSlides
       localStorage.setItem('trackerSlides', JSON.stringify(applications));
 
@@ -117,21 +144,24 @@ if (tracker) {
       isServerAvailable = false; // сервер недоступний
       // --- fallback: рендеримо локальні картки
       document.querySelectorAll('.status-cards').forEach(col => col.innerHTML = '');
-      savedLocalCards.forEach(job => {
+      for (const job of savedLocalCards) {
         const col = document.querySelector(`.status-column#${job.status} .status-cards`);
-        if (!col) return;
+        if (!col) continue;
         col.insertAdjacentHTML('beforeend', renderJob(job));
-      });
+        const lastSlide = col.lastElementChild;
+        const matchEl = lastSlide?.querySelector('.match');
+        if (matchEl) matchEl.textContent = job.match ?? "--% match";
+      }
     }
-  
+
     updateCounts();
-  
+
     // --- Ініціалізація кнопок картки ---
     initCardControls(() => {
       updateCounts();
       saveTrackerSlides();
     }, () => isServerAvailable);
   }
-  
+
   loadTrackerSlidesFromServer();
 }

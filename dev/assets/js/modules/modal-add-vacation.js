@@ -113,6 +113,29 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
         cardsSwiper.slideTo(0);
       }
       saveSlides();
+
+      // --- Отримуємо match-показник з сервера
+      const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+      if (!resumeId) {
+        console.warn("⚠️ Resume ID не знайдено в profileData");
+      } else {
+        try {
+          const matchRes = await fetch(`http://localhost:8080/api/ai-resume-analysis/${resumeId}`, {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          });
+          if (matchRes.ok) {
+            const matchData = await matchRes.json();
+            const matchValue = matchData.match ?? 0;
+            const matchEl = newSlide.querySelector('.match');
+            if (matchEl) matchEl.textContent = `${matchValue}% match`;
+          }
+        } catch (err) {
+          console.warn("Не вдалося отримати match:", err);
+        }
+      }
+
       // Закриваємо модалку і чистимо форму
       modalCard.style.display = 'none';
       jobForm.reset();
@@ -120,6 +143,7 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
       formatInput.value = '';
       submitBtn.disabled = true;
       alert("Вакансію додано на сервер та локально!");
+      
     } catch (err) {
       alert("Помилка мережі: " + err);
     }
