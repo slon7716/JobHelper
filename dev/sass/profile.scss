@@ -187,6 +187,8 @@
             gap: 12px;
 
             .job-details-choice {
+               min-width: 100px;
+               min-height: 60px;
                display: inline-block;
                font-size: 18px;
                line-height: 1.56;

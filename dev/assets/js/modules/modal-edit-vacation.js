@@ -1,5 +1,3 @@
-import { renderSlide } from './render-slide.js';
-
 export function modalEditVacation(cardsSwiper, saveSlides) {
    const editModalCard = document.getElementById('editModal');
    const closeModalEdit = document.getElementById('closeModalEdit');
@@ -118,6 +116,33 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
          if (typeof saveSlides === 'function') saveSlides();
          if (cardsSwiper) cardsSwiper.update();
+
+         // --- Оновлюємо match ---
+         const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+         const matchEl = currentSlide.querySelector('.match');
+
+         if (resumeId) {
+            try {
+               const matchRes = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
+                  headers: { "Authorization": `Bearer ${token}` }
+               });
+          
+               if (matchRes.ok) {
+                  const matchData = await matchRes.json();
+                  const matchValue = matchData.matchScore != null ? Math.round(matchData.matchScore) : "--";
+                  matchEl.textContent = `${matchValue}% match`;
+               } else {
+                  matchEl.textContent = "--% match";
+                  console.warn(`Помилка при отриманні match для slideId=${slideId}`);
+               }
+            } catch (err) {
+               console.warn("Не вдалося отримати match:", err);
+               matchEl.textContent = "--% match";
+            }
+         } else {
+            console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
+         }
+         
 
          editModalCard.style.display = 'none';
          alert("Картку успішно оновлено!");

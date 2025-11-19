@@ -23,7 +23,7 @@ if (tracker) {
       if (key === 'saved') savedCount = cards.length;
       if (key === 'in-progress') inProgressCount = cards.length;
     });
-    // --- Зберігаємо перших 2 показники в localStorage для головної сторінки ---
+    // --- Зберігаємо перші 2 показники в localStorage для головної сторінки ---
     localStorage.setItem('savedCount', savedCount);
     localStorage.setItem('inProgressCount', inProgressCount);
   }
@@ -47,6 +47,7 @@ if (tracker) {
           company: card.querySelector('.company')?.textContent.trim() || '',
           location: card.querySelector('.location')?.textContent.trim() || '',
           salary: card.querySelector('.salary')?.textContent.trim() || '',
+          matchScore: card.querySelector('.match')?.textContent.trim() || "--% match",
           workFormat: card.querySelector('.format')?.textContent.trim() || '',
           requiredSkills: Array.from(card.querySelectorAll('.required-skills-item div'))
             .map(el => el.textContent.trim())
@@ -96,7 +97,7 @@ if (tracker) {
         REJECTED: 'denied',
       };
 
-      // --- Рендеримо картки з сервера
+      // --- Рендеримо картки з сервера ---
       applications.forEach(job => {
         const mappedStatus = statusMap[job.status];
         if (Array.isArray(job.requiredSkills)) { // прибираємо дублікати навичок
@@ -107,31 +108,44 @@ if (tracker) {
         col.insertAdjacentHTML('beforeend', renderJob(job));
       });
 
+      // --- Оновлення match для всіх карток ---
       const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+      
       if (resumeId) {
         for (const slide of document.querySelectorAll('.swiper-slide')) {
+          const slideId = slide.dataset.slideId;
+          const matchEl = slide.querySelector('.match');
+
+          if (!slideId || !matchEl) {
+            if (matchEl) matchEl.textContent = "--% match";
+            continue;
+          }
+
           try {
-            const resMatch = await fetch(`http://localhost:8080/api/ai-resume-analysis/${resumeId}`, {
+            const resMatch = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
               headers: { "Authorization": `Bearer ${token}` }
             });
-            const matchEl = slide.querySelector('.match');
+
             if (!resMatch.ok) {
               if (matchEl) matchEl.textContent = "--% match";
               continue;
             }
+
             const data = await resMatch.json();
-            if (matchEl) matchEl.textContent = `${data.match ?? "--"}% match`;
+            const matchObj = data[0]; // перший елемент
+            matchEl.textContent = `${matchObj?.matchScore != null ? Math.round(matchObj.matchScore) : "--"}% match`;
+
           } catch (err) {
-            const matchEl = slide.querySelector('.match');
-            if (matchEl) matchEl.textContent = "--% match";
+            matchEl.textContent = "--% match";
             console.warn("Не вдалося отримати match:", err);
           }
         };
       } else { // Якщо resumeId немає, встановлюємо "--% match"
         document.querySelectorAll('.swiper-slide').forEach(slide => {
           const matchEl = slide.querySelector('.match');
-          if (matchEl) matchEl.textContent = "--% match";
+          matchEl.textContent = "--% match";
         });
+        console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
       }
 
       // --- Синхронізуємо локально trackerSlides
@@ -150,7 +164,7 @@ if (tracker) {
         col.insertAdjacentHTML('beforeend', renderJob(job));
         const lastSlide = col.lastElementChild;
         const matchEl = lastSlide?.querySelector('.match');
-        if (matchEl) matchEl.textContent = job.match ?? "--% match";
+        matchEl.textContent = job.matchScore ?? "--% match";
       }
     }
 

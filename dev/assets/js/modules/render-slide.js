@@ -12,8 +12,8 @@ export function renderSlide(jobData) {
   
   const descriptionHTML = jobData.description?.trim() || '&nbsp;';
 
-  // Якщо match є в jobData, використовуємо його, інакше --
-  const matchValue = jobData.match ?? '--';
+  // Використовуємо matchScore з jobData, якщо він існує; інакше ставимо '--'
+  const matchValue = jobData.matchScore != null ? Math.round(jobData.matchScore) : '--';
  
   slide.innerHTML = `
     <div class="job-title">

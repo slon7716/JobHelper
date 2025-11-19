@@ -20,7 +20,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
     });
   }
 
-   // Делегування подій на картки
+  // Делегування подій на картки
   document.addEventListener('click', async (e) => {
     const card = e.target.closest('.swiper-slide');
     if (!card) return;
@@ -32,11 +32,11 @@ export function initCardControls(updateCountsCallback, checkServer) {
         return;
       }
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
-      const id = card.dataset.slideId;
+      const appId = slide.dataset.appId;
 
       try {
         const token = localStorage.getItem("jwtToken");
-        const res = await fetch(`http://localhost:8080/api/applications/${id}`, {
+        const res = await fetch(`http://localhost:8080/api/applications/${appId}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`
@@ -46,7 +46,6 @@ export function initCardControls(updateCountsCallback, checkServer) {
         if (res.status === 204) {
           card.remove();
           updateCountsCallback();
-          console.log(`✅ Card ${id} successfully deleted.`);
           alert(`Картку успішно видалено.`);
           return;
         }
@@ -113,21 +112,20 @@ export function initCardControls(updateCountsCallback, checkServer) {
           cardToMove = null;
           return;
         }
-        const id = card.dataset.slideId;
-        // --- Мапінг статусу для сервера
+        const appId = slide.dataset.appId;
+        // Мапінг статусу для сервера
         const statusMapToServer = {
           'saved': 'PENDING',
           'in-progress': 'IN_REVIEW',
           'interview': 'INTERVIEW',
           'offer': 'OFFER',
           'denied': 'REJECTED',
-          'hired': 'HIRED'
         };
         const serverStatus = statusMapToServer[newStatus];
 
         try {
           const token = localStorage.getItem("jwtToken");
-          const res = await fetch(`http://localhost:8080/api/applications/${id}`, {
+          const res = await fetch(`http://localhost:8080/api/applications/${appId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
