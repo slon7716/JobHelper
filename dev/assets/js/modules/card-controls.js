@@ -32,7 +32,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
         return;
       }
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
-      const appId = slide.dataset.appId;
+      const appId = card.dataset.appId;
 
       try {
         const token = localStorage.getItem("jwtToken");
@@ -112,7 +112,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
           cardToMove = null;
           return;
         }
-        const appId = slide.dataset.appId;
+        const appId = card.dataset.appId;
         // Мапінг статусу для сервера
         const statusMapToServer = {
           'saved': 'PENDING',
