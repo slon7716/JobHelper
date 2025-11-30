@@ -90,6 +90,7 @@ h2 {
 
 h3 {
   font-size: 40px;
+  font-weight: 700;
 }
 
 h4 {
@@ -353,6 +354,7 @@ header .container .pages .page:hover .text {
   height: 70px;
 }
 .lending .career .table .part h3 {
+  font-weight: 600;
   margin-bottom: 16px;
 }
 .lending .how-works {
@@ -883,7 +885,11 @@ header .container .pages .page:hover .text {
 }
 .main-page .greeting .title {
   display: flex;
+  align-items: center;
   margin-bottom: 16px;
+}
+.main-page .greeting .title h3 {
+  font-weight: 700;
 }
 .main-page .greeting .title img {
   width: 60px;
@@ -903,10 +909,9 @@ header .container .pages .page:hover .text {
   padding: 40px 0;
 }
 .main-page .activities .item .number {
-  font-size: 48px;
   font-weight: 700;
-  line-height: 1.22;
   color: #114599;
+  margin-bottom: 8px;
 }
 .main-page .activities .item .activity {
   color: #58606E;
@@ -1799,15 +1804,15 @@ header .container .pages .page:hover .text {
 .tracker .status-board .status-column .status-header.red {
   background-color: #FFE6E6;
 }
-.tracker .status-board .status-column .status-header .status-title {
-  font-weight: 600;
+.tracker .status-board .status-column .status-header .small-text {
+  font-weight: 700;
   color: #333840;
 }
 .tracker .status-board .status-column .status-header .status-count {
   width: 31px;
   height: 40px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   background-color: #ACCBFC;
   border-radius: 10px;
@@ -2055,6 +2060,8 @@ header .container .pages .page:hover .text {
   gap: 12px;
 }
 .profile .wish-to-vacancy .job-details .job-details-choices .job-details-choice {
+  min-width: 100px;
+  min-height: 60px;
   display: inline-block;
   font-size: 18px;
   line-height: 1.56;

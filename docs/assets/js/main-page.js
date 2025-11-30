@@ -1,20 +1,56 @@
 import { modalAddVacation } from './modules/modal-add-vacation.js';
 import { modalEditVacation } from './modules/modal-edit-vacation.js';
 import { renderSlide } from './modules/render-slide.js';
+import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.esm.js';
+
 const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
   const swiperWrapper = document.querySelector('.swiper-wrapper');
   let isServerAvailable = false;
 
+  // Відображення кількості у activities
+  const activities = document.querySelector('.activities');
+  if (activities) {
+    const savedEl = activities.querySelector('#savedCount');
+    const inProgressEl = activities.querySelector('#inProgressCount');
+    const profileCompletionEl = activities.querySelector('#profileCompletion');
+
+    savedEl.textContent = localStorage.getItem('savedCount') || 0;
+    inProgressEl.textContent = localStorage.getItem('inProgressCount') || 0;
+    const profileData = JSON.parse(localStorage.getItem("profileData"));
+    if (profileData) {
+      profileCompletionEl.textContent = getProfileCompletion(profileData) + "%";
+    }
+
+    // Функція підрахунку процента заповнення профілю
+    function getProfileCompletion(profileData) {
+      const fields = [
+        profileData.basicData.sername,
+        profileData.basicData.profession,
+        profileData.basicData.location,
+        profileData.basicData.foto,
+        profileData.basicData.resumeId,
+        profileData.wishToVacancy.title,
+        profileData.wishToVacancy.location,
+        profileData.wishToVacancy.workFormat?.length ? profileData.wishToVacancy.workFormat[0] : "",
+        profileData.wishToVacancy.employmentType?.length ? profileData.wishToVacancy.employmentType[0] : "",
+        profileData.wishToVacancy.experience?.length ? profileData.wishToVacancy.experience[0] : ""
+      ];
+      const filled = fields.filter(v => v !== null && v !== "" && v !== undefined).length;
+      return Math.round((filled / fields.length) * 100);
+    }    
+  };
+
   // --- Функція для збору даних з картки ---
   function getJobDataFromSlide(slide) {
     return {
-      slideId: slide.dataset.slideId,
+      jobId: Number(slide.dataset.slideId),
       title: slide.querySelector('.position')?.textContent.trim() || '',
       company: slide.querySelector('.company')?.textContent.trim() || '',
       location: slide.querySelector('.location')?.textContent.trim() || '',
       salary: slide.querySelector('.salary')?.textContent.trim() || '',
+      matchScore: slide.querySelector('.match')?.textContent.trim() || '--% match',
       workFormat: slide.querySelector('.format')?.textContent.trim() || '',
       requiredSkills: Array.from(slide.querySelectorAll('.required-skills-item div'))
         .map(el => el.textContent.trim())
@@ -46,21 +82,35 @@ if (mainPage) {
       }
 
       const jobs = await res.json();
-      // Якщо jobs не масив, кидаємо помилку (без цього нічого не відобразиться )
+      // Якщо jobs не масив, кидаємо помилку (без цього нічого не відобразиться)
       if (!Array.isArray(jobs)) throw new Error("Сервер недоступний або повернув не масив");
 
       isServerAvailable = true;
 
-      swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером
-      jobs.forEach(job => swiperWrapper.appendChild(renderSlide(job)));
+      // Не рендеримо картки, які є в трекері
+      const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
+      const trackerIds = trackerSlides.map(s => s.jobId);
+      const jobsToRender = jobs.filter(job => !trackerIds.includes(job.id));
 
-      // Зберігаємо локально як кеш
+      swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером
+      jobsToRender.forEach(job => {
+        const slide = renderSlide(job);
+        swiperWrapper.appendChild(slide);
+        const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+        if (resumeId) {
+          updateMatchForSlide(slide, resumeId);
+        } else {
+          console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
+        }
+      });
+
+      // Зберігаємо локально
       saveSlides();
 
     } catch (err) {
       console.error("Використовується кеш з localStorage", err);
       isServerAvailable = false;
-      // fallback: якщо сервер недоступний, показуємо те, що є в localStorage
+      // fallback: якщо сервер недоступний, показуємо з localStorage
       if (savedServerSlides.length) {
         swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером локального кешу
         savedServerSlides.forEach(jobData => swiperWrapper.appendChild(renderSlide(jobData)));
@@ -71,11 +121,46 @@ if (mainPage) {
     if (typeof cardsSwiper !== 'undefined') {
       cardsSwiper.update();
     }
+
+    // Ініціалізація модалки додавання картки-слайду
+    modalAddVacation(cardsSwiper, saveSlides, () => isServerAvailable);
   }
   loadSlidesFromServer();
 
-  // --- Ініціалізація модалок ---
-  modalAddVacation(cardsSwiper, saveSlides, isServerAvailable);
+  // --- Оновлення match для всіх карток ---
+  async function updateMatchForSlide(slide, resumeId) {
+    const matchEl = slide.querySelector('.match');
+
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const jobId = Number(slide.dataset.slideId);
+      if (!jobId) {
+        console.warn("Не вказано slideId для слайда");
+        return;
+      }
+
+      const res = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${jobId}`, {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+
+      if (!res.ok) {
+        console.warn(`Помилка при отриманні match для slideId=${jobId}: ${res.status}`);
+        matchEl.textContent = "--% match";
+        return;
+      }
+
+      const data = await res.json();
+      const matchObj = data[0]; // беремо перший елемент масиву
+      const score = matchObj?.matchScore != null ? Math.round(matchObj.matchScore) : "--";
+      matchEl.textContent = `${score}% match`;
+
+    } catch (err) {
+      console.warn("Не вдалося отримати match:", err);
+      matchEl.textContent = "--% match";
+    }
+  }
+
+  // --- Ініціалізація модалки редагування ---
   const { openEditModal } = modalEditVacation(cardsSwiper, saveSlides);
 
   // --- Слухач для кнопок "Змінити" (на картках) ---
@@ -89,13 +174,11 @@ if (mainPage) {
     }
 
     const slide = btn.closest('.swiper-slide');
-    if (!slide) return;
-
     // Передаємо слайд у модалку
     openEditModal(slide);
   });
 
-  // --- Слухач для кнопок "В трекер" (на картках) ---
+  // --- Слухач для кнопок "В трекер" ---
   swiperWrapper.addEventListener('click', async (e) => {
     const target = e.target.closest('.move-to-tracker');
     if (!target) return;
@@ -107,46 +190,55 @@ if (mainPage) {
     }
 
     const slide = target.closest('.swiper-slide');
-    if (!slide) return;
     // Збираємо дані картки
     const jobData = getJobDataFromSlide(slide);
 
     try {
       const token = localStorage.getItem("jwtToken");
-      const res = await fetch("http://localhost:8080/api/jobs", {
+      const decoded = jwt_decode(token);
+      const userId = decoded.userId;
+      
+      // --- Додаємо (фактично створюємо) картку у трекер ---
+      const res = await fetch("http://localhost:8080/api/applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(jobData)
+        body: JSON.stringify({ userId, jobId: Number(slide.dataset.slideId) })
       });
 
       if (!res.ok) {
-        const err = await res.text();
-        alert("Помилка при збереженні: " + err);
+        console.warn(`Помилка при збереженні у трекер: ${await res.text()}`);
         return;
       }
 
-      // Зберігаємо у localStorage (trackerSlides) для трекера
+      // У разі успішної відповіді сервера зберігаємо у localStorage (trackerSlides) для трекера
       const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
       trackerSlides.push({
         ...jobData,
-        status: 'saved',       // бо всі нові картки потрапляють у колонку "saved"
+        status: 'saved', // картки потрапляють у колонку "saved"
         order: trackerSlides.length
       });
       localStorage.setItem('trackerSlides', JSON.stringify(trackerSlides));
 
-      // Видаляємо картку зі слайдера та оновлюємо Swiper
-      slide.remove();
-      saveSlides();
-      if (typeof cardsSwiper !== 'undefined') {
+      // Видаляємо локально картку зі слайдера та оновлюємо Swiper
+      const index = Array.from(swiperWrapper.children).indexOf(slide);
+      if (index > -1) {
+        cardsSwiper.removeSlide(index);
         cardsSwiper.update();
       }
 
+      // Видаляємо з jobSlides у localStorage
+      let slides = JSON.parse(localStorage.getItem("jobSlides") || "[]");
+      slides = slides.filter(s => s.jobId != Number(slide.dataset.slideId));
+      localStorage.setItem("jobSlides", JSON.stringify(slides));
+
       alert("Картку збережено у трекер та надіслано на сервер!");
+
     } catch (err) {
-      alert("Помилка мережі: " + err);
+      console.warn(err);
+      alert("Сервер недоступний. Спробуйте пізніше.");
     }
   });
 }

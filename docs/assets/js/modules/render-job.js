@@ -1,7 +1,10 @@
 export function renderJob(job) {
+  // Використовуємо matchScore з job, якщо він існує; інакше ставимо '--'
+  const matchValue = job.matchScore != null ? Math.round(job.matchScore) : '--';
+
   // --- Генеруємо повний HTML картки ---
   const html = `
-  <div class="swiper-slide" data-slide-id="${job.slideId}">
+  <div class="swiper-slide" data-slide-id="${job.jobId}" data-app-id="${job.id}">
     <div class="job-title">
       <div class="position-and-control">
         <div class="position">${job.title}</div>
@@ -31,7 +34,7 @@ export function renderJob(job) {
           <div class="item salary">${job.salary}</div>
         </div>
       </div>
-      <div class="match">85% match</div>
+      <div class="match">${matchValue}% match</div>
     </div>
 
     <div class="characteristic-name work-format">

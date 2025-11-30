@@ -1,5 +1,3 @@
-import { renderSlide } from './render-slide.js';
-
 export function modalEditVacation(cardsSwiper, saveSlides) {
    const editModalCard = document.getElementById('editModal');
    const closeModalEdit = document.getElementById('closeModalEdit');
@@ -80,7 +78,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
             method: "PUT",
             headers: {
-               "Content-Type": "application/json",
+               "Content-Type": "application/json; charset=UTF-8",
+               "Accept": "application/json; charset=UTF-8",
                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(updatedData)
@@ -92,13 +91,58 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          }
 
          // --- Оновлюємо DOM тільки після успішного PUT ---
-         const newSlide = renderSlide({ ...updatedData, slideId });
-         swiperWrapper.replaceChild(newSlide, currentSlide);
-         saveSlides();
-         if (cardsSwiper) {
-            cardsSwiper.update();
-            cardsSwiper.slideTo(0);
+         const setText = (selector, value) => {
+            const el = currentSlide.querySelector(`.${selector}`);
+            if (el) el.textContent = value || '';
+         };
+         setText('position', updatedData.title);
+         setText('company', updatedData.company);
+         setText('location', updatedData.location);
+         setText('salary', updatedData.salary);
+         setText('format', updatedData.workFormat);
+         setText('description', updatedData.description);
+      
+         // --- Навички ---
+         const skillsContainer = currentSlide.querySelector('.required-skills');
+         if (skillsContainer) {
+            skillsContainer.innerHTML = '';
+            updatedData.requiredSkills.forEach(skill => {
+              const item = document.createElement('div');
+              item.className = 'required-skills-item';
+              item.innerHTML = `<div><span>${skill}</span></div>`;
+              skillsContainer.appendChild(item);
+            });
          }
+
+         if (typeof saveSlides === 'function') saveSlides();
+         if (cardsSwiper) cardsSwiper.update();
+
+         // --- Оновлюємо match ---
+         const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+         const matchEl = currentSlide.querySelector('.match');
+
+         if (resumeId) {
+            try {
+               const matchRes = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
+                  headers: { "Authorization": `Bearer ${token}` }
+               });
+          
+               if (matchRes.ok) {
+                  const matchData = await matchRes.json();
+                  const matchValue = matchData.matchScore != null ? Math.round(matchData.matchScore) : "--";
+                  matchEl.textContent = `${matchValue}% match`;
+               } else {
+                  matchEl.textContent = "--% match";
+                  console.warn(`Помилка при отриманні match для slideId=${slideId}`);
+               }
+            } catch (err) {
+               console.warn("Не вдалося отримати match:", err);
+               matchEl.textContent = "--% match";
+            }
+         } else {
+            console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
+         }
+         
 
          editModalCard.style.display = 'none';
          alert("Картку успішно оновлено!");

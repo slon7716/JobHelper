@@ -58,41 +58,68 @@ toggleButtons.forEach((toggleBtn, index) => {
 
   // ---------------------------
   // MOCK fetch для локального тестування
-  // Видали або закоментуй цей блок, коли підключиш реальний сервер.
+  // Видалити при підключенні реального сервера
   // ---------------------------
-const mockScenario = 200; // 200 | 204 | 400 | 500 — тут перемикаєш
-window.fetch = async function (url, options) {
-    console.log("Mock fetch called:", url, options);
+// const mockScenario = 200; // 200 | 204 | 400 | 500 — тут перемикаєш
+// window.fetch = async function (url, options) {
+//   console.log("Mock fetch called:", url, options);
   
-    if (options.method === "DELETE") {
-      if (mockScenario === 200 || mockScenario === 204) {
-        return {
-          ok: true,
-          status: 204,
-          text: async () => 'Видалення підтверджено ✅'
-        };
-      }
-      if (mockScenario === 400) {
-        return { ok: false, status: 400, text: async () => 'Неправильний запит ❌' };
-      }
-      if (mockScenario === 500) {
-        return { ok: false, status: 500, text: async () => 'Помилка сервера 💥' };
-      }
-    }
+//   if (options.method === "DELETE") {
+//       if (mockScenario === 200 || mockScenario === 204) {
+//         return {
+//           ok: true,
+//           status: 204,
+//           text: async () => 'Видалення підтверджено ✅'
+//         };
+//       }
+//       if (mockScenario === 400) {
+//         return { ok: false, status: 400, text: async () => 'Неправильний запит ❌' };
+//       }
+//       if (mockScenario === 500) {
+//         return { ok: false, status: 500, text: async () => 'Помилка сервера 💥' };
+//       }
+//   }
   
-    if (options.method === "PUT") {
-      if (mockScenario === 200) {
-        return { ok: true, status: 200, json: async () => ({ message: "Картка оновлена ✅" }) };
-      }
-      if (mockScenario === 400) {
-        return { ok: false, status: 400, json: async () => ({ message: "Помилка в даних ❌" }) };
-      }
-      if (mockScenario === 500) {
-        return { ok: false, status: 500, json: async () => ({ message: "Помилка сервера 💥" }) };
-      }
-    }
+//   if (options.method === "PUT") {
+//       if (mockScenario === 200) {
+//         return { ok: true, status: 200, json: async () => ({ message: "Картка оновлена ✅" }) };
+//       }
+//       if (mockScenario === 400) {
+//         return { ok: false, status: 400, json: async () => ({ message: "Помилка в даних ❌" }) };
+//       }
+//       if (mockScenario === 500) {
+//         return { ok: false, status: 500, json: async () => ({ message: "Помилка сервера 💥" }) };
+//       }
+//   }
   
-    // Для інших запитів — 200
-    return { ok: true, status: 200, json: async () => ({ message: "OK" }) };
-};
-  // ---------------------------
+//   if (options.method === "POST" && url.includes("/api/resumes/upload")) {
+//       if (mockScenario === 200) {
+//         return {
+//           ok: true,
+//           status: 200,
+//           json: async () => ({
+//             message: "Resume uploaded successfully",
+//             fileUrl: "https://example.com/mock_resume.pdf",
+//             resumeId: 999
+//           })
+//         };
+//       }
+//       if (mockScenario === 400) {
+//         return {
+//           ok: false,
+//           status: 400,
+//           text: async () => "❌ Невірний формат файлу"
+//         };
+//       }
+//       if (mockScenario === 500) {
+//         return {
+//           ok: false,
+//           status: 500,
+//           text: async () => "💥 Помилка сервера"
+//         };
+//       }
+//   }
+  
+//     // Для інших запитів — 200
+//     return { ok: true, status: 200, json: async () => ({ message: "OK" }) };
+// };

@@ -11,6 +11,9 @@ export function renderSlide(jobData) {
   `).join('') || '&nbsp;';
   
   const descriptionHTML = jobData.description?.trim() || '&nbsp;';
+
+  // Використовуємо matchScore з jobData, якщо він існує; інакше ставимо '--'
+  const matchValue = jobData.matchScore != null ? Math.round(jobData.matchScore) : '--';
  
   slide.innerHTML = `
     <div class="job-title">
@@ -29,7 +32,7 @@ export function renderSlide(jobData) {
           <div class="item salary">${jobData.salary}</div>
         </div>
       </div>
-      <div class="match">00% match</div>
+      <div class="match">${matchValue}% match</div>
     </div>
     <div class="characteristic-name work-format">
       <div class="title">Формат роботи:</div>
