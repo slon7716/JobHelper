@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 const profilePage = document.querySelector('.profile')
 
 if (profilePage) {
@@ -24,10 +25,10 @@ if (profilePage) {
       language: "Українська"
     }
   };
-  
+
   // Підставляємо email із localStorage
   if (localStorage.getItem("userEmail")) profileData.accountSettings.email = localStorage.getItem("userEmail");
-  
+
   // ====================== Функція рендеру профілю ======================
   function renderProfile() {
     // --- basic-client-data ---
@@ -35,13 +36,13 @@ if (profilePage) {
     if (basic) {
       const sernameEl = basic.querySelector(".sername");
       if (profileData.basicData.sername) sernameEl.textContent = profileData.basicData.sername;
-      
+
       const professionEl = basic.querySelector(".profession");
       if (profileData.basicData.profession) professionEl.textContent = profileData.basicData.profession;
-      
+
       const locationEl = basic.querySelector(".location");
       if (profileData.basicData.location) locationEl.textContent = profileData.basicData.location;
-      
+
       const img = basic.querySelector(".foto img");
       img.src = profileData.basicData.foto || 'assets/img/person-100-grey.svg';
 
@@ -77,7 +78,7 @@ if (profilePage) {
         });
       });
     }
-  
+
     // --- account-settings ---
     const account = document.querySelector(".account-settings-list");
     if (account) {
@@ -88,29 +89,29 @@ if (profilePage) {
   }
   // Викликаємо рендер на старті
   renderProfile();
-  
+
   // ====================== Редагування секцій ======================
   document.querySelectorAll(".section").forEach(section => {
     const editBtn = section.querySelector(".edit-btn");
     const form = section.querySelector(".edit-form");
     let displayBlock;
-  
+
     if (section.classList.contains("basic-client-data")) displayBlock = section.querySelector(".personal-data");
     else if (section.classList.contains("wish-to-vacancy")) displayBlock = section.querySelector(".job-details");
     else if (section.classList.contains("account-settings")) displayBlock = section.querySelector(".account-settings-list");
-  
+
     if (!form || !displayBlock) return;
-  
+
     // ховаємо форму на старті
     form.classList.remove("active");
     displayBlock.style.display = "flex";
-  
+
     const resumeBlock = section.querySelector(".resume");
-  
+
     if (editBtn) {
       editBtn.addEventListener("click", () => {
         const isActive = section.classList.contains("active");
-  
+
         if (isActive) {
           // Вихід з редагування
           form.classList.remove("active");
@@ -123,7 +124,7 @@ if (profilePage) {
           displayBlock.style.display = "none";
           section.classList.add("editing", "active");
           if (resumeBlock) resumeBlock.style.display = "none";
-  
+
           // Заповнюємо форму даними
           if (section.classList.contains("basic-client-data")) {
             form.sername.value = profileData.basicData.sername;
@@ -147,7 +148,7 @@ if (profilePage) {
         }
       });
     }
-  
+
     const cancelBtn = section.querySelector(".cancel-btn");
     if (cancelBtn) {
       cancelBtn.addEventListener("click", () => {
@@ -157,10 +158,10 @@ if (profilePage) {
         if (resumeBlock) resumeBlock.style.display = "flex";
       });
     }
-  
+
     form.addEventListener("submit", e => {
       e.preventDefault();
-  
+
       if (section.classList.contains("basic-client-data")) {
         profileData.basicData.sername = form.sername.value;
         profileData.basicData.profession = form.profession.value;
@@ -182,7 +183,7 @@ if (profilePage) {
       displayBlock.style.display = "flex";
       section.classList.remove("editing");
       renderProfile();
-  
+
       // Відновлюємо видимість назви резюме після змін
       if (section.classList.contains("basic-client-data") && resumeBlock) {
         resumeBlock.style.display = "flex";
@@ -194,30 +195,30 @@ if (profilePage) {
   async function loadATSEvaluation(resumeId) {
     const atsElement = document.getElementById('evaluateResume');
     if (!atsElement) return;
-  
+
     try {
       const token = localStorage.getItem("jwtToken");
-      const response = await fetch(`http://localhost:8080/api/ats-evaluation/resume/${resumeId}`, {
+      const response = await fetch(`${API_URL}/api/ats-evaluation/resume/${resumeId}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       })
-      
+
       if (!response.ok) throw new Error(`Помилка ${response.status}`);
-  
+
       const data = await response.json();
       const atsScore = typeof data === 'number' ? data : data.score;
-  
+
       const scoreValue = (atsScore != null && !isNaN(atsScore)) ? atsScore : "---";
       atsElement.textContent = `${scoreValue}%`;
-  
+
     } catch (err) {
       console.error('Помилка при завантаженні ATS-оцінки:', err);
       atsElement.textContent = '---';
     }
-  }  
-  
+  }
+
   // ====================== ЗАВАНТАЖЕННЯ РЕЗЮМЕ ======================
   const resumeInput = document.getElementById("resumeFile");
   const resumeStatus = document.getElementById("resumeStatus");
@@ -229,36 +230,36 @@ if (profilePage) {
 
   resumeInput.addEventListener("change", async function () {
     if (resumeInput.files.length === 0) return;
-  
+
     const file = resumeInput.files[0];
     const allowedTypes = [ // Перевірка MIME-типу
       "application/pdf",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ];
-  
+
     // Перевірка розширення на випадок, якщо браузер не визначив MIME
     const allowedExtensions = ["pdf", "docx"];
     const fileExt = file.name.split(".").pop().toLowerCase();
-  
+
     if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExt)) {
       resumeStatus.textContent = "❌ Будь ласка, завантажте файл у форматі PDF або DOCX";
       resumeStatus.style.color = "#DE1B1B";
       return;
     }
-  
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("userId", 1); // Замінити на реальний ID користувача
-  
+
     try {
       const token = localStorage.getItem("jwtToken");
-  
-      const response = await fetch("http://localhost:8080/api/resumes/upload", {
+
+      const response = await fetch(`${API_URL}/api/resumes/upload`, {
         method: "POST",
         headers: { "Authorization": `Bearer ${token}` },
         body: formData
       });
-  
+
       // Тут обробляємо помилки HTTP
       if (!response.ok) {
         const errorText = await response.text();
@@ -267,7 +268,7 @@ if (profilePage) {
         resumeStatus.style.color = "#DE1B1B";
         return;
       }
-    
+
       // Очікуємо JSON від сервера із посиланням на файл
       const result = await response.json();
 
@@ -277,7 +278,7 @@ if (profilePage) {
         resumeStatus.style.color = "#DE1B1B";
         return;
       }
-  
+
       // Оновлюємо profileData
       profileData.basicData.resumeName = file.name;
       profileData.basicData.resumeUrl = result.fileUrl;
@@ -285,7 +286,7 @@ if (profilePage) {
 
       // Зберігаємо в localStorage метадані
       localStorage.setItem("profileData", JSON.stringify(profileData));
-  
+
       // Відображаємо повідомлення
       resumeStatus.textContent = "✅ Резюме успішно завантажено!";
       resumeStatus.style.color = "green";
@@ -314,7 +315,7 @@ if (profilePage) {
     const token = localStorage.getItem("jwtToken");
     uploadedResume.addEventListener("click", async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/resumes/${resumeId}/file`, {
+        const response = await fetch(`${API_URL}/api/resumes/${resumeId}/file`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
 
@@ -338,7 +339,7 @@ if (profilePage) {
   const modalLogout = document.getElementById('logoutModal');
   const confirmLogout = document.getElementById('confirmLogout');
   const cancelLogout = document.getElementById('cancelLogout');
-  
+
   if (logoutBtn && modalLogout) { // показати модалку
     logoutBtn.addEventListener('click', () => {
       modalLogout.style.display = 'flex';

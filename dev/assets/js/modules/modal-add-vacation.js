@@ -1,4 +1,5 @@
 import { renderSlide } from './render-slide.js';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
   const openModal = document.getElementById('openModal');
@@ -86,7 +87,7 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
     try {
       const token = localStorage.getItem("jwtToken");
       // Відправляємо на сервер нову картку
-      const res = await fetch("http://localhost:8080/api/jobs", {
+      const res = await fetch(`${API_URL}/api/jobs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -126,10 +127,10 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
 
       // Запит на отримання match-показника від сервера
       try {
-        const matchRes = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
+        const matchRes = await fetch(`${API_URL}/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
           headers: { "Authorization": `Bearer ${token}` }
         });
-      
+
         if (matchRes.ok) {
           const matchData = await matchRes.json();
           const matchValue = matchData.matchScore != null ? Math.round(matchData.matchScore) : "--";

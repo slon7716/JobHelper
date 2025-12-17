@@ -2,6 +2,7 @@ import { renderJob } from './modules/render-job.js';
 import { initCardControls } from './modules/card-controls.js';
 import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.esm.js';
 
+const API_URL = import.meta.env.VITE_API_URL;
 const tracker = document.querySelector(".tracker");
 
 if (tracker) {
@@ -73,7 +74,7 @@ if (tracker) {
       const token = localStorage.getItem("jwtToken");
       const decoded = jwt_decode(token);
       const userId = decoded.userId; // отримуємо userID з токена
-      const res = await fetch(`http://localhost:8080/api/applications/user/${userId}`, {
+      const res = await fetch(`${API_URL}/api/applications/user/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
@@ -110,7 +111,7 @@ if (tracker) {
 
       // --- Оновлення match для всіх карток ---
       const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
-      
+
       if (resumeId) {
         for (const slide of document.querySelectorAll('.swiper-slide')) {
           const slideId = slide.dataset.slideId;
@@ -122,7 +123,7 @@ if (tracker) {
           }
 
           try {
-            const resMatch = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
+            const resMatch = await fetch(`${API_URL}/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
               headers: { "Authorization": `Bearer ${token}` }
             });
 

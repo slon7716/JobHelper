@@ -1,3 +1,4 @@
+const API_URL = import.meta.env.VITE_API_URL;
 const forgotPassworModal = document.getElementById('forgotPasswordModal');
 
 if (forgotPassworModal) {
@@ -7,7 +8,7 @@ if (forgotPassworModal) {
     newPassword: forgotPassworModal.querySelector('.step-new-password'),
     success: forgotPassworModal.querySelector('.step-success-message')
   };
-  
+
   // --- Відкриття/Закриття модалки ---
   const openBtn = document.querySelector('.forgot-password');
   const closeBtns = document.querySelectorAll('.modal-close');
@@ -18,7 +19,7 @@ if (forgotPassworModal) {
   });
   closeBtns.forEach(btn => btn.addEventListener('click', () => forgotPassworModal.style.display = 'none'));
   window.addEventListener('click', e => { if (e.target === forgotPassworModal) forgotPassworModal.style.display = 'none'; });
-  
+
   // --- Перемикання кроків модалки ---
   function showStep(stepName) {
     Object.values(steps).forEach(s => s.classList.remove('active'));
@@ -49,12 +50,12 @@ if (forgotPassworModal) {
   emailForm.addEventListener('submit', async e => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/auth/forgot-password", {
+      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailInput.value })
       });
-  
+
       if (response.ok) {
         showStep('code');
         const codeText = steps.code.querySelector('.modal-header p');
@@ -81,7 +82,7 @@ if (forgotPassworModal) {
     setTimeout(() => resendLink.classList.remove('resend-animate'), 900);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/forgot-password", {
+      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailInput.value })
@@ -100,24 +101,24 @@ if (forgotPassworModal) {
       alert("⚠️ Сервер недоступний. Спробуйте пізніше.");
     }
   });
-  
+
   // ==========================
   // --- Код підтвердження ---
   // ==========================
   const codeForm = steps.code.querySelector('.modal-form');
   const confirmationInput = steps.code.querySelector('#confirmationCode');
-  
+
   codeForm.addEventListener('submit', async e => {
     e.preventDefault();
-    
+
     try {
       const code = confirmationInput.value.trim();
-      const response = await fetch("http://localhost:8080/api/auth/verify-code", {
+      const response = await fetch(`${API_URL}/api/auth/verify-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: code })
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         showStep('newPassword');
@@ -133,7 +134,7 @@ if (forgotPassworModal) {
       alert("⚠️ Сервер недоступний.");
     }
   });
-  
+
   // ==========================
   // --- Новий пароль ---
   // ==========================
@@ -182,7 +183,7 @@ if (forgotPassworModal) {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/reset-password", {
+      const response = await fetch(`${API_URL}/api/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, newPassword })
@@ -195,7 +196,7 @@ if (forgotPassworModal) {
         console.log("Response from backend:", data);
         alert("❌ Не вдалося змінити пароль. Можливо, код неправильний або застарів.");
       }
-      
+
     } catch (err) {
       console.error("Помилка при зміні пароля:", err);
       alert("⚠️ Сервер недоступний.");

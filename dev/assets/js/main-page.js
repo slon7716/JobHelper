@@ -3,6 +3,7 @@ import { modalEditVacation } from './modules/modal-edit-vacation.js';
 import { renderSlide } from './modules/render-slide.js';
 import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.esm.js';
 
+const API_URL = import.meta.env.VITE_API_URL;
 const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
@@ -39,7 +40,7 @@ if (mainPage) {
       ];
       const filled = fields.filter(v => v !== null && v !== "" && v !== undefined).length;
       return Math.round((filled / fields.length) * 100);
-    }    
+    }
   };
 
   // --- Функція для збору даних з картки ---
@@ -73,7 +74,7 @@ if (mainPage) {
 
     try {
       const token = localStorage.getItem("jwtToken");
-      const res = await fetch("http://localhost:8080/api/jobs", {
+      const res = await fetch(`${API_URL}/api/jobs`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -139,7 +140,7 @@ if (mainPage) {
         return;
       }
 
-      const res = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${jobId}`, {
+      const res = await fetch(`${API_URL}/api/job-matches/resume/${resumeId}?jobId=${jobId}`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -197,9 +198,9 @@ if (mainPage) {
       const token = localStorage.getItem("jwtToken");
       const decoded = jwt_decode(token);
       const userId = decoded.userId;
-      
-      // --- Додаємо (фактично створюємо) картку у трекер ---
-      const res = await fetch("http://localhost:8080/api/applications", {
+
+      // --- Переносимо (фактично створюємо) картку у трекер ---
+      const res = await fetch(`${API_URL}/api/applications`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
