@@ -1,4 +1,6 @@
-              // Привласнюємо клас 'active' поточній сторінці
+API_URL = 'https://jobhelper-backend-24qu.onrender.com';
+
+// Привласнюємо клас 'active' поточній сторінці
 let currentPage = window.location.pathname.split("/").pop(); // Отримуємо поточний URL
 // Знаходимо всі посилання у навігації
 const navLinks = document.querySelectorAll('.pages a');

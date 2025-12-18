@@ -4,7 +4,6 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
    const jobForm = document.getElementById('jobFormEdit');
    const formatInput = jobForm.querySelector('#format');
    const formatButtons = jobForm.querySelectorAll('.format-buttons button');
-   const swiperWrapper = document.querySelector('.swiper-wrapper');
    const saveChangesBtn = document.getElementById('saveChangesBtn');
    const deleteJobBtn = document.getElementById('deleteJobBtn');
    let currentSlide = null; // зберігаємо поточний слайд
@@ -75,7 +74,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
       try {
          const token = localStorage.getItem("jwtToken");
-         const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
+         const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
             method: "PUT",
             headers: {
                "Content-Type": "application/json; charset=UTF-8",
@@ -101,16 +100,16 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          setText('salary', updatedData.salary);
          setText('format', updatedData.workFormat);
          setText('description', updatedData.description);
-      
+
          // --- Навички ---
          const skillsContainer = currentSlide.querySelector('.required-skills');
          if (skillsContainer) {
             skillsContainer.innerHTML = '';
             updatedData.requiredSkills.forEach(skill => {
-              const item = document.createElement('div');
-              item.className = 'required-skills-item';
-              item.innerHTML = `<div><span>${skill}</span></div>`;
-              skillsContainer.appendChild(item);
+               const item = document.createElement('div');
+               item.className = 'required-skills-item';
+               item.innerHTML = `<div><span>${skill}</span></div>`;
+               skillsContainer.appendChild(item);
             });
          }
 
@@ -123,10 +122,10 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
          if (resumeId) {
             try {
-               const matchRes = await fetch(`http://localhost:8080/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
+               const matchRes = await fetch(`${API_URL}/api/job-matches/resume/${resumeId}?jobId=${slideId}`, {
                   headers: { "Authorization": `Bearer ${token}` }
                });
-          
+
                if (matchRes.ok) {
                   const matchData = await matchRes.json();
                   const matchValue = matchData.matchScore != null ? Math.round(matchData.matchScore) : "--";
@@ -142,7 +141,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          } else {
             console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
          }
-         
+
 
          editModalCard.style.display = 'none';
          alert("Картку успішно оновлено!");
@@ -158,35 +157,35 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       if (!currentSlide) return;
       const slideId = currentSlide.dataset.slideId;
       if (!confirm("Ви дійсно хочете видалити картку?")) return;
-      
+
       try {
          const token = localStorage.getItem("jwtToken");
-         const response = await fetch(`http://localhost:8080/api/jobs/${slideId}`, {
+         const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${token}` }
          });
-         
+
          if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`Server error ${response.status}: ${errorText}`);
          }
-         
+
          currentSlide.remove();
          saveSlides();
          editModalCard.style.display = 'none';
          alert("Картку успішно видалено!");
-         
+
       } catch (err) {
          console.error("❌ Помилка видалення:", err);
          alert("Помилка мережі: " + err);
       }
    });
-   
+
    // --- Закриття модалки ---
    closeModalEdit.addEventListener('click', () => editModalCard.style.display = 'none');
    window.addEventListener('click', e => {
       if (e.target === editModalCard) editModalCard.style.display = 'none';
    });
-   
+
    return { openEditModal };
 }

@@ -10,11 +10,11 @@ export function initCardControls(updateCountsCallback, checkServer) {
     viewModal.addEventListener('click', e => { if (e.target === viewModal) viewModal.style.display = 'none'; });
   }
 
-   // Закриття модалки переміщення при кліку поза контентом
+  // Закриття модалки переміщення при кліку поза контентом
   if (transferModal) {
-    transferModal.addEventListener('click', e => { 
+    transferModal.addEventListener('click', e => {
       if (e.target === transferModal) {
-        transferModal.style.display = 'none'; 
+        transferModal.style.display = 'none';
         cardToMove = null;
       }
     });
@@ -36,7 +36,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
 
       try {
         const token = localStorage.getItem("jwtToken");
-        const res = await fetch(`http://localhost:8080/api/applications/${appId}`, {
+        const res = await fetch(`${API_URL}/api/applications/${appId}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`
@@ -54,7 +54,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
           const errorText = await res.text();
           throw new Error(`Server error ${res.status}: ${errorText}`);
         }
-      
+
       } catch (err) {
         console.error("❌ Error deleting card:", err);
         alert("Помилка при видаленні картки: " + err.message);
@@ -62,17 +62,17 @@ export function initCardControls(updateCountsCallback, checkServer) {
 
       return;
     }
-    
-     // --- Перегляд картки ---
+
+    // --- Перегляд картки ---
     if (e.target.closest('.btn-expand')) {
       const modalBody = viewModal.querySelector('.modal-card-content');
       modalBody.innerHTML = card.innerHTML;
-        const modalSalaryEl = modalBody.querySelector('.item.salary');
+      const modalSalaryEl = modalBody.querySelector('.item.salary');
       if (modalSalaryEl) {
-        const salaryValue = modalSalaryEl.textContent.replace('₴','').trim();
+        const salaryValue = modalSalaryEl.textContent.replace('₴', '').trim();
         modalSalaryEl.innerHTML = `<span style="font-size:20px; margin-right:2px;">₴</span>${salaryValue}`;
       }
-        viewModal.style.display = 'flex';
+      viewModal.style.display = 'flex';
       return;
     }
 
@@ -125,7 +125,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
 
         try {
           const token = localStorage.getItem("jwtToken");
-          const res = await fetch(`http://localhost:8080/api/applications/${appId}`, {
+          const res = await fetch(`${API_URL}/api/applications/${appId}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -162,4 +162,3 @@ export function initCardControls(updateCountsCallback, checkServer) {
     }
   });
 }
- 

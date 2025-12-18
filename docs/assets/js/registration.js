@@ -55,16 +55,16 @@ if (registrationForm) {
     const clearMismatchError = () => {
       const p = passwordInput.value.trim();
       const rp = repeatPasswordInput.value.trim();
-  
+
       // Якщо наразі показане саме повідомлення про невідповідність — сховати його, коли паролі співпадуть
       if (errorMessage && errorMessage.style.display === 'block' &&
-          p && rp && p === rp) {
+        p && rp && p === rp) {
         hideError();
         passwordInput.classList.remove('error');
         repeatPasswordInput.classList.remove('error');
         checkInputs(); // оновлюємо стан кнопки
       }
-  
+
       // Якщо повторний пароль введено і він НЕ співпадає — підсвічуємо поле
       if (rp && p !== rp) {
         repeatPasswordInput.classList.add('error');
@@ -72,7 +72,7 @@ if (registrationForm) {
         repeatPasswordInput.classList.remove('error');
       }
     };
-  
+
     repeatPasswordInput.addEventListener('input', clearMismatchError);
     passwordInput.addEventListener('input', clearMismatchError);
   }
@@ -110,7 +110,7 @@ if (registrationForm) {
 
     try {
       console.log("Payload:", payload);
-      const response = await fetch('http://localhost:8080/api/auth/register', {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
