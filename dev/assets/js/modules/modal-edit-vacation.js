@@ -1,5 +1,4 @@
 export function modalEditVacation(cardsSwiper, saveSlides) {
-   const API_URL = import.meta.env.VITE_API_URL;
    const editModalCard = document.getElementById('editModal');
    const closeModalEdit = document.getElementById('closeModalEdit');
    const jobForm = document.getElementById('jobFormEdit');

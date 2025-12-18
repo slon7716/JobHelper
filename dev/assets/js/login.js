@@ -1,4 +1,3 @@
-const API_URL = import.meta.env.VITE_API_URL;
 const enterTheSite = document.querySelector('.enter-the-site');
 
 if (enterTheSite) {

@@ -1,4 +1,3 @@
-const API_URL = import.meta.env.VITE_API_URL;
 const profilePage = document.querySelector('.profile')
 
 if (profilePage) {

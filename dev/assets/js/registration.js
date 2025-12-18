@@ -1,4 +1,3 @@
-const API_URL = import.meta.env.VITE_API_URL;
 const registrationForm = document.getElementById('registration-form');
 const modalLogin = document.getElementById('loginModal');
 const startFinding = document.getElementById('startFinding');

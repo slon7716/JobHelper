@@ -2,7 +2,6 @@ import { renderJob } from './modules/render-job.js';
 import { initCardControls } from './modules/card-controls.js';
 import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.esm.js';
 
-const API_URL = import.meta.env.VITE_API_URL;
 const tracker = document.querySelector(".tracker");
 
 if (tracker) {

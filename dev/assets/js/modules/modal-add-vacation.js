@@ -1,5 +1,4 @@
 import { renderSlide } from './render-slide.js';
-const API_URL = import.meta.env.VITE_API_URL;
 
 export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
   const openModal = document.getElementById('openModal');

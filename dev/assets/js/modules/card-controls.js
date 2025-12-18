@@ -1,5 +1,4 @@
 export function initCardControls(updateCountsCallback, checkServer) {
-  const API_URL = import.meta.env.VITE_API_URL;
   const viewModal = document.getElementById('viewModal');
   const transferModal = document.getElementById('transferModal');
   let cardToMove = null;

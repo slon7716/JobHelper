@@ -3,7 +3,6 @@ import { modalEditVacation } from './modules/modal-edit-vacation.js';
 import { renderSlide } from './modules/render-slide.js';
 import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.esm.js';
 
-const API_URL = import.meta.env.VITE_API_URL;
 const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
