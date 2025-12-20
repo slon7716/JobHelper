@@ -1,3 +1,5 @@
+import { API_URL } from './modules/config.js';
+
 const profilePage = document.querySelector('.profile')
 
 if (profilePage) {

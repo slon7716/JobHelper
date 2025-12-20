@@ -1,3 +1,4 @@
+import { API_URL } from './modules/config.js';
 import { renderJob } from './modules/render-job.js';
 import { initCardControls } from './modules/card-controls.js';
 import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.esm.js';

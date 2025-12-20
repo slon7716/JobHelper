@@ -1,0 +1,1 @@
+export const API_URL = 'https://jobhelper-backend-24qu.onrender.com';
