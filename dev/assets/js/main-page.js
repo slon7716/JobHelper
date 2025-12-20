@@ -1,3 +1,4 @@
+import { API_URL } from './modules/config.js';
 import { modalAddVacation } from './modules/modal-add-vacation.js';
 import { modalEditVacation } from './modules/modal-edit-vacation.js';
 import { renderSlide } from './modules/render-slide.js';

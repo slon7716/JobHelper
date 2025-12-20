@@ -1,3 +1,5 @@
+import { API_URL } from './modules/config.js';
+
 const enterTheSite = document.querySelector('.enter-the-site');
 
 if (enterTheSite) {
