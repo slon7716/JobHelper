@@ -1,4 +1,4 @@
-import { API_URL } from './modules/config.js';
+import { API_URL } from './config.js';
 
 import { renderSlide } from './render-slide.js';
 

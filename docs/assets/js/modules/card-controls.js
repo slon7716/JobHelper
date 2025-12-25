@@ -1,4 +1,4 @@
-import { API_URL } from './modules/config.js';
+import { API_URL } from './config.js';
 
 export function initCardControls(updateCountsCallback, checkServer) {
   const viewModal = document.getElementById('viewModal');
