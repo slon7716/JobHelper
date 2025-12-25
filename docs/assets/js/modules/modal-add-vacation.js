@@ -1,3 +1,5 @@
+import { API_URL } from './modules/config.js';
+
 import { renderSlide } from './render-slide.js';
 
 export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
