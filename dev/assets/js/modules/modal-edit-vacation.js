@@ -1,4 +1,4 @@
-import { API_URL } from './modules/config.js';
+import { API_URL } from './config.js';
 
 export function modalEditVacation(cardsSwiper, saveSlides) {
    const editModalCard = document.getElementById('editModal');
