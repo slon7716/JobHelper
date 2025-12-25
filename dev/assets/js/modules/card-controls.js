@@ -1,3 +1,5 @@
+import { API_URL } from './modules/config.js';
+
 export function initCardControls(updateCountsCallback, checkServer) {
   const viewModal = document.getElementById('viewModal');
   const transferModal = document.getElementById('transferModal');
