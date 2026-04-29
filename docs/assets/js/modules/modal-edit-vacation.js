@@ -144,7 +144,6 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
             console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
          }
 
-
          editModalCard.style.display = 'none';
          alert("Картку успішно оновлено!");
 
