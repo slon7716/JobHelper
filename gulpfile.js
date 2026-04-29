@@ -124,37 +124,6 @@ gulp.task('svgstore', function (callback) {
     }
 });
 
-// ЗАДАЧА: Сборка SVG-спрайта
-gulp.task('svgstore', function (callback) {
-    var spritePath = dirs.source + '/assets/images/svg-sprite'; // переменнач с путем к исходникам SVG-спрайта
-        if(fileExist(spritePath) !== false) {
-        return gulp.src(spritePath + '/*.svg') // берем только SVG файлы из этой папки, подпапки игнорируем
-        // .pipe(plumber({ errorHandler: onError }))
-        .pipe(svgmin(function (file) {
-            return {
-                plugins: [{
-                    cleanupIDs: {
-                        minify: true
-                    }
-                }]
-            }
-        }))
-        .pipe(svgstore({ inlineSvg: true }))
-        .pipe(cheerio({
-            run: function ($) {
-                $('[fill]').removeAttr('fill');
-            },
-            parserOptions: {xmlMode: true}
-        }))
-        .pipe(rename('sprite-svg.svg'))
-        .pipe(gulp.dest(dirs.source + '/assets/images'));
-    }
-    else {
-        console.log('Нет файлов для сборки SVG-спрайта');
-        callback();
-    }
-});
-
 // ЗАДАЧА: Очистка папки сборки
 gulp.task('clean', function () {
     return del([ // стираем
@@ -224,7 +193,7 @@ gulp.task('serve', gulp.series('build', function() {
     );
     gulp.watch( // следим за HTML
         [
-            dirs.source + '**/**/**/**/*.php',                              // в папке с исходниками
+            dirs.source + '/**/**/**/*.php', // в папке с исходниками
             dirs.source + '/modules/*.php', // и в папке с мелкими вставляющимся файлами
         ],
         gulp.series('php', reloader) // при изменении файлов запускаем пересборку HTML и обновление в браузере
