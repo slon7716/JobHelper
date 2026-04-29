@@ -83,21 +83,27 @@ if (mainPage) {
       }
 
       const jobs = await res.json();
-      // Якщо jobs не масив, кидаємо помилку (без цього нічого не відобразиться)
+      // Якщо jobs не масив, кидаємо помилку (без цього не буде ніякого повідомлення про помилку)
       if (!Array.isArray(jobs)) throw new Error("Сервер недоступний або повернув не масив");
 
       isServerAvailable = true;
 
-      // Не рендеримо картки, які є в трекері
+      // Не рендеримо картки, які перенесені в трекер 
+      // (тому що всі створені картки на сервері зберігаються в одному місці - 'jobs')
       const trackerSlides = JSON.parse(localStorage.getItem('trackerSlides') || '[]');
       const trackerIds = trackerSlides.map(s => s.jobId);
       const jobsToRender = jobs.filter(job => !trackerIds.includes(job.id));
 
       swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером
+
+      // Окремі запити на кожен match
+      const profileData = JSON.parse(localStorage.getItem("profileData"));
+      const resumeId = profileData?.basicData?.resumeId;
+      
       jobsToRender.forEach(job => {
         const slide = renderSlide(job);
         swiperWrapper.appendChild(slide);
-        const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
+      
         if (resumeId) {
           updateMatchForSlide(slide, resumeId);
         } else {
@@ -128,7 +134,7 @@ if (mainPage) {
   }
   loadSlidesFromServer();
 
-  // --- Оновлення match для всіх карток ---
+  // --- Оновлення match для всіх карток окремими запитами ---
   async function updateMatchForSlide(slide, resumeId) {
     const matchEl = slide.querySelector('.match');
 
@@ -230,12 +236,12 @@ if (mainPage) {
         cardsSwiper.update();
       }
 
-      // Видаляємо з jobSlides у localStorage
+      // Видаляємо картку з localStorage (jobSlides)
       let slides = JSON.parse(localStorage.getItem("jobSlides") || "[]");
       slides = slides.filter(s => s.jobId != Number(slide.dataset.slideId));
       localStorage.setItem("jobSlides", JSON.stringify(slides));
 
-      alert("Картку збережено у трекер та надіслано на сервер!");
+      alert("Картку збережено у трекер");
 
     } catch (err) {
       console.warn(err);

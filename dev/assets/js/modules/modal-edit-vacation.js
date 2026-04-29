@@ -144,7 +144,6 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
             console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
          }
 
-
          editModalCard.style.display = 'none';
          alert("Картку успішно оновлено!");
 
@@ -179,7 +178,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
       } catch (err) {
          console.error("❌ Помилка видалення:", err);
-         alert("Помилка мережі: " + err);
+         alert("Помилка мережі!");
       }
    });
 

@@ -250,7 +250,6 @@ if (profilePage) {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("userId", 1); // Замінити на реальний ID користувача
 
     try {
       const token = localStorage.getItem("jwtToken");

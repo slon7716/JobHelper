@@ -135,14 +135,14 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
         if (matchRes.ok) {
           const matchData = await matchRes.json();
           const matchValue = matchData.matchScore != null ? Math.round(matchData.matchScore) : "--";
-          if (matchEl) matchEl.textContent = `${matchValue}% match`;
+          if (matchEl) matchEl.textContent = `${matchValue}% збіг`;
         } else if (matchEl) {
-          matchEl.textContent = "--% match";
+          matchEl.textContent = "--% збіг";
           console.warn(`Помилка при отриманні match для картки N${slideId}`);
         }
       } catch (err) {
-        console.warn("Не вдалося отримати match:", err);
-        if (matchEl) matchEl.textContent = "--% match";
+        console.warn("Не вдалося отримати збіг:", err);
+        if (matchEl) matchEl.textContent = "--% збіг";
       }
 
       // Закриваємо модалку, чистимо форму та вимикаємо кнопку
@@ -151,7 +151,7 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
       formatButtons.forEach(b => b.classList.remove('active'));
       formatInput.value = '';
       submitBtn.disabled = true;
-      alert("Вакансію додано на сервер та локально!");
+      alert("Вакансію додано!");
 
     } catch (err) {
       alert("Помилка мережі: " + err);
