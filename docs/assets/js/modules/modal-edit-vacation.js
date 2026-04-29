@@ -131,14 +131,14 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
                if (matchRes.ok) {
                   const matchData = await matchRes.json();
                   const matchValue = matchData.matchScore != null ? Math.round(matchData.matchScore) : "--";
-                  matchEl.textContent = `${matchValue}% match`;
+                  matchEl.textContent = `${matchValue}% збіг`;
                } else {
-                  matchEl.textContent = "--% match";
+                  matchEl.textContent = "--% збіг";
                   console.warn(`Помилка при отриманні match для slideId=${slideId}`);
                }
             } catch (err) {
                console.warn("Не вдалося отримати match:", err);
-               matchEl.textContent = "--% match";
+               matchEl.textContent = "--% збіг";
             }
          } else {
             console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
@@ -178,7 +178,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
       } catch (err) {
          console.error("❌ Помилка видалення:", err);
-         alert("Помилка мережі: " + err);
+         alert("Помилка мережі!");
       }
    });
 

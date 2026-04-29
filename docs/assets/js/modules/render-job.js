@@ -34,7 +34,7 @@ export function renderJob(job) {
           <div class="item salary">${job.salary}</div>
         </div>
       </div>
-      <div class="match">${matchValue}% match</div>
+      <div class="match">${matchValue}% збіг</div>
     </div>
 
     <div class="characteristic-name work-format">

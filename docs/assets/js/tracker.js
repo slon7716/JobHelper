@@ -48,7 +48,7 @@ if (tracker) {
           company: card.querySelector('.company')?.textContent.trim() || '',
           location: card.querySelector('.location')?.textContent.trim() || '',
           salary: card.querySelector('.salary')?.textContent.trim() || '',
-          matchScore: card.querySelector('.match')?.textContent.trim() || "--% match",
+          matchScore: card.querySelector('.match')?.textContent.trim() || "--% збіг",
           workFormat: card.querySelector('.format')?.textContent.trim() || '',
           requiredSkills: Array.from(card.querySelectorAll('.required-skills-item div'))
             .map(el => el.textContent.trim())
@@ -118,7 +118,7 @@ if (tracker) {
           const matchEl = slide.querySelector('.match');
 
           if (!slideId || !matchEl) {
-            if (matchEl) matchEl.textContent = "--% match";
+            if (matchEl) matchEl.textContent = "--% збіг";
             continue;
           }
 
@@ -128,23 +128,23 @@ if (tracker) {
             });
 
             if (!resMatch.ok) {
-              if (matchEl) matchEl.textContent = "--% match";
+              if (matchEl) matchEl.textContent = "--% збіг";
               continue;
             }
 
             const data = await resMatch.json();
             const matchObj = data[0]; // перший елемент
-            matchEl.textContent = `${matchObj?.matchScore != null ? Math.round(matchObj.matchScore) : "--"}% match`;
+            matchEl.textContent = `${matchObj?.matchScore != null ? Math.round(matchObj.matchScore) : "--"}% збіг`;
 
           } catch (err) {
-            matchEl.textContent = "--% match";
+            matchEl.textContent = "--% збіг";
             console.warn("Не вдалося отримати match:", err);
           }
         };
-      } else { // Якщо resumeId немає, встановлюємо "--% match"
+      } else { // Якщо resumeId немає, встановлюємо "--% збіг"
         document.querySelectorAll('.swiper-slide').forEach(slide => {
           const matchEl = slide.querySelector('.match');
-          matchEl.textContent = "--% match";
+          matchEl.textContent = "--% збіг";
         });
         console.warn("⚠️ Резюме відсутнє — неможливо обчислити збіг (match).");
       }
@@ -165,7 +165,7 @@ if (tracker) {
         col.insertAdjacentHTML('beforeend', renderJob(job));
         const lastSlide = col.lastElementChild;
         const matchEl = lastSlide?.querySelector('.match');
-        matchEl.textContent = job.matchScore ?? "--% match";
+        matchEl.textContent = job.matchScore ?? "--% збіг";
       }
     }
 

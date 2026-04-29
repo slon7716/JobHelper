@@ -32,7 +32,7 @@ export function renderSlide(jobData) {
           <div class="item salary">${jobData.salary}</div>
         </div>
       </div>
-      <div class="match">${matchValue}% match</div>
+      <div class="match">${matchValue}% збіг</div>
     </div>
     <div class="characteristic-name work-format">
       <div class="title">Формат роботи:</div>

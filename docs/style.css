@@ -2021,12 +2021,13 @@ header .container .pages .page:hover .text {
 .profile .basic-client-data .resume .upload-resume:hover {
   color: #114599;
 }
-.profile .basic-client-data .resume .upload-resume a {
+.profile .basic-client-data .resume .upload-resume span {
   color: #434A54;
 }
-.profile .basic-client-data .resume .upload-resume a:hover {
+.profile .basic-client-data .resume .upload-resume span:hover {
   font-weight: 600;
   color: #1D5BBF;
+  cursor: pointer;
 }
 .profile .basic-client-data .resume #resumeFile {
   display: none;
