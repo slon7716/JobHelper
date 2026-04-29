@@ -292,7 +292,7 @@ if (profilePage) {
       resumeStatus.style.color = "green";
 
       // Відображаємо назву резюме як посилання
-      uploadedResume.innerHTML = `<span class="resume-link">${file.name}</span>`;
+      uploadedResume.innerHTML = `<a class="resume-link">${file.name}</a>`;
       addResumeClickHandler(profileData.basicData.resumeId);
 
       // Завантажуємо ATS-оцінку
@@ -308,7 +308,7 @@ if (profilePage) {
 
   // ====================== ВІДКРИТТЯ РЕЗЮМЕ ======================
   if (profileData?.basicData?.resumeName) {
-    uploadedResume.innerHTML = `<span class="resume-link">${profileData.basicData.resumeName}</span>`;
+    uploadedResume.innerHTML = `<a class="resume-link">${profileData.basicData.resumeName}</a>`;
     addResumeClickHandler(profileData.basicData.resumeId);
   }
   function addResumeClickHandler(resumeId) {

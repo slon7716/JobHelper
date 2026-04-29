@@ -51,7 +51,7 @@ if (mainPage) {
       company: slide.querySelector('.company')?.textContent.trim() || '',
       location: slide.querySelector('.location')?.textContent.trim() || '',
       salary: slide.querySelector('.salary')?.textContent.trim() || '',
-      matchScore: slide.querySelector('.match')?.textContent.trim() || '--% match',
+      matchScore: slide.querySelector('.match')?.textContent.trim() || '--% збіг',
       workFormat: slide.querySelector('.format')?.textContent.trim() || '',
       requiredSkills: Array.from(slide.querySelectorAll('.required-skills-item div'))
         .map(el => el.textContent.trim())
