@@ -138,7 +138,7 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
           if (matchEl) matchEl.textContent = `${matchValue}% збіг`;
         } else if (matchEl) {
           matchEl.textContent = "--% збіг";
-          console.warn(`Помилка при отриманні match для картки N${slideId}`);
+          console.warn(`Помилка при отриманні збігу (match) для картки N${slideId}`);
         }
       } catch (err) {
         console.warn("Не вдалося отримати збіг:", err);
