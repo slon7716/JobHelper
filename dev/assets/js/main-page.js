@@ -152,18 +152,18 @@ if (mainPage) {
 
       if (!res.ok) {
         console.warn(`Помилка при отриманні match для slideId=${jobId}: ${res.status}`);
-        matchEl.textContent = "--% match";
+        matchEl.textContent = "--% збіг";
         return;
       }
 
       const data = await res.json();
       const matchObj = data[0]; // беремо перший елемент масиву
       const score = matchObj?.matchScore != null ? Math.round(matchObj.matchScore) : "--";
-      matchEl.textContent = `${score}% match`;
+      matchEl.textContent = `${score}% збіг`;
 
     } catch (err) {
-      console.warn("Не вдалося отримати match:", err);
-      matchEl.textContent = "--% match";
+      console.warn("Не вдалося отримати збіг (match):", err);
+      matchEl.textContent = "--% збіг";
     }
   }
 

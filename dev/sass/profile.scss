@@ -136,12 +136,13 @@
                color: $blue80;
             }
             
-            a {
+            span {
                color: $grey-blue90;
 
                &:hover {
                   font-weight: 600;
                   color: $blue70;
+                  cursor: pointer;
                }
             }
          }

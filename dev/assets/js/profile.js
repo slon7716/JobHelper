@@ -53,7 +53,7 @@ if (profilePage) {
       } else {
         resumeDiv.textContent = "Завантаж своє резюме";
       }
-      // --- ATS-оцінка резюме ---
+      // ATS-оцінка резюме
       if (profileData.basicData.resumeId) {
         loadATSEvaluation(profileData.basicData.resumeId);
       } else {
@@ -209,7 +209,7 @@ if (profilePage) {
       if (!response.ok) throw new Error(`Помилка ${response.status}`);
 
       const data = await response.json();
-      const atsScore = typeof data === 'number' ? data : data.score;
+      const atsScore = data?.score ?? data;
 
       const scoreValue = (atsScore != null && !isNaN(atsScore)) ? atsScore : "---";
       atsElement.textContent = `${scoreValue}%`;
@@ -223,7 +223,6 @@ if (profilePage) {
   // ====================== ЗАВАНТАЖЕННЯ РЕЗЮМЕ ======================
   const resumeInput = document.getElementById("resumeFile");
   const resumeStatus = document.getElementById("resumeStatus");
-  const uploadedResume = document.getElementById("uploadedResume");
   const uploadBtn = document.getElementById("uploadBtn");
 
   // Клік по кнопці відкриває файловий діалог
@@ -292,7 +291,7 @@ if (profilePage) {
       resumeStatus.style.color = "green";
 
       // Відображаємо назву резюме як посилання
-      uploadedResume.innerHTML = `<a class="resume-link">${file.name}</a>`;
+      uploadedResume.innerHTML = `<span class="resume-link">${file.name}</span>`;
       addResumeClickHandler(profileData.basicData.resumeId);
 
       // Завантажуємо ATS-оцінку
@@ -307,32 +306,37 @@ if (profilePage) {
   });
 
   // ====================== ВІДКРИТТЯ РЕЗЮМЕ ======================
+  const uploadedResume = document.getElementById("uploadedResume");
   if (profileData?.basicData?.resumeName) {
-    uploadedResume.innerHTML = `<a class="resume-link">${profileData.basicData.resumeName}</a>`;
-    addResumeClickHandler(profileData.basicData.resumeId);
+    uploadedResume.innerHTML = `<span class="resume-link">${profileData.basicData.resumeName}</span>`;
+  } else {
+    uploadedResume.textContent = "Завантаж своє резюме";
   }
-  function addResumeClickHandler(resumeId) {
+  
+  uploadedResume.addEventListener("click", async () => {
+    const resumeId = profileData?.basicData?.resumeId;
+    if (!resumeId) return;
+  
     const token = localStorage.getItem("jwtToken");
-    uploadedResume.addEventListener("click", async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/resumes/${resumeId}/file`, {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        if (!response.ok) {
-          alert("Не вдалося завантажити файл з сервера");
-          return;
-        }
-
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        window.open(url, "_blank");
-      } catch (err) {
-        console.error("Помилка при завантаженні:", err);
-        alert("Сервер недоступний або сталася помилка мережі");
+  
+    try {
+      const response = await fetch(`${API_URL}/api/resumes/${resumeId}/file`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+  
+      if (!response.ok) {
+        alert("Не вдалося завантажити файл з сервера");
+        return;
       }
-    });
-  }
+  
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    } catch (err) {
+      console.error("Помилка при завантаженні:", err);
+      alert("Сервер недоступний або помилка мережі");
+    }
+  });
 
   // ====================== ВИЙТИ З АККАУНТУ ======================
   const logoutBtn = document.getElementById('logoutBtn');
