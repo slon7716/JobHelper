@@ -171,6 +171,8 @@ if (profilePage) {
       try {
         const token = localStorage.getItem("jwtToken");
   
+        console.log([...formData.entries()]);
+        console.log(file.name, file.type, file.size);
         const res = await fetch(`${API_URL}/api/resumes/upload`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
