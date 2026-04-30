@@ -178,6 +178,8 @@ if (profilePage) {
           headers: { Authorization: `Bearer ${token}` },
           body: formData
         });
+        console.log(res.status);
+        console.log(await res.text());
   
         if (!res.ok) throw new Error("Upload failed");
   
