@@ -30,6 +30,7 @@ if (profilePage) {
   const storedEmail = localStorage.getItem("userEmail");
   if (storedEmail) {
     profileData.accountSettings = profileData.accountSettings || {};
+    profileData.accountSettings.email = storedEmail;
   }
   localStorage.setItem("profileData", JSON.stringify(profileData));
   
@@ -165,21 +166,26 @@ if (profilePage) {
         return;
       }
   
-      const formData = new FormData();
-      formData.append("file", file);
-  
       try {
         const token = localStorage.getItem("jwtToken");
-  
-        console.log([...formData.entries()]);
-        console.log(file.name, file.type, file.size);
+        const decoded = jwt_decode(token);
+        const userId = decoded.userId || decoded.sub || decoded.id;
+
+        if (!userId) {
+          status.textContent = "Помилка авторизації";
+          status.style.color = "#DE1B1B";
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("userId", userId);
+
         const res = await fetch(`${API_URL}/api/resumes/upload`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData
         });
-        console.log(res.status);
-        console.log(await res.text());
   
         if (!res.ok) throw new Error("Upload failed");
   
