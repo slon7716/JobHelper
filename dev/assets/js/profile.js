@@ -1,4 +1,5 @@
 import { API_URL } from './modules/config.js';
+import jwt_decode from 'https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.esm.js';
 
 const profilePage = document.querySelector('.profile')
 
