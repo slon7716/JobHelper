@@ -53,6 +53,7 @@ if (enterTheSite) {
 
       const token = data.token || data.jwt || data.access_token;
       if (token) {
+        localStorage.setItem("userEmail", email);  // Зберігаємо email для сторінки "Мій профіль"
         localStorage.setItem("jwtToken", token);
         window.location.href = "main-page.html";
       } else {

@@ -22,15 +22,23 @@ if (profilePage) {
       experience: ""
     },
     accountSettings: {
-      email: localStorage.getItem("userEmail") || "@mail",
+      email: "@mail",
       language: "Українська"
     }
   };
+
+  const storedEmail = localStorage.getItem("userEmail");
+  if (storedEmail) {
+    profileData.accountSettings = profileData.accountSettings || {};
+  }
+  localStorage.setItem("profileData", JSON.stringify(profileData));
   
   // ====================== RENDER ======================
   function render() {
     renderProfile();
     renderResume();
+    renderWishToVacancy();
+    renderAccountSettings();
   
     const atsEl = document.getElementById('evaluateResume');
   
@@ -66,6 +74,7 @@ if (profilePage) {
       : `<span class="resume-empty">Завантаж своє резюме</span>`;
   }
   
+  // --- ATS-оцінка ---
   async function loadATSEvaluation(resumeId) {
     const el = document.getElementById('evaluateResume');
     if (!el || !resumeId) return;
@@ -92,39 +101,48 @@ if (profilePage) {
     }
   }
   
-  // ====================== RESUME CLICK (1 handler) ======================
-  function initResumeOpen() {
-    const el = document.getElementById("uploadedResume");
-    if (!el) return;
+  function renderWishToVacancy() {
+    const wish = document.querySelector(".wish-to-vacancy");
+    if (!wish) return;
   
-    el.addEventListener("click", async () => {
-      const resumeId = profileData.basicData.resumeId;
-      if (!resumeId) return;
+    const w = profileData.wishToVacancy;
   
-      const token = localStorage.getItem("jwtToken");
+    wish.querySelectorAll(".job-details-group").forEach(group => {
+      const field = group.dataset.field;
+      const choices = group.querySelector(".job-details-choices");
+      if (!choices) return;
   
-      try {
-        const response = await fetch(`${API_URL}/api/resumes/${resumeId}/file`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+      choices.innerHTML = "";
   
-        if (!response.ok) {
-          alert("Не вдалося завантажити файл");
-          return;
-        }
+      const values = Array.isArray(w[field]) ? w[field] : [w[field]];
   
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        window.open(url, "_blank");
+      values.forEach(val => {
+        if (!val) return;
   
-      } catch (e) {
-        console.error(e);
-        alert("Помилка мережі");
-      }
+        const div = document.createElement("div");
+        div.className = "job-details-choice";
+        div.textContent = val;
+        choices.appendChild(div);
+      });
     });
   }
+
+  function renderAccountSettings() {
+    const account = document.querySelector(".account-settings-list");
+    if (!account) return;
   
-  // ====================== Завантаження резюме (1 handler) ======================
+    const settings = account.querySelectorAll(".account-setting-choice");
+  
+    if (settings[0]) {
+      settings[0].textContent = profileData.accountSettings.email || "@ email";
+    }
+  
+    if (settings[1]) {
+      settings[1].textContent = profileData.accountSettings.language || "Мова";
+    }
+  }
+
+  // === Завантаження резюме ===
   function initUpload() {
     const input = document.getElementById("resumeFile");
     const btn = document.getElementById("uploadBtn");
@@ -186,6 +204,38 @@ if (profilePage) {
     });
   }
   
+  // === Відкриття (перегляд) резюме в окремому вікні ===
+  function initResumeOpen() {
+    const el = document.getElementById("uploadedResume");
+    if (!el) return;
+  
+    el.addEventListener("click", async () => {
+      const resumeId = profileData.basicData.resumeId;
+      if (!resumeId) return;
+  
+      const token = localStorage.getItem("jwtToken");
+  
+      try {
+        const response = await fetch(`${API_URL}/api/resumes/${resumeId}/file`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+  
+        if (!response.ok) {
+          alert("Не вдалося завантажити файл");
+          return;
+        }
+  
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        window.open(url, "_blank");
+  
+      } catch (e) {
+        console.error(e);
+        alert("Помилка мережі");
+      }
+    });
+  }
+
   // ====================== INIT ======================
   render();
   initResumeOpen();
