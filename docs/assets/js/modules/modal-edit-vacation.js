@@ -73,8 +73,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          salary: jobForm.querySelector('#salary').value.trim(),
          workFormat: Array.from(formatButtons)
            .filter(b => b.classList.contains('active'))
-           .map(b => b.dataset.value)
-           .join(', '),
+           .map(b => b.dataset.value),
          requiredSkills: skills,
          description: jobForm.querySelector('#description').value.trim()
       };
