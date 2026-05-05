@@ -88,7 +88,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
                "Accept": "application/json; charset=UTF-8",
                "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(updatedData)
+            // body: JSON.stringify(updatedData)
+            body: JSON.stringify({ test: "1" })
          });
 
          if (!response.ok) {
