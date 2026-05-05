@@ -59,6 +59,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
    // --- Збереження змін ---
    saveChangesBtn.addEventListener('click', async () => {
+      console.log('CLICK SAVE');
+
       if (!currentSlide) return;
       const slideId = currentSlide.dataset.slideId;
       const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
@@ -109,6 +111,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          setText('salary', updatedData.salary);
          setText('format', updatedData.workFormat);
          setText('description', updatedData.description);
+
+         console.log('AFTER UPDATE');
 
          // --- Навички ---
          const skillsContainer = currentSlide.querySelector('.required-skills');
