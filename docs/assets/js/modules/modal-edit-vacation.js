@@ -77,8 +77,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       };
 
       try {
-         console.log("RAW PAYLOAD:", payload);
-         console.log("STRINGIFIED:", JSON.stringify(payload));
+         console.log("RAW PAYLOAD:", updatedData);
+         console.log("STRINGIFIED:", JSON.stringify(updatedData, null, 2));
 
          const token = localStorage.getItem("jwtToken");
          const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
