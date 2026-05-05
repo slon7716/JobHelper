@@ -59,8 +59,6 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
    // --- Збереження змін ---
    saveChangesBtn.addEventListener('click', async () => {
-      console.log('CLICK SAVE');
-
       if (!currentSlide) return;
       const slideId = currentSlide.dataset.slideId;
       const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
@@ -79,13 +77,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       };
 
       try {
-         console.log('--- BEFORE UPDATE ---');
-         console.log(currentSlide);
-         console.log(cardsSwiper?.slides);
-         console.log('--- FORMAT DATA ---');
-         console.log(updatedData.workFormat);
-         console.log(currentSlide.querySelector('.format')?.textContent);
-         console.log('FINAL PAYLOAD:', JSON.stringify(updatedData, null, 2));
+         console.log("RAW PAYLOAD:", payload);
+         console.log("STRINGIFIED:", JSON.stringify(payload));
 
          const token = localStorage.getItem("jwtToken");
          const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
@@ -115,8 +108,6 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          setText('format', updatedData.workFormat);
          setText('description', updatedData.description);
 
-         console.log('AFTER UPDATE');
-
          // --- Навички ---
          const skillsContainer = currentSlide.querySelector('.required-skills');
          if (skillsContainer) {
@@ -129,15 +120,8 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
             });
          }
 
-         console.log('--- AFTER DOM UPDATE ---');
-         console.log(currentSlide.querySelector('.format')?.textContent);
-         console.log(currentSlide.querySelector('.required-skills')?.innerHTML);
-
          if (typeof saveSlides === 'function') saveSlides();
          if (cardsSwiper) cardsSwiper.update();
-
-         console.log('--- AFTER SWIPER UPDATE ---');
-         console.log(cardsSwiper?.slides);
 
          // --- Оновлюємо match ---
          const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
