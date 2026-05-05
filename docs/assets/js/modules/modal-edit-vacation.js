@@ -75,6 +75,13 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       };
 
       try {
+         console.log('--- BEFORE UPDATE ---');
+         console.log(currentSlide);
+         console.log(cardsSwiper?.slides);
+         console.log('--- FORMAT DATA ---');
+         console.log(updatedData.workFormat);
+         console.log(currentSlide.querySelector('.format')?.textContent);
+
          const token = localStorage.getItem("jwtToken");
          const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
             method: "PUT",
@@ -115,8 +122,15 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
             });
          }
 
+         console.log('--- AFTER DOM UPDATE ---');
+         console.log(currentSlide.querySelector('.format')?.textContent);
+         console.log(currentSlide.querySelector('.required-skills')?.innerHTML);
+
          if (typeof saveSlides === 'function') saveSlides();
          if (cardsSwiper) cardsSwiper.update();
+
+         console.log('--- AFTER SWIPER UPDATE ---');
+         console.log(cardsSwiper?.slides);
 
          // --- Оновлюємо match ---
          const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;
