@@ -71,7 +71,10 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          company: jobForm.querySelector('#company').value.trim(),
          location: jobForm.querySelector('#location').value.trim(),
          salary: jobForm.querySelector('#salary').value.trim(),
-         workFormat: jobForm.querySelector('#format').value.trim(),
+         workFormat: Array.from(formatButtons)
+           .filter(b => b.classList.contains('active'))
+           .map(b => b.dataset.value)
+           .join(', '),
          requiredSkills: skills,
          description: jobForm.querySelector('#description').value.trim()
       };
@@ -83,6 +86,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          console.log('--- FORMAT DATA ---');
          console.log(updatedData.workFormat);
          console.log(currentSlide.querySelector('.format')?.textContent);
+         console.log('FINAL PAYLOAD:', JSON.stringify(updatedData, null, 2));
 
          const token = localStorage.getItem("jwtToken");
          const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
