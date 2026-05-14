@@ -61,9 +61,9 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
    saveChangesBtn.addEventListener('click', async () => {
       if (!currentSlide) return;
       const slideId = currentSlide.dataset.slideId;
-      // const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
-      //    .map(i => i.value.trim())
-      //    .filter(Boolean);
+      const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
+         .map(i => i.value.trim())
+         .filter(Boolean);
       const updatedData = {
          title: jobForm.querySelector('#position').value.trim(),
          company: jobForm.querySelector('#company').value.trim(),
@@ -73,7 +73,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
             .filter(b => b.classList.contains('active'))
             .map(b => b.dataset.value)
             .join(', '),
-         // requiredSkills: skills,
+         requiredSkills: skills,
          description: jobForm.querySelector('#description').value.trim()
       };
 
