@@ -27,16 +27,17 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
    // --- Слухачі на перші 4 поля + формат-кнопки ---
    jobForm.querySelectorAll('#position, #company, #location, #salary, #format')
       .forEach(input => input.addEventListener('input', checkFormValidity));
-   formatButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-         btn.classList.toggle('active');
-         const activeValues = Array.from(formatButtons)
-            .filter(b => b.classList.contains('active'))
-            .map(b => b.dataset.value);
-         formatInput.value = activeValues.join(', ');
-         checkFormValidity();
+      formatButtons.forEach(btn => {
+         btn.addEventListener('click', () => {
+            // прибираємо active у всіх кнопок
+            formatButtons.forEach(b => b.classList.remove('active'));
+            // активуємо тільки натиснуту
+            btn.classList.add('active');
+            // записуємо одне значення
+            formatInput.value = btn.dataset.value;
+            checkFormValidity();
+         });
       });
-   });
 
    // Заповнюємо форму наявними даними
    function openEditModal(slide) {
@@ -50,8 +51,12 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
       const skillDivs = slide.querySelectorAll('.required-skills-item div:last-child');
       skillInputs.forEach((input, i) => input.value = skillDivs[i]?.textContent.trim() || '');
       // Перемикання кнопок "формат роботи"
+      const currentFormat = slide.querySelector('.format')?.textContent.trim();
       formatButtons.forEach(btn => {
-         btn.classList.toggle('active', slide.querySelector('.format')?.textContent.includes(btn.dataset.value));
+         btn.classList.toggle(
+            'active',
+            currentFormat === btn.dataset.value
+         );
       });
 
       checkFormValidity();
@@ -59,8 +64,6 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
 
    // --- Збереження змін ---
    saveChangesBtn.addEventListener('click', async () => {
-      console.log('CLICK SAVE');
-
       if (!currentSlide) return;
       const slideId = currentSlide.dataset.slideId;
       const skills = Array.from(jobForm.querySelectorAll('input[name="skills[]"]'))
@@ -71,19 +74,12 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          company: jobForm.querySelector('#company').value.trim(),
          location: jobForm.querySelector('#location').value.trim(),
          salary: jobForm.querySelector('#salary').value.trim(),
-         workFormat: jobForm.querySelector('#format').value.trim(),
+         workFormat: formatInput.value,
          requiredSkills: skills,
          description: jobForm.querySelector('#description').value.trim()
       };
 
       try {
-         console.log('--- BEFORE UPDATE ---');
-         console.log(currentSlide);
-         console.log(cardsSwiper?.slides);
-         console.log('--- FORMAT DATA ---');
-         console.log(updatedData.workFormat);
-         console.log(currentSlide.querySelector('.format')?.textContent);
-
          const token = localStorage.getItem("jwtToken");
          const response = await fetch(`${API_URL}/api/jobs/${slideId}`, {
             method: "PUT",
@@ -112,29 +108,28 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          setText('format', updatedData.workFormat);
          setText('description', updatedData.description);
 
-         console.log('AFTER UPDATE');
-
          // --- Навички ---
          const skillsContainer = currentSlide.querySelector('.required-skills');
          if (skillsContainer) {
-            skillsContainer.innerHTML = '';
+            // видаляємо тільки старі навички
+            skillsContainer
+               .querySelectorAll('.required-skills-item')
+               .forEach(item => item.remove());
+            // додаємо нові
             updatedData.requiredSkills.forEach(skill => {
                const item = document.createElement('div');
                item.className = 'required-skills-item';
-               item.innerHTML = `<div><span>${skill}</span></div>`;
+               item.innerHTML = `
+                  <div>
+                     <span>${skill}</span>
+                  </div>
+               `;
                skillsContainer.appendChild(item);
             });
          }
 
-         console.log('--- AFTER DOM UPDATE ---');
-         console.log(currentSlide.querySelector('.format')?.textContent);
-         console.log(currentSlide.querySelector('.required-skills')?.innerHTML);
-
          if (typeof saveSlides === 'function') saveSlides();
          if (cardsSwiper) cardsSwiper.update();
-
-         console.log('--- AFTER SWIPER UPDATE ---');
-         console.log(cardsSwiper?.slides);
 
          // --- Оновлюємо match ---
          const resumeId = JSON.parse(localStorage.getItem("profileData"))?.basicData?.resumeId;

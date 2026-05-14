@@ -27,14 +27,19 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
     submitBtn.disabled = !allFilled;
   }
 
-  // --- Слухачі на кнопки формату, бо value ставиться програмно ---
+  // --- Слухачі на кнопки формату ---
   formatButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      btn.classList.toggle('active');
-      const activeValues = Array.from(formatButtons)
-        .filter(b => b.classList.contains('active'))
-        .map(b => b.dataset.value);
-      formatInput.value = activeValues.join(', ');
+  
+      // прибираємо active у всіх кнопок
+      formatButtons.forEach(b => b.classList.remove('active'));
+  
+      // активуємо тільки одну кнопку
+      btn.classList.add('active');
+  
+      // записуємо одне значення
+      formatInput.value = btn.dataset.value;
+  
       checkFormValidity();
     });
   });
