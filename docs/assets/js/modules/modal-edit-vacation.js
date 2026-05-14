@@ -70,8 +70,9 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
          location: jobForm.querySelector('#location').value.trim(),
          salary: jobForm.querySelector('#salary').value.trim(),
          workFormat: Array.from(formatButtons)
-           .filter(b => b.classList.contains('active'))
-           .map(b => b.dataset.value),
+            .filter(b => b.classList.contains('active'))
+            .map(b => b.dataset.value)
+            .join(', '),
          requiredSkills: skills,
          description: jobForm.querySelector('#description').value.trim()
       };
@@ -88,8 +89,7 @@ export function modalEditVacation(cardsSwiper, saveSlides) {
                "Accept": "application/json; charset=UTF-8",
                "Authorization": `Bearer ${token}`
             },
-            // body: JSON.stringify(updatedData)
-            body: JSON.stringify({ test: "1" })
+            body: JSON.stringify(updatedData)
          });
 
          if (!response.ok) {
