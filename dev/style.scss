@@ -30,4 +30,5 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @use 'sass/tracker';
 @use 'sass/profile';
 @use 'sass/footer';
-// @use 'sass/media/media'; /*должен подключаться последним*/
+
+@use 'sass/media/media';

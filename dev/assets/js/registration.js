@@ -110,6 +110,17 @@ if (registrationForm) {
 
     const payload = { firstName, lastName, email, password, repeatPassword };
 
+    // MOCK
+    // const isFake = true;
+    // if (isFake) {
+    //   hideError();
+    
+    //   localStorage.setItem("userEmail", email);
+    
+    //   if (modalLogin) modalLogin.style.display = 'flex';
+    //   return;
+    // }
+    
     try {
       console.log("Payload:", payload);
       const response = await fetch(`${API_URL}/api/auth/register`, {

@@ -1,0 +1,109 @@
+@use '../../variables.scss' as *;
+
+.enter-the-site {
+   margin: 0 8px;
+
+   .logo {
+      width: 145px;
+      height: 48px;
+      border-radius: 32px;
+      padding: 8px;
+      margin: 10px;
+
+      img {
+         width: 24px;
+         height: 24px;
+         margin-right: 8px;
+      }
+
+      .name {
+         font-size: 18px;
+         padding-top: 3px;
+      }
+   }
+   
+   h5 {
+      font-size: 24px;
+      margin-bottom: 20px;
+   }
+   
+   form {
+      margin: 0 auto 150px;
+
+      fieldset {
+         margin-bottom: 24px;
+
+         .field {
+            margin-bottom: 18px;
+            
+            .small-text {
+               font-size: 16px;
+            }
+            
+            input {
+               font-size: 18px;
+               letter-spacing: 1px;
+               border-radius: 15px;
+               padding: 10px 20px;
+               
+               &:focus {
+                  outline: 1px solid $blue70;
+               }
+            }
+
+            &.password-field {
+               margin-bottom: 8px;
+               
+               input {
+                  margin-bottom: 8px;
+
+                  &[type=password] {
+                     height: 47px;
+                     font-size: 32px;
+                     padding: 0 40px 4px 20px;
+                  }
+               }
+             
+               .toggle-password {
+                  top: 35px;
+                  right: 10px;
+                  padding: 5px;
+             
+                  img {
+                     width: 20px;
+                     height: 19px;
+                  }
+               }
+            }
+         }
+         
+         .incorrect-and-forgot-password {
+            .incorrect {
+               img {
+                  width: 20px;
+                  height: 20px;
+                  margin-right: 6px;
+               }
+            }
+         }
+      }
+      
+      .no-account {
+         margin-bottom: 40px;
+
+         .small-text {
+            font-size: 18px;
+            margin-right: 6px;
+         }
+
+         a {
+            font-size: 18px;
+         }
+      }
+   }
+   
+   .btn {
+      font-size: 18px;
+      padding: 12px 100px;
+   }
+}

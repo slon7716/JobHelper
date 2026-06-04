@@ -466,7 +466,7 @@ header .container .pages .page:hover .text {
   outline: 0.5px solid #8E99AB;
   border: none;
   border-radius: 20px;
-  padding: 13px 56px;
+  padding: 13px 64px;
   cursor: pointer;
 }
 .registration form fieldset .field input:hover {
@@ -494,7 +494,7 @@ header .container .pages .page:hover .text {
 .registration form fieldset .field.password-field input[type=password] {
   font-size: 41px;
   line-height: 1;
-  padding: 0 56px 6px;
+  padding: 0 64px 6px;
 }
 .registration form fieldset .field.password-field .toggle-password {
   border: none;
@@ -2215,7 +2215,7 @@ footer {
     font-size: 18px;
     letter-spacing: 1px;
     border-radius: 15px;
-    padding: 10px 16px;
+    padding: 10px 20px;
   }
   .enter-the-site form fieldset .field input:focus {
     outline: 1px solid #1D5BBF;
@@ -2229,7 +2229,7 @@ footer {
   .enter-the-site form fieldset .field.password-field input[type=password] {
     height: 47px;
     font-size: 32px;
-    padding: 0 40px 4px 16px;
+    padding: 0 40px 4px 20px;
   }
   .enter-the-site form fieldset .field.password-field .toggle-password {
     top: 35px;

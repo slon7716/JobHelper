@@ -11,7 +11,8 @@
     }
 
     form {
-        width: 523px;
+        width: 100%;
+        max-width: 523px;
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -41,7 +42,7 @@
                     outline: 0.5px solid $grey-blue60;
                     border: none;
                     border-radius: 20px;
-                    padding: 13px 56px;
+                    padding: 13px 64px;
                     cursor: pointer;
 
                     &:hover {
@@ -75,12 +76,10 @@
                     width: 100%;
 
                     input {
-                        padding-right: 50px;
-
-                        &[type="password"] {
+                        &[type=password] {
                             font-size: 41px;
                             line-height: 1;
-                            padding: 0 56px 6px;
+                            padding: 0 64px 6px;
                         }
                     }
 
@@ -101,7 +100,6 @@
 
                 .info-lock {
                     display: none;
-                    font-size: 16px;
 
                     &.show {
                         display: block;
@@ -117,7 +115,6 @@
                         }
 
                         .enter-correct {
-                            font-size: 16px;
                             color: $red;
                         }
                     }
@@ -135,7 +132,6 @@
 
 .profile-success-create {
     display: none;
-    /* схована за замовчуванням */
     position: fixed;
     top: 0;
     left: 0;
@@ -148,13 +144,12 @@
     .login-modal {
         width: 100%;
         max-width: 783px;
-        font-size: 30px;
-        font-weight: 500;
         line-height: 1.27;
         text-align: center;
         background: #fff;
         border-radius: 40px;
         padding: 52px 24px;
+        margin: 0 12px;
 
         h5 {
             font-weight: 500;

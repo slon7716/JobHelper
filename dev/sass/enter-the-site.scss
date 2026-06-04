@@ -1,6 +1,8 @@
 @use 'variables' as *;
 
 .enter-the-site {
+   margin: 0 12px;
+
    .logo {
       margin: 20px 40px;
    }
@@ -11,7 +13,8 @@
    }
    
    form {
-      width: 523px;
+      width: 100%;
+      max-width: 523px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -45,35 +48,24 @@
                padding: 13px 24px;
                cursor: pointer;
                
-               &::placeholder {
-                  font-family: $font-primary;
-                  font-size: 20px;
-                  color: $grey-blue60;
-               }
-               
                &:hover {
                   outline: 1px solid $blue70;
                }
                
                &:focus {
                   outline: 2px solid $blue70;
-                  
-                  &::placeholder {
-                     font-size: 20px;
-                     color: $grey-blue60;
-                  }
                }
             }
 
             &.password-field {
                position: relative;
                width: 100%;
+               margin-bottom: 12px;
              
                input {
-                  padding-right: 50px;
                   margin-bottom: 8px;
-
-                  &[type="password"] {
+                  
+                  &[type=password] {
                      height: 56px;
                      font-size: 48px;
                      line-height: 1;
@@ -84,7 +76,7 @@
                .toggle-password {
                   position: absolute;
                   top: 46px;
-                  right: 16px; // відступ від правого краю
+                  right: 16px;
                   border: none;
                   background: none;
                   cursor: pointer;
@@ -161,8 +153,6 @@
    }
    
    .btn {
-      &.btn-primary {
-         padding: 16px 128px;
-      }
-  }
+      padding: 16px 128px;
+   }
 }
