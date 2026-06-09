@@ -1,0 +1,48 @@
+@use '../../variables.scss' as *;
+
+.lending {
+   .statistics {
+      height: initial;
+      padding: 40px 16px;
+      flex-direction: column;
+      gap: 16px;
+
+      .block {
+         gap: 6px;
+
+         .quantity {
+            font-size: 24px;
+         }
+
+         .indicator {
+            font-size: 14px;
+         }
+      }
+   }
+
+   // .free-registration {
+   //    text-align: center;
+   //    display: flex;
+   //    flex-direction: column;
+   //    align-items: center;
+   //    margin-bottom: 240px;
+
+   //    h2 {
+   //       max-width: 935px;
+   //       margin-bottom: 24px;
+
+   //       span {
+   //          color: $blue80;
+   //       }
+   //    }
+
+   //    .text {
+   //       max-width: 732px;
+   //       margin-bottom: 40px;
+   //    }
+
+   //    .btn {
+   //       padding: 16px 31px;
+   //    }
+   // }
+}

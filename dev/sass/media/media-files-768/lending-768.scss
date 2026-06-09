@@ -1,0 +1,211 @@
+@use '../../variables.scss' as *;
+
+.lending {
+   h2 {
+      font-size: 30px;
+   }
+
+   h5 {
+      font-size: 18px;
+   }
+
+   .text {
+      font-size: 16px;
+      margin-bottom: 24px;
+   }
+
+   .small-text {
+      font-size: 14px;
+   }
+
+   header {
+      padding: 8px;
+      margin-bottom: 60px;
+      
+      .header-nav {
+         flex-direction: column;
+         gap: 0;
+
+         .logo {
+            border-radius: 32px;
+            padding: 10px;
+            margin: 10px;
+      
+            img {
+               width: 24px;
+               height: 24px;
+               margin-right: 8px;
+            }
+      
+            .name {
+               font-size: 18px;
+               padding-top: 3px;
+            }
+         }
+
+         .btns {
+            .btn {
+               font-size: 18px;
+               padding: 11px 24px;
+
+               &.btn-secondary {
+                  width: 152px;
+               }
+            }
+         }
+      }
+   }
+
+   .service {
+      display: flex;
+      flex-direction: column;
+      justify-content: initial;
+      padding: 0 40px;
+      margin-bottom: 120px;
+
+      .info-block {
+         gap: 0;
+
+         .description {         
+            .subtitle {
+               padding: 6px 31px;
+               margin-bottom: 16px;
+               
+               img {
+                  width: 16px;
+                  height: 16px;
+                  margin-right: 6px;
+               }
+               
+               .subtext {
+                  font-size: 14px;
+               }
+            }
+            
+            h1 {
+               font-size: 34px;
+               margin-bottom: 16px;
+            }
+         }
+      }
+      
+      .btn {
+         font-size: 16px;
+         padding: 13px 30px;
+
+         svg {
+            width: 20px;
+            height: 20px;
+            margin: 0 3px 2px 0;
+         }
+      }
+   }
+
+   .statistics {
+      height: 196px;
+      padding: 60px 22px;
+      margin-bottom: 120px;
+      gap: 12px;
+
+      .block {
+         gap: 6px;
+
+         .quantity {
+            font-size: 28px;
+         }
+
+         .indicator {
+            font-size: 16px;
+         }
+      }
+   }
+
+   .career {
+      margin-bottom: 120px;
+
+      .header {
+         margin-bottom: 40px;
+         
+         h2 {
+            margin-bottom: 12px;
+         }
+      }
+
+      .table {
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         
+         .part {
+            border-radius: 40px;
+            padding: 20px 12px;
+
+            .icon {
+               margin-bottom: 12px;
+
+               img {
+                  width: 45px;
+                  height: 45px;
+               }
+            }
+
+            h3 {
+               font-size: 24px;
+               margin-bottom: 10px;
+            }
+         }
+      }
+   }
+
+   .how-works {
+      margin-bottom: 120px;
+      
+      h2 {
+         margin-bottom: 16px;
+      }
+      
+      .text {
+         margin: 0 6px 40px;
+      }
+      
+      .instraction {
+         .step {
+            max-height: 70px;
+            border-radius: 40px;
+            padding: 20px;
+            margin-bottom: 24px;
+
+            .number {
+               width: 40px;
+               height: 40px;
+               font-size: 18px;
+               margin-right: 16px;
+            }
+         }
+      }
+   }
+
+   .free-registration {
+      margin-bottom: 100px;
+
+      h2 {
+         padding: 0 8px;
+         margin-bottom: 16px;
+      }
+
+      .text {
+         padding: 0 8px;
+         margin-bottom: 26px;
+      }
+
+      .btn {
+         font-size: 16px;
+         padding: 13px 30px;
+      }
+   }
+
+   .copyright {
+      font-size: 14px;
+      padding: 20px 6px;
+   }
+}

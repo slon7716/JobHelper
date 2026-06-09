@@ -1,0 +1,29 @@
+@use '../../variables.scss' as *;
+
+.lending {
+   .service {
+      align-items: center;
+
+      .info-block {
+         flex-direction: column;
+         
+         .description {       
+            text-align: center;
+
+            .subtitle {
+               justify-content: center;
+            }
+         }
+      }
+   }
+
+   .statistics {
+      padding: 80px 32px;
+      
+      .block {
+         .quantity {
+            font-size: 40px;
+         }
+      }
+   }
+}
