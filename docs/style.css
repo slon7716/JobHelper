@@ -118,6 +118,7 @@ h5 {
 }
 
 .logo {
+  max-width: 207px;
   display: flex;
   align-items: center;
   border: 0.5px solid #DDE3ED;
@@ -572,7 +573,7 @@ header .container .pages .page:hover .text {
   margin: 0 12px;
 }
 .enter-the-site .logo {
-  margin: 20px 40px;
+  margin: 40px 28px 112px;
 }
 .enter-the-site h5 {
   text-align: center;
@@ -610,7 +611,7 @@ header .container .pages .page:hover .text {
   outline: 0.5px solid #8E99AB;
   border: none;
   border-radius: 20px;
-  padding: 13px 24px;
+  padding: 13px 48px 13px 24px;
   cursor: pointer;
 }
 .enter-the-site form fieldset .field input:hover {
@@ -751,7 +752,7 @@ header .container .pages .page:hover .text {
 }
 .modal-overlay .modal .modal-form .field {
   position: relative;
-  width: 523px;
+  max-width: 523px;
   display: flex;
   flex-direction: column;
   margin: 0 auto 40px;
@@ -768,9 +769,9 @@ header .container .pages .page:hover .text {
   letter-spacing: 2px;
   color: #434A54;
   border-radius: 20px;
-  outline: 0.5px solid #8E99AB;
+  outline: 1px solid #8E99AB;
   border: none;
-  padding: 13px 24px;
+  padding: 13px 48px 13px 24px;
 }
 .modal-overlay .modal .modal-form .field input[type=password] {
   height: 56px;
@@ -2325,7 +2326,7 @@ footer {
   }
   .lending .career .table .part h3 {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .lending .how-works {
     margin-bottom: 120px;
@@ -2377,7 +2378,7 @@ footer {
     height: 48px;
     border-radius: 32px;
     padding: 8px;
-    margin: 10px;
+    margin: 20px 12px 56px;
   }
   .enter-the-site .logo img {
     width: 24px;
@@ -2408,7 +2409,7 @@ footer {
     font-size: 18px;
     letter-spacing: 1px;
     border-radius: 15px;
-    padding: 10px 20px;
+    padding: 10px 40px 10px 20px;
   }
   .enter-the-site form fieldset .field input:focus {
     outline: 1px solid #1D5BBF;
@@ -2450,7 +2451,7 @@ footer {
   }
   .enter-the-site .btn {
     font-size: 18px;
-    padding: 12px 100px;
+    padding: 11px 100px;
   }
   .registration {
     margin: 0 8px;
@@ -2536,7 +2537,7 @@ footer {
   }
   .registration form .btn.btn-primary {
     font-size: 18px;
-    padding: 10px 50px;
+    padding: 11px 50px;
   }
   .profile-success-create .login-modal {
     border-radius: 24px;
@@ -2557,13 +2558,97 @@ footer {
     gap: 16px;
   }
   .lending .statistics .block {
-    gap: 6px;
+    gap: 2px;
   }
   .lending .statistics .block .quantity {
     font-size: 24px;
   }
   .lending .statistics .block .indicator {
     font-size: 14px;
+  }
+  .modal-overlay .modal {
+    border-radius: 15px;
+    padding: 40px 20px;
+  }
+  .modal-overlay .modal .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  .modal-overlay .modal .modal-header {
+    margin-bottom: 32px;
+  }
+  .modal-overlay .modal .modal-header h5 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .modal-overlay .modal .modal-header p {
+    font-size: 16px;
+  }
+  .modal-overlay .modal .modal-form .field {
+    margin: 0 auto 32px;
+  }
+  .modal-overlay .modal .modal-form .field .small-text {
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+  .modal-overlay .modal .modal-form .field input {
+    font-size: 18px;
+    letter-spacing: 1px;
+    border-radius: 15px;
+    padding: 10px 40px 10px 20px;
+  }
+  .modal-overlay .modal .modal-form .field input[type=password] {
+    height: 47px;
+    font-size: 41px;
+    padding: 0 50px 6px 24px;
+  }
+  .modal-overlay .modal .modal-form .field input::placeholder {
+    font-size: 18px;
+  }
+  .modal-overlay .modal .modal-form .field .toggle-password {
+    top: 37px;
+    right: 10px;
+  }
+  .modal-overlay .modal .modal-form .field .toggle-password #eye {
+    width: 20px;
+  }
+  .modal-overlay .modal .modal-form .field .info-lock {
+    font-size: 14px;
+    margin-top: 6px;
+  }
+  .modal-overlay .modal .modal-form .field .info-lock .warning {
+    margin-bottom: 3px;
+  }
+  .modal-overlay .modal .modal-form .field .info-lock .warning img {
+    width: 20px;
+    margin-right: 6px;
+  }
+  .modal-overlay .modal .modal-form .field .info-lock .warning .enter-correct {
+    font-size: 14px;
+  }
+  .modal-overlay .modal .modal-form .btn-primary {
+    font-size: 18px;
+    padding: 11px 40px;
+    margin-top: 10px;
+  }
+  .modal-overlay .modal .modal-form .no-account {
+    margin-bottom: 40px;
+  }
+  .modal-overlay .modal .modal-form .no-account .small-text {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+  .modal-overlay .modal .modal-form .no-account a {
+    font-size: 18px;
+  }
+  .modal-overlay .modal.step-success-message h5 {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+  .modal-overlay .modal.step-success-message .btn {
+    font-size: 18px;
+    padding: 11px 61px;
   }
 }
 /*# sourceMappingURL=style.css.map */

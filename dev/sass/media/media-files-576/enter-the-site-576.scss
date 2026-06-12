@@ -8,7 +8,7 @@
       height: 48px;
       border-radius: 32px;
       padding: 8px;
-      margin: 10px;
+      margin: 20px 12px 56px;
 
       img {
          width: 24px;
@@ -44,7 +44,7 @@
                font-size: 18px;
                letter-spacing: 1px;
                border-radius: 15px;
-               padding: 10px 20px;
+               padding: 10px 40px 10px 20px;
                
                &:focus {
                   outline: 1px solid $blue70;
@@ -104,6 +104,6 @@
    
    .btn {
       font-size: 18px;
-      padding: 12px 100px;
+      padding: 11px 100px;
    }
 }
