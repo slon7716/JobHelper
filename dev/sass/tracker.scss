@@ -2,7 +2,7 @@
 
 .tracker {
    .title-block {
-      margin: 0 40px 40px;
+      margin: 0 40px 30px;
 
       .title {
          margin-bottom: 16px;
@@ -13,7 +13,6 @@
       }
 
       .find-vacancy {
-         width: 325px;
          font-size: 20px;
          line-height: 1.5;
          color: $grey-blue90;
@@ -64,7 +63,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
 
             &.yellow {
                background-color: #FFFBD5;

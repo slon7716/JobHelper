@@ -4,14 +4,17 @@ header {
 	padding: 40px 0 60px;
 
 	.container {
+		padding: 0 12px;
+
 		.header-nav {
-			background-color: $grey-blue10;
-			border-radius: 58px;
+			background-color: #f7f7f7;
+			border-radius: 60px;
 			display: flex;
+			flex-wrap: wrap;
 			align-items: center;
 			justify-content: space-between;
 			gap: 40px;
-			padding: 8px 40px;
+			padding: 8px 24px;
 			margin: 0 40px;
 		}
 

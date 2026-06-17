@@ -24,9 +24,12 @@
 
       .modal-body {
          height: auto;
-         border-radius: 20px;
          margin-bottom: 20px;
          overflow-y: auto;
+
+         .modal-card-content {
+            margin-bottom: 32px;
+         }
 
          &::-webkit-scrollbar {
             width: 8px;
@@ -36,10 +39,6 @@
          &::-webkit-scrollbar-thumb {
             background: $blue70;
             border-radius: 3px;
-         }
-
-         .modal-card-content {
-            margin-bottom: 32px;
          }
 
          .job-title {
@@ -66,6 +65,7 @@
 
             .job-details {
                display: flex;
+               justify-content: space-between;
                gap: 26px;
                margin-bottom: 16px;
 
@@ -88,14 +88,13 @@
 
             .match {
                width: 135px;
-               height: 36px;
                font-size: 18px;
                line-height: 1.56;
                color: $secondary-color;
                text-align: center;
                border: 0.5px solid $blue70;
                border-radius: 18px;
-               padding: 4px 12px;
+               padding: 3px 12px;
             }
          }
 
@@ -104,11 +103,11 @@
             margin-bottom: 24px;
 
             .title {
-               font-size: 18px;
+               font-size: 20px;
                font-weight: 600;
                line-height: 1.56;
                color: $grey-blue80;
-               margin-bottom: 8px;
+               margin-bottom: 6px;
             }
          }
 

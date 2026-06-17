@@ -1,23 +1,6 @@
 @use '../../variables.scss' as *;
 
 .lending {
-   h2 {
-      font-size: 30px;
-   }
-
-   h5 {
-      font-size: 18px;
-   }
-
-   .text {
-      font-size: 16px;
-      margin-bottom: 24px;
-   }
-
-   .small-text {
-      font-size: 14px;
-   }
-
    header {
       padding: 8px;
       margin-bottom: 60px;
@@ -64,8 +47,6 @@
       margin-bottom: 120px;
 
       .info-block {
-         gap: 0;
-
          .description {         
             .subtitle {
                padding: 6px 31px;
@@ -149,8 +130,7 @@
                }
             }
 
-            h3 {
-               font-size: 24px;
+            h4 {
                margin-bottom: 8px;
             }
          }

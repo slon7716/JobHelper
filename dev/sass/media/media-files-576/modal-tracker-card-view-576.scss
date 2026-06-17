@@ -1,0 +1,84 @@
+.modal-tracker-card-view {
+   .modal-content {
+      border-radius: 24px;
+      padding: 16px;
+
+      .modal-body {
+         .modal-card-content {
+            text-align: center;
+            margin-bottom: 24px;
+         }
+
+         .job-title {
+            align-items: center;
+            border-radius: 24px;
+            padding: 16px;
+            margin-bottom: 16px;
+            
+            .position-and-control {
+               text-align: center;
+               margin-bottom: 20px;
+               
+               .position {
+                  font-size: 20px;
+               }
+            }
+            
+            .job-details {
+               flex-direction: column;
+               gap: 6px;
+               margin-bottom: 12px;
+
+               .items {
+                  img {
+                     width: 16px;
+                  }
+
+                  .item {
+                     font-size: 16px;
+                  }
+               }
+            }
+
+            .match {
+               width: 102px;
+               font-size: 16px;
+            }
+         }
+
+         .characteristic-name {
+            padding: 0 12px;
+            margin-bottom: 16px;
+
+            .title {
+               font-size: 18px;
+               margin-bottom: 4px;
+            }
+         }
+
+         .format,
+         .required-skills-item,
+         .description {
+            font-size: 16px;
+         }
+
+         .required-skills {
+            .required-skills-list {
+               .required-skills-item {
+                  justify-content: center;
+                  margin-bottom: 4px;
+
+                  img {
+                     margin-right: 6px;
+                  }
+               }
+            }
+         }
+      }
+
+      .btn {
+         font-size: 18px;
+         padding: 11px 40px;
+      }
+   }
+}

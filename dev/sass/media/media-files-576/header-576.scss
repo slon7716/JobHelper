@@ -1,0 +1,14 @@
+header {
+	.container {
+      .header-nav {
+         border-radius: 20px;
+         flex-direction: column;
+      }
+
+		.pages {
+         max-height: initial;
+         flex-direction: column;
+         align-items: center;
+      }
+   }
+}

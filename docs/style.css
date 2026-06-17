@@ -188,14 +188,18 @@ h5 {
 header {
   padding: 40px 0 60px;
 }
+header .container {
+  padding: 0 12px;
+}
 header .container .header-nav {
-  background-color: #F9F9F9;
-  border-radius: 58px;
+  background-color: #f7f7f7;
+  border-radius: 60px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  padding: 8px 40px;
+  padding: 8px 24px;
   margin: 0 40px;
 }
 header .container .pages {
@@ -357,7 +361,7 @@ header .container .pages .page:hover .text {
   width: 70px;
   height: 70px;
 }
-.lending .career .table .part h3 {
+.lending .career .table .part h4 {
   font-weight: 600;
   margin-bottom: 16px;
 }
@@ -1434,9 +1438,11 @@ header .container .pages .page:hover .text {
 }
 .modal-tracker-card-view .modal-content .modal-body {
   height: auto;
-  border-radius: 20px;
   margin-bottom: 20px;
   overflow-y: auto;
+}
+.modal-tracker-card-view .modal-content .modal-body .modal-card-content {
+  margin-bottom: 32px;
 }
 .modal-tracker-card-view .modal-content .modal-body::-webkit-scrollbar {
   width: 8px;
@@ -1445,9 +1451,6 @@ header .container .pages .page:hover .text {
 .modal-tracker-card-view .modal-content .modal-body::-webkit-scrollbar-thumb {
   background: #1D5BBF;
   border-radius: 3px;
-}
-.modal-tracker-card-view .modal-content .modal-body .modal-card-content {
-  margin-bottom: 32px;
 }
 .modal-tracker-card-view .modal-content .modal-body .job-title {
   background-color: #fff;
@@ -1470,6 +1473,7 @@ header .container .pages .page:hover .text {
 }
 .modal-tracker-card-view .modal-content .modal-body .job-title .job-details {
   display: flex;
+  justify-content: space-between;
   gap: 26px;
   margin-bottom: 16px;
 }
@@ -1488,25 +1492,24 @@ header .container .pages .page:hover .text {
 }
 .modal-tracker-card-view .modal-content .modal-body .job-title .match {
   width: 135px;
-  height: 36px;
   font-size: 18px;
   line-height: 1.56;
   color: #707A8A;
   text-align: center;
   border: 0.5px solid #1D5BBF;
   border-radius: 18px;
-  padding: 4px 12px;
+  padding: 3px 12px;
 }
 .modal-tracker-card-view .modal-content .modal-body .characteristic-name {
   padding: 0 24px;
   margin-bottom: 24px;
 }
 .modal-tracker-card-view .modal-content .modal-body .characteristic-name .title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.56;
   color: #58606E;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .modal-tracker-card-view .modal-content .modal-body .format,
 .modal-tracker-card-view .modal-content .modal-body .required-skills-item,
@@ -1736,7 +1739,7 @@ header .container .pages .page:hover .text {
 }
 
 .tracker .title-block {
-  margin: 0 40px 40px;
+  margin: 0 40px 30px;
 }
 .tracker .title-block .title {
   margin-bottom: 16px;
@@ -1745,7 +1748,6 @@ header .container .pages .page:hover .text {
   margin-bottom: 40px;
 }
 .tracker .title-block .find-vacancy {
-  width: 325px;
   font-size: 20px;
   line-height: 1.5;
   color: #434A54;
@@ -1764,7 +1766,7 @@ header .container .pages .page:hover .text {
   outline: 1px solid #1D5BBF;
 }
 .tracker .title-block .find-vacancy:focus {
-  background-color: #F9F9F9;
+  background-color: #f8f8f8;
   outline: 2px solid #1D5BBF;
 }
 .tracker .title-block .find-vacancy:focus::placeholder {
@@ -1790,7 +1792,7 @@ header .container .pages .page:hover .text {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 .tracker .status-board .status-column .status-header.yellow {
   background-color: #FFFBD5;
@@ -1833,7 +1835,7 @@ header .container .pages .page:hover .text {
 .tracker .status-board .status-column .status-cards .swiper-slide {
   height: auto;
   max-height: 150px;
-  background-color: #F9F9F9;
+  background-color: #f8f8f8;
   outline: 0.5px solid #DDE3ED;
   border-radius: 20px;
   padding: 16px 8px;
@@ -2186,7 +2188,7 @@ footer {
   margin-top: auto;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023.9px) {
   .lending .service {
     align-items: center;
   }
@@ -2205,21 +2207,20 @@ footer {
   .lending .statistics .block .quantity {
     font-size: 40px;
   }
+  header .container .logo {
+    margin: 0 auto;
+  }
+  header .container .header-nav {
+    border-radius: 40px;
+    gap: 20px;
+    padding: 8px 12px;
+    margin: 0 auto;
+  }
+  header .container .pages {
+    gap: 20px;
+  }
 }
 @media screen and (max-width: 767.9px) {
-  .lending h2 {
-    font-size: 30px;
-  }
-  .lending h5 {
-    font-size: 18px;
-  }
-  .lending .text {
-    font-size: 16px;
-    margin-bottom: 24px;
-  }
-  .lending .small-text {
-    font-size: 14px;
-  }
   .lending header {
     padding: 8px;
     margin-bottom: 60px;
@@ -2255,9 +2256,6 @@ footer {
     justify-content: initial;
     padding: 0 40px;
     margin-bottom: 120px;
-  }
-  .lending .service .info-block {
-    gap: 0;
   }
   .lending .service .info-block .description .subtitle {
     padding: 6px 31px;
@@ -2324,8 +2322,7 @@ footer {
     width: 45px;
     height: 45px;
   }
-  .lending .career .table .part h3 {
-    font-size: 24px;
+  .lending .career .table .part h4 {
     margin-bottom: 8px;
   }
   .lending .how-works {
@@ -2367,6 +2364,110 @@ footer {
   .lending .copyright {
     font-size: 14px;
     padding: 20px 6px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 28px;
+  }
+  h4 {
+    font-size: 24px;
+  }
+  h5 {
+    font-size: 18px;
+  }
+  .text {
+    font-size: 16px;
+  }
+  .small-text {
+    font-size: 14px;
+  }
+  .logo {
+    width: 145px;
+    height: 48px;
+    border-radius: 32px;
+    padding: 8px;
+    margin: 0 auto;
+  }
+  .logo img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  .logo .name {
+    font-size: 18px;
+    padding-top: 3px;
+  }
+  header {
+    padding: 20px 0 48px;
+  }
+  header .container {
+    padding: 0 8px;
+  }
+  header .container .header-nav {
+    border-radius: 30px;
+    gap: 24px;
+    padding: 8px;
+  }
+  header .container .pages {
+    max-height: 48px;
+    min-height: 48px;
+    gap: 20px;
+    margin: 0 auto;
+  }
+  header .container .pages .page img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+  header .container .pages .page.active {
+    border-radius: 20px;
+    padding: 8px 12px;
+  }
+  .tracker .title-block {
+    text-align: center;
+    margin: 0 20px 20px;
+  }
+  .tracker .title-block .title {
+    margin-bottom: 8px;
+  }
+  .tracker .title-block .small-text {
+    margin-bottom: 20px;
+  }
+  .tracker .title-block .find-vacancy {
+    font-size: 14px;
+    background: url("assets/img/search.svg") no-repeat 16px center;
+    background-size: 16px 16px;
+    border-radius: 39px;
+    padding: 13px 16px 13px 42px;
+  }
+  .tracker .title-block .find-vacancy::placeholder {
+    font-size: 14px;
+  }
+  .tracker .status-board {
+    gap: 12px;
+    padding: 0 20px 40px;
+  }
+  .tracker .status-board .status-column .status-header {
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+  .tracker .status-board .status-column .status-header .status-count {
+    width: 25px;
+    height: 30px;
+    font-size: 13px;
+    padding: 5px;
+  }
+  .tracker .status-board .status-column .status-cards {
+    max-width: 220px;
+  }
+  .tracker .status-board .status-column .status-cards .swiper-slide {
+    max-height: 150px;
+    border-radius: 20px;
+    padding: 16px 8px;
+    margin-bottom: 16px;
   }
 }
 @media screen and (max-width: 575.9px) {
@@ -2649,6 +2750,75 @@ footer {
   .modal-overlay .modal.step-success-message .btn {
     font-size: 18px;
     padding: 11px 61px;
+  }
+  header .container .header-nav {
+    border-radius: 20px;
+    flex-direction: column;
+  }
+  header .container .pages {
+    max-height: initial;
+    flex-direction: column;
+    align-items: center;
+  }
+  .modal-tracker-card-view .modal-content {
+    border-radius: 24px;
+    padding: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .modal-card-content {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title {
+    align-items: center;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title .position-and-control {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title .position-and-control .position {
+    font-size: 20px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title .job-details {
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title .job-details .items img {
+    width: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title .job-details .items .item {
+    font-size: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .job-title .match {
+    width: 102px;
+    font-size: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .characteristic-name {
+    padding: 0 12px;
+    margin-bottom: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .characteristic-name .title {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .format,
+  .modal-tracker-card-view .modal-content .modal-body .required-skills-item,
+  .modal-tracker-card-view .modal-content .modal-body .description {
+    font-size: 16px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .required-skills .required-skills-list .required-skills-item {
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  .modal-tracker-card-view .modal-content .modal-body .required-skills .required-skills-list .required-skills-item img {
+    margin-right: 6px;
+  }
+  .modal-tracker-card-view .modal-content .btn {
+    font-size: 18px;
+    padding: 11px 40px;
   }
 }
 /*# sourceMappingURL=style.css.map */
