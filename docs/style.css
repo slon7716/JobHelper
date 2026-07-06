@@ -1927,8 +1927,8 @@ header .container .pages .page:hover .text {
 }
 .profile .section .edit-btn {
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: 20px;
+  right: 20px;
   width: 50px;
   height: 50px;
   background-color: #fff;
@@ -1944,15 +1944,14 @@ header .container .pages .page:hover .text {
   font-size: 24px;
   font-weight: 500;
   line-height: 1.33;
-  margin-bottom: 38px;
+  margin-bottom: 40px;
 }
 .profile .basic-client-data .personal-data {
-  flex-direction: column;
-  gap: 40px;
   margin-bottom: 40px;
 }
 .profile .basic-client-data .personal-data .fpi {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
 }
 .profile .basic-client-data .personal-data .foto {
@@ -1967,9 +1966,10 @@ header .container .pages .page:hover .text {
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
+  overflow: hidden;
 }
 .profile .basic-client-data .personal-data .foto .picture img {
-  width: 100px;
+  object-fit: cover;
 }
 .profile .basic-client-data .personal-data .foto p {
   font-size: 18px;
@@ -2018,7 +2018,7 @@ header .container .pages .page:hover .text {
 .profile .basic-client-data .resume .upload-resume {
   font-size: 20px;
   font-weight: 500;
-  margin-right: 10px;
+  margin-right: 13px;
 }
 .profile .basic-client-data .resume .upload-resume:hover {
   color: #114599;
@@ -2035,7 +2035,7 @@ header .container .pages .page:hover .text {
   display: none;
 }
 .profile .basic-client-data .resume .download {
-  padding: 0 6px;
+  padding: 0 3px 4px;
   border: none;
   background-color: transparent;
 }
@@ -2047,7 +2047,7 @@ header .container .pages .page:hover .text {
   width: 24px;
 }
 .profile .basic-client-data .resume #resumeStatus {
-  margin-left: 6px;
+  margin-left: 13px;
 }
 .profile .wish-to-vacancy .job-details {
   display: flex;
@@ -2068,19 +2068,16 @@ header .container .pages .page:hover .text {
   display: inline-block;
   font-size: 18px;
   line-height: 1.56;
+  text-align: center;
   color: #707A8A;
   outline: 1px solid #C8D1E0;
   border-radius: 30px;
   padding: 16px;
 }
-.profile .wish-to-vacancy .job-details .job-details-choices .job-details-choice img {
-  width: 24px;
-  margin-right: 8px;
-}
 .profile .account-settings .account-settings-list {
   display: flex;
-  justify-content: space-between;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 .profile .account-settings .account-settings-list .account-setting-title {
   font-size: 20px;
@@ -2097,22 +2094,18 @@ header .container .pages .page:hover .text {
 }
 .profile .edit-form {
   display: none;
+  margin-top: 4px;
 }
 .profile .edit-form.active {
   display: block;
 }
 .profile .edit-form.active .form-group {
-  margin-bottom: 16px;
-}
-.profile .edit-form.active .job-details-choices {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  margin-bottom: 20px;
 }
 .profile .edit-form.active label {
   font-size: 20px;
   display: inline-block;
-  margin-right: 8px;
+  margin: 0 8px 4px;
 }
 .profile .edit-form.active input {
   width: 600px;
@@ -2133,11 +2126,11 @@ header .container .pages .page:hover .text {
 .profile .edit-form.active .btns {
   display: flex;
   justify-content: center;
-  padding-top: 16px;
+  padding-top: 12px;
 }
 .profile .edit-form.active .btns .btn {
   width: 150px;
-  padding: 10px;
+  padding: 13px;
   margin: 0 16px;
 }
 .profile #logoutBtn {
@@ -2148,7 +2141,6 @@ header .container .pages .page:hover .text {
 
 .modal-logout {
   display: none;
-  /* схована за замовчуванням */
   position: fixed;
   top: 0;
   left: 0;
@@ -2159,7 +2151,7 @@ header .container .pages .page:hover .text {
   align-items: flex-start;
 }
 .modal-logout .modal-content {
-  width: 100%;
+  width: 94%;
   max-width: 783px;
   font-size: 30px;
   font-weight: 500;
@@ -2170,7 +2162,7 @@ header .container .pages .page:hover .text {
   padding: 24px;
   margin-top: 28vh;
 }
-.modal-logout .modal-content h5 {
+.modal-logout .modal-content h4 {
   margin: 28px 0 40px;
 }
 .modal-logout .modal-content .modal-actions {
@@ -2181,7 +2173,7 @@ header .container .pages .page:hover .text {
 }
 .modal-logout .modal-content .modal-actions .btn {
   width: 191px;
-  height: 56px;
+  padding: 13px;
 }
 
 footer {
@@ -2468,6 +2460,148 @@ footer {
     border-radius: 20px;
     padding: 16px 8px;
     margin-bottom: 16px;
+  }
+  .profile .title-block {
+    margin: 0 16px 36px;
+    text-align: center;
+  }
+  .profile .section {
+    border-radius: 14px;
+    padding: 16px;
+    margin: 0 16px 12px;
+  }
+  .profile .section.editing {
+    outline: 1px solid #1D5BBF;
+  }
+  .profile .section .edit-btn {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+  }
+  .profile .section .title {
+    font-size: 18px;
+    margin: 0 30px 24px 0;
+  }
+  .profile .basic-client-data .personal-data {
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .profile .basic-client-data .personal-data .fpi {
+    gap: 30px;
+  }
+  .profile .basic-client-data .personal-data .foto .picture {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 12px;
+  }
+  .profile .basic-client-data .personal-data .foto p {
+    font-size: 14px;
+  }
+  .profile .basic-client-data .personal-data .personal-information {
+    padding: 0 12px 0 0;
+  }
+  .profile .basic-client-data .personal-data .personal-information .sername {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .profile .basic-client-data .personal-data .personal-information .profession,
+  .profile .basic-client-data .personal-data .personal-information .location {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .profile .basic-client-data .personal-data .personal-information .filling-profile {
+    margin-top: 8px;
+  }
+  .profile .basic-client-data .personal-data .personal-information .filling-profile .p {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .profile .basic-client-data .personal-data .personal-information .filling-profile .procent-filling {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+    padding-top: 7px;
+  }
+  .profile .basic-client-data .resume .upload-resume {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  .profile .basic-client-data .resume .download img {
+    width: 18px;
+  }
+  .profile .basic-client-data .resume #resumeStatus {
+    margin-left: 8px;
+  }
+  .profile .wish-to-vacancy .job-details .job-details-title {
+    font-size: 16px;
+    margin: 0 0 12px 3px;
+  }
+  .profile .wish-to-vacancy .job-details .job-details-choices {
+    gap: 8px;
+  }
+  .profile .wish-to-vacancy .job-details .job-details-choices .job-details-choice {
+    min-width: 70px;
+    min-height: 42px;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  .profile .account-settings .account-settings-list .account-setting-title {
+    font-size: 16px;
+    white-space: nowrap;
+    margin: 0 0 12px 3px;
+  }
+  .profile .account-settings .account-settings-list .account-setting-choice {
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 10px 24px;
+  }
+  .profile .edit-form.active .form-group {
+    margin-bottom: 14px;
+  }
+  .profile .edit-form.active label {
+    font-size: 16px;
+    margin: 0 0 2px;
+  }
+  .profile .edit-form.active input {
+    width: 100%;
+    font-size: 14px;
+    border-radius: 25px;
+    padding: 11px 16px;
+  }
+  .profile .edit-form.active input:focus {
+    outline: 1px solid #1D5BBF;
+  }
+  .profile .edit-form.active .btns {
+    padding-top: 10px;
+  }
+  .profile .edit-form.active .btns .btn {
+    width: 150px;
+    font-size: 18px;
+    padding: 11px;
+    margin: 0 12px;
+  }
+  .profile #logoutBtn {
+    font-size: 18px;
+    padding: 11px 50px;
+    margin: 36px auto 60px;
+  }
+  .modal-logout .modal-content {
+    border-radius: 24px;
+    padding: 16px;
+  }
+  .modal-logout .modal-content h4 {
+    margin: 24px 0 32px;
+  }
+  .modal-logout .modal-content .modal-actions {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .modal-logout .modal-content .modal-actions .btn {
+    font-size: 16px;
+    width: 130px;
+    padding: 12px;
   }
 }
 @media screen and (max-width: 575.9px) {
