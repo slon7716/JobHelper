@@ -16,7 +16,7 @@
          img {
             width: 60px;
             height: 60px;
-            margin: -16px 0 0 11px;
+            margin: -10px 0 0 11px;
          }
       }
    }
@@ -24,10 +24,12 @@
    .activities {
       display: flex;
       justify-content: space-evenly;
+      gap: 12px;
       margin: 0 40px 60px;
 
       .item {
-         width: 277px;
+         width: 100%;
+         max-width: 277px;
          text-align: center;
          background-color: $blue10;
          border-radius: 60px;
@@ -68,8 +70,7 @@
          }
 
          .btn {
-            height: 62px;
-            padding: 16px 53px 16px 62px;
+            padding: 16px 53px;
             display: flex;
             align-items: center;
 
@@ -122,22 +123,16 @@
                      .items {
                         display: flex;
                         align-items: center;
+                        gap: 4px;
 
                         img {
                            width: 16px;
-                           margin-right: 4px;
                         }
 
-                        .item,
-                        p {
+                        .item, p {
                            font-size: 14px;
                            line-height: 1.43;
                            color: $secondary-color;
-                        }
-
-                        p {
-                           font-size: 18px;
-                           line-height: 1.12;
                         }
                      }
                   }
@@ -155,7 +150,7 @@
                }
 
                .characteristic-name {
-                  padding: 0 16px;
+                  padding: 0 12px;
                   margin-bottom: 16px;
 
                   .title {
@@ -179,7 +174,7 @@
                   .required-skills-list {
                      .required-skills-item {
                         display: flex;
-                        margin-bottom: 6px;
+                        margin-bottom: 4px;
 
                         &:last-child {
                            margin-bottom: 0;
@@ -265,30 +260,31 @@
       text-align: center;
 
       p {
-         font-size: 20px;
+         font-size: 24px;
          font-weight: 600;
          margin-bottom: 8px;
       }
 
       label {
-         font-size: 14px;
+         font-size: 16px;
          line-height: 1.43;
          color: $secondary-color;
          display: block;
          margin-bottom: 24px;
       }
 
-      textarea {
-         width: 376px;
+      #ideas {
+         width: 100%;
+         max-width: 376px;
          height: 159px;
-         font-size: 16px;
+         font-size: 18px;
          border-radius: 20px 20px 10px 20px;
          padding: 16px;
          margin-bottom: 24px;
          resize: vertical;
 
          &::placeholder {
-            font-size: 16px;
+            font-size: 18px;
             color: $grey-blue60;
          }
 

@@ -35,7 +35,6 @@ Use it to make something cool, have fun, and share what you've learned with othe
 }
 html {
   font-size: 16px;
-  /* 1rem = 16px */
   box-sizing: border-box;
 }
 
@@ -898,15 +897,17 @@ header .container .pages .page:hover .text {
 .main-page .greeting .title img {
   width: 60px;
   height: 60px;
-  margin: -16px 0 0 11px;
+  margin: -10px 0 0 11px;
 }
 .main-page .activities {
   display: flex;
   justify-content: space-evenly;
+  gap: 12px;
   margin: 0 40px 60px;
 }
 .main-page .activities .item {
-  width: 277px;
+  width: 100%;
+  max-width: 277px;
   text-align: center;
   background-color: #F0F5FC;
   border-radius: 60px;
@@ -939,8 +940,7 @@ header .container .pages .page:hover .text {
   color: #707A8A;
 }
 .main-page .recent-vacancies .title-block .btn {
-  height: 62px;
-  padding: 16px 53px 16px 62px;
+  padding: 16px 53px;
   display: flex;
   align-items: center;
 }
@@ -987,20 +987,15 @@ header .container .pages .page:hover .text {
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items {
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items img {
   width: 16px;
-  margin-right: 4px;
 }
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items .item,
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items p {
+.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items .item, .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items p {
   font-size: 14px;
   line-height: 1.43;
   color: #707A8A;
-}
-.main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items p {
-  font-size: 18px;
-  line-height: 1.12;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .match {
   width: 94px;
@@ -1013,7 +1008,7 @@ header .container .pages .page:hover .text {
   padding: 3px 0;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .characteristic-name {
-  padding: 0 16px;
+  padding: 0 12px;
   margin-bottom: 16px;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .characteristic-name .title {
@@ -1032,7 +1027,7 @@ header .container .pages .page:hover .text {
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .required-skills-list .required-skills-item {
   display: flex;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .required-skills-list .required-skills-item:last-child {
   margin-bottom: 0;
@@ -1097,34 +1092,35 @@ header .container .pages .page:hover .text {
   text-align: center;
 }
 .main-page .feedback p {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   margin-bottom: 8px;
 }
 .main-page .feedback label {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.43;
   color: #707A8A;
   display: block;
   margin-bottom: 24px;
 }
-.main-page .feedback textarea {
-  width: 376px;
+.main-page .feedback #ideas {
+  width: 100%;
+  max-width: 376px;
   height: 159px;
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 20px 20px 10px 20px;
   padding: 16px;
   margin-bottom: 24px;
   resize: vertical;
 }
-.main-page .feedback textarea::placeholder {
-  font-size: 16px;
+.main-page .feedback #ideas::placeholder {
+  font-size: 18px;
   color: #8E99AB;
 }
-.main-page .feedback textarea:hover {
+.main-page .feedback #ideas:hover {
   border: 1px solid #1D5BBF;
 }
-.main-page .feedback textarea:active, .main-page .feedback textarea:focus {
+.main-page .feedback #ideas:active, .main-page .feedback #ideas:focus {
   border: 2px solid #1D5BBF;
 }
 .main-page .feedback .btn {
@@ -2367,7 +2363,7 @@ footer {
     font-size: 24px;
   }
   h5 {
-    font-size: 18px;
+    font-size: 20px;
   }
   .text {
     font-size: 16px;
@@ -2602,6 +2598,73 @@ footer {
     font-size: 16px;
     width: 130px;
     padding: 12px;
+  }
+  .main-page .greeting {
+    margin: 0 8px 40px;
+    text-align: center;
+  }
+  .main-page .greeting .title {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .main-page .greeting .title h3 {
+    font-weight: 700;
+  }
+  .main-page .greeting .title img {
+    width: 40px;
+    height: 40px;
+    margin: -8px 0 0 8px;
+  }
+  .main-page .activities {
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px 40px;
+  }
+  .main-page .activities .item {
+    border-radius: 40px;
+    padding: 28px 0;
+  }
+  .main-page .activities .item .number {
+    margin-bottom: 5px;
+  }
+  .main-page .recent-vacancies {
+    margin: 0 0 60px 8px;
+  }
+  .main-page .recent-vacancies .title-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 8px;
+    margin-bottom: 16px;
+  }
+  .main-page .recent-vacancies .title-block .new-jobs h5 {
+    margin-bottom: 5px;
+  }
+  .main-page .recent-vacancies .title-block .new-jobs .works {
+    font-size: 14px;
+  }
+  .main-page .recent-vacancies .title-block .btn {
+    font-size: 16px;
+    padding: 13px 40px;
+  }
+  .main-page .recent-vacancies .title-block .btn i {
+    font-size: 20px;
+    margin-right: 12px;
+  }
+  .main-page .feedback {
+    margin-bottom: 50px;
+  }
+  .main-page .feedback p {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .main-page .feedback label {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .main-page .feedback .btn {
+    font-size: 16px;
+    padding: 13px 40px;
   }
 }
 @media screen and (max-width: 575.9px) {
@@ -2953,6 +3016,122 @@ footer {
   .modal-tracker-card-view .modal-content .btn {
     font-size: 18px;
     padding: 11px 40px;
+  }
+  .main-page .recent-vacancies .title-block {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+  .main-page .recent-vacancies .title-block .new-jobs {
+    text-align: center;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-wrapper {
+    margin-bottom: 16px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide {
+    width: 270px;
+    height: 400px;
+    border-radius: 30px;
+    padding: 12px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title {
+    border-radius: 24px;
+    gap: 12px;
+    padding: 12px 10px;
+    margin-bottom: 14px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .position {
+    max-height: 16px;
+    font-size: 14px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details {
+    max-height: 16px;
+    gap: 8px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items {
+    gap: 3px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items img {
+    width: 14px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items .item, .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .job-details .items p {
+    font-size: 12px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-title .match {
+    width: 80px;
+    font-size: 12px;
+    margin: 0 auto;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .characteristic-name {
+    padding: 0 6px;
+    margin-bottom: 12px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .characteristic-name .title {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .format,
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills-item,
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .description {
+    font-size: 12px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .required-skills-list .required-skills-item {
+    margin-bottom: 3px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .required-skills .required-skills-list .required-skills-item img {
+    width: 3px;
+    margin-right: 5px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .description {
+    max-height: 60px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .description::-webkit-scrollbar {
+    width: 5px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .job-description .description::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns {
+    padding-bottom: 2px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns .btn {
+    font-size: 12px;
+    padding: 8px 17.4px;
+  }
+  .main-page .recent-vacancies .vacancy-slider .swiper .swiper-slide .btns .btn.btn-secondary {
+    padding: 8px 20px;
+    margin-right: 20px;
+  }
+  .main-page .recent-vacancies .vacancy-slider-navigation {
+    height: 22px;
+  }
+  .main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-prev,
+  .main-page .recent-vacancies .vacancy-slider-navigation .swiper-button-next {
+    top: 462px;
+    width: 22px;
+    height: 22px;
+  }
+  .main-page .feedback p {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .main-page .feedback label {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .main-page .feedback #ideas {
+    max-width: 281px;
+    height: 112px;
+    font-size: 14px;
+    border-radius: 12px 12px 10px 12px;
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+  .main-page .feedback #ideas::placeholder {
+    font-size: 14px;
+  }
+  .main-page .feedback #ideas:active, .main-page .feedback #ideas:focus {
+    border: 1px solid #1D5BBF;
   }
 }
 /*# sourceMappingURL=style.css.map */

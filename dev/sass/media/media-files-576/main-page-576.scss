@@ -1,0 +1,161 @@
+.main-page {
+   .recent-vacancies {
+      .title-block {
+         flex-direction: column;
+         justify-content: center;
+         gap: 8px;
+
+         .new-jobs {
+            text-align: center;
+         }
+      }
+
+      .vacancy-slider {
+         .swiper {
+            .swiper-wrapper {
+               margin-bottom: 16px;
+            }
+   
+            .swiper-slide {
+               width: 270px;
+               height: 400px;
+               border-radius: 30px;
+               padding: 12px;
+   
+               .job-title {
+                  border-radius: 24px;
+                  gap: 12px;
+                  padding: 12px 10px;
+                  margin-bottom: 14px;
+   
+                  .position {
+                     max-height: 16px;
+                     font-size: 14px;
+                  }
+   
+                  .job-details {
+                     max-height: 16px;
+                     gap: 8px;
+   
+                     .items {
+                        gap: 3px;
+
+                        img {
+                           width: 14px;
+                        }
+   
+                        .item, p {
+                           font-size: 12px;
+                        }
+                     }
+                  }
+   
+                  .match {
+                     width: 80px;
+                     font-size: 12px;
+                     margin: 0 auto;
+                  }
+               }
+   
+               .characteristic-name {
+                  padding: 0 6px;
+                  margin-bottom: 12px;
+   
+                  .title {
+                     font-size: 12px;
+                     margin-bottom: 4px;
+                  }
+               }
+   
+               .format,
+               .required-skills-item,
+               .description {
+                  font-size: 12px;
+               }
+   
+               .required-skills {
+                  .required-skills-list {
+                     .required-skills-item {
+                        margin-bottom: 3px;
+
+                        img {
+                           width: 3px;
+                           margin-right: 5px;
+                        }
+                     }
+                  }
+               }
+   
+               .job-description {
+                  .description {
+                     max-height: 60px;
+   
+                     &::-webkit-scrollbar {
+                        width: 5px;
+                     }
+   
+                     &::-webkit-scrollbar-thumb {
+                        border-radius: 2px;
+                     }
+                  }
+               }
+   
+               .btns {
+                  padding-bottom: 2px;
+   
+                  .btn {
+                     font-size: 12px;
+                     padding: 8px 17.4px;
+   
+                     &.btn-secondary {
+                        padding: 8px 20px;
+                        margin-right: 20px;
+                     }
+                  }
+               }
+            }
+         }
+   
+         &-navigation {
+            height: 22px;
+   
+            .swiper-button-prev,
+            .swiper-button-next {
+               top: 462px;
+               width: 22px;
+               height: 22px;
+            }
+         }
+      }
+   }
+
+   .feedback {
+      p {
+         font-size: 16px;
+         margin-bottom: 4px;
+      }
+
+      label {
+         font-size: 12px;
+         margin-bottom: 10px;
+      }
+
+      #ideas {
+         max-width: 281px;
+         height: 112px;
+         font-size: 14px;
+         border-radius: 12px 12px 10px 12px;
+         padding: 10px;
+         margin-bottom: 16px;
+
+         &::placeholder {
+            font-size: 14px;
+         }
+
+         &:active,
+         &:focus {
+            border: 1px solid #1D5BBF;
+         }
+      }
+   }
+}

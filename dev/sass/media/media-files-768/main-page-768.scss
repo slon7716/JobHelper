@@ -1,0 +1,87 @@
+.main-page {
+   .greeting {
+      margin: 0 8px 40px;
+      text-align: center;
+
+      .title {
+         justify-content: center;
+         margin-bottom: 12px;
+
+         h3 {
+            font-weight: 700;
+         }
+
+         img {
+            width: 40px;
+            height: 40px;
+            margin: -8px 0 0 8px;
+         }
+      }
+   }
+
+   .activities {
+      flex-direction: column;
+      align-items: center;
+      margin: 0 8px 40px;
+
+      .item {
+         border-radius: 40px;
+         padding: 28px 0;
+
+         .number {
+            margin-bottom: 5px;
+         }
+      }
+   }
+
+   .recent-vacancies {
+      margin: 0 0 60px 8px;
+
+      .title-block {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding-right: 8px;
+         margin-bottom: 16px;
+
+         .new-jobs {
+            h5 {
+               margin-bottom: 5px;
+            }
+
+            .works {
+               font-size: 14px;
+            }
+         }
+
+         .btn {
+            font-size: 16px;
+            padding: 13px 40px;
+
+            i {
+               font-size: 20px;
+               margin-right: 12px;
+            }
+         }
+      }
+   }
+
+   .feedback {
+      margin-bottom: 50px;
+
+      p {
+         font-size: 20px;
+         margin-bottom: 6px;
+      }
+
+      label {
+         font-size: 14px;
+         margin-bottom: 16px;
+      }
+
+      .btn {
+         font-size: 16px;
+         padding: 13px 40px;
+      }
+   }
+}
