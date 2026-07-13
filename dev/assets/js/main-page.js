@@ -8,7 +8,7 @@ const mainPage = document.querySelector('.main-page');
 
 if (mainPage) {
   const swiperWrapper = document.querySelector('.swiper-wrapper');
-  let isServerAvailable = false;
+  let isServerConnected = false;
 
   // Відображення кількості у activities
   const activities = document.querySelector('.activities');
@@ -86,7 +86,7 @@ if (mainPage) {
       // Якщо jobs не масив, кидаємо помилку (без цього не буде ніякого повідомлення про помилку)
       if (!Array.isArray(jobs)) throw new Error("Сервер недоступний або повернув не масив");
 
-      isServerAvailable = true;
+      isServerConnected = true;
 
       // Не рендеримо картки, які перенесені в трекер 
       // (тому що всі створені картки на сервері зберігаються в одному місці - 'jobs')
@@ -99,11 +99,11 @@ if (mainPage) {
       // Окремі запити на кожен match
       const profileData = JSON.parse(localStorage.getItem("profileData"));
       const resumeId = profileData?.basicData?.resumeId;
-      
+
       jobsToRender.forEach(job => {
         const slide = renderSlide(job);
         swiperWrapper.appendChild(slide);
-      
+
         if (resumeId) {
           updateMatchForSlide(slide, resumeId);
         } else {
@@ -116,7 +116,7 @@ if (mainPage) {
 
     } catch (err) {
       console.error("Використовується кеш з localStorage", err);
-      isServerAvailable = false;
+      isServerConnected = false;
       // fallback: якщо сервер недоступний, показуємо з localStorage
       if (savedServerSlides.length) {
         swiperWrapper.innerHTML = ''; // очищаємо Swiper перед рендером локального кешу
@@ -128,10 +128,11 @@ if (mainPage) {
     if (typeof cardsSwiper !== 'undefined') {
       cardsSwiper.update();
     }
-
-    // Ініціалізація модалки додавання картки-слайду
-    modalAddVacation(cardsSwiper, saveSlides, () => isServerAvailable);
   }
+
+  // Ініціалізація модалки додавання картки-слайду
+  modalAddVacation(cardsSwiper, saveSlides, () => isServerConnected);
+
   loadSlidesFromServer();
 
   // --- Оновлення match для всіх карток окремими запитами ---
@@ -170,13 +171,13 @@ if (mainPage) {
   // --- Ініціалізація модалки редагування ---
   const { openEditModal } = modalEditVacation(cardsSwiper, saveSlides);
 
-  // --- Слухач для кнопок "Змінити" (на картках) ---
+  // --- Слухач для кнопок "Змінити" ---
   swiperWrapper.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-edit');
     if (!btn) return;
 
-    if (!isServerAvailable) {
-      alert("Сервер недоступний. Зміни картки неможливі.");
+    if (!isServerConnected) {
+      alert("Немає зв'язку з сервером. Зміни картки неможливі.");
       return;
     }
 
@@ -191,8 +192,8 @@ if (mainPage) {
     if (!target) return;
 
     // якщо сервер недоступний — блокуємо
-    if (!isServerAvailable) {
-      alert("Сервер недоступний. Перенесення картки у трекер неможливе.");
+    if (!isServerConnected) {
+      alert("Немає зв'язку з сервером. Перенесення картки у трекер неможливе.");
       return;
     }
 

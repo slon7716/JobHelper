@@ -54,7 +54,7 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
       alert("Сервер недоступний. Додати вакансію неможливо.");
       return;
     }
-
+    
     modalCard.style.display = 'block';
     jobForm.reset();
 
@@ -159,7 +159,8 @@ export function modalAddVacation(cardsSwiper, saveSlides, getServerStatus) {
       alert("Вакансію додано!");
 
     } catch (err) {
-      alert("Помилка мережі: " + err);
+      console.error(err);
+      alert("Немає зв'язку з сервером. Додавання картки неможливе.");
     }
   });
 }

@@ -7,7 +7,7 @@ const tracker = document.querySelector(".tracker");
 
 if (tracker) {
   const columns = ['saved', 'in-progress', 'interview', 'offer', 'denied'];
-  let isServerAvailable = false;
+  let isServerConnected = false;
 
   // ==========================
   // --- Оновлення лічильників ---
@@ -152,11 +152,11 @@ if (tracker) {
       // --- Синхронізуємо локально trackerSlides
       localStorage.setItem('trackerSlides', JSON.stringify(applications));
 
-      isServerAvailable = true;
+      isServerConnected = true;
 
     } catch (err) {
       console.error("Використовується кеш localStorage:", err);
-      isServerAvailable = false; // сервер недоступний
+      isServerConnected = false; // сервер недоступний
       // --- fallback: рендеримо локальні картки
       document.querySelectorAll('.status-cards').forEach(col => col.innerHTML = '');
       for (const job of savedLocalCards) {
@@ -175,7 +175,7 @@ if (tracker) {
     initCardControls(() => {
       updateCounts();
       saveTrackerSlides();
-    }, () => isServerAvailable);
+    }, () => isServerConnected);
   }
 
   loadTrackerSlidesFromServer();

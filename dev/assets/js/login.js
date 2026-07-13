@@ -37,14 +37,14 @@ if (enterTheSite) {
     const password = passwordInput.value.trim();
 
                         // MOCK
-    // if (email === 'test@test.com' && password === '123456') {
-    //   localStorage.setItem("userEmail", email);
-    //   localStorage.setItem("jwtToken", "fake-token");
+    if (email === 'test@test.com' && password === '123456') {
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("jwtToken", "fake-token");
   
-    //   window.location.href = "main-page.html";
-    // } else {
-    //   if (incorrectBlock) incorrectBlock.style.display = "flex";
-    // }
+      window.location.href = "main-page.html";
+    } else {
+      if (incorrectBlock) incorrectBlock.style.display = "flex";
+    }
     
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {

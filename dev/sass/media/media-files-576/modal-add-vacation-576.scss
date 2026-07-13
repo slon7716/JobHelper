@@ -1,0 +1,81 @@
+.modal-add-vacation {
+   .modal-content {
+      padding: 16px 12px;
+      border-radius: 30px;
+
+      .modal-close {
+         top: 10px;
+         right: 10px;
+         font-size: 21.5px;
+         padding: 0 7px 3px;
+
+         img {
+            width: 15px;
+         }
+      }
+
+      .modal-header {
+         margin-bottom: 16px;
+
+         h5 {
+            max-width: 242px;
+            margin: 0 auto;
+            margin-bottom: 4px;
+         }
+
+         p {
+            font-size: 12px;
+         }
+      }
+
+      #jobForm {
+         .field {
+            margin-bottom: 16px;
+
+            .format-buttons {
+               min-width: initial;
+               flex-direction: column;
+               align-items: center;
+
+               button {
+                  width: 174px;
+                  font-size: 14px;
+                  border-radius: 12px;
+                  padding: 12px 0;
+               }
+            }
+
+            .field-row {
+               gap: 6px;
+
+               .skills-list {
+                  gap: 6px;
+               }
+            }
+
+            label,
+            legend {
+               min-width: initial;
+               max-width: 72px;
+               font-size: 14px;
+            }
+   
+            input,
+            textarea {
+               min-width: initial;
+               font-size: 14px;
+               border-radius: 12px;
+               padding: 10.5px;
+            }
+            
+            textarea {
+               min-height: 70px;
+            }
+         }
+
+         .btn {
+            font-size: 16px;
+         }
+      }
+   }
+}
