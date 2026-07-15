@@ -190,6 +190,7 @@ if (mainPage) {
   swiperWrapper.addEventListener('click', async (e) => {
     const target = e.target.closest('.move-to-tracker');
     if (!target) return;
+    if (!confirm("Ви дійсно хочете перемістити картку в трекер?")) return;
 
     // якщо сервер недоступний — блокуємо
     if (!isServerConnected) {
@@ -217,7 +218,7 @@ if (mainPage) {
       });
 
       if (!res.ok) {
-        console.warn(`Помилка при збереженні у трекер: ${await res.text()}`);
+        console.warn(`Помилка при збереженні даних: ${await res.text()}`);
         return;
       }
 

@@ -1,4 +1,4 @@
-.modal-add-vacation {
+.modal-edit-vacation {
    .modal-content {
       padding: 16px 12px;
       border-radius: 30px;
@@ -28,7 +28,7 @@
          }
       }
 
-      #jobForm {
+      #jobFormEdit {
          .field {
             margin-bottom: 16px;
 
@@ -50,7 +50,7 @@
                gap: 6px;
 
                .skills-list {
-                  gap: 6px;
+                  gap: 5px;
                }
             }
 
@@ -74,8 +74,15 @@
             }
          }
 
-         .btn {
-            font-size: 16px;
+         .btns {
+            flex-direction: column;
+            gap: 6px;
+
+            .btn {
+               font-size: 16px;
+               width: 190px;
+               padding: 11.5px;
+            }
          }
       }
    }

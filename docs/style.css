@@ -1130,6 +1130,7 @@ header .container .pages .page:hover .text {
 .modal-add-vacation {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
+  display: none;
   z-index: 2;
   inset: 0;
 }
@@ -1189,7 +1190,7 @@ header .container .pages .page:hover .text {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 8px;
   margin-bottom: 24px;
 }
 .modal-add-vacation .modal-content #jobForm .field .format-buttons {
@@ -1280,7 +1281,7 @@ header .container .pages .page:hover .text {
   inset: 0;
 }
 .modal-edit-vacation .modal-content {
-  width: 90%;
+  width: 95%;
   background-color: #fff;
   max-width: 800px;
   max-height: 95vh;
@@ -1308,13 +1309,15 @@ header .container .pages .page:hover .text {
 .modal-edit-vacation .modal-content .modal-close img {
   width: 24px;
 }
-.modal-edit-vacation .modal-content h5 {
+.modal-edit-vacation .modal-content .modal-header {
+  margin-bottom: 30px;
+}
+.modal-edit-vacation .modal-content .modal-header h5 {
   text-align: center;
   margin-bottom: 10px;
 }
-.modal-edit-vacation .modal-content .small-text {
+.modal-edit-vacation .modal-content .modal-header .small-text {
   text-align: center;
-  margin-bottom: 30px;
 }
 .modal-edit-vacation .modal-content #jobFormEdit {
   width: 100%;
@@ -1333,12 +1336,16 @@ header .container .pages .page:hover .text {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
   margin-bottom: 24px;
 }
 .modal-edit-vacation .modal-content #jobFormEdit .field .format-buttons {
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
+  min-width: 500px;
   display: flex;
   justify-content: space-between;
+  gap: 8px;
 }
 .modal-edit-vacation .modal-content #jobFormEdit .field .format-buttons button {
   width: 150px;
@@ -1360,14 +1367,18 @@ header .container .pages .page:hover .text {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 7px;
 }
 .modal-edit-vacation .modal-content #jobFormEdit .field .field-row .skills-list {
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 .modal-edit-vacation .modal-content #jobFormEdit .field label,
 .modal-edit-vacation .modal-content #jobFormEdit .field legend {
+  width: 100%;
   max-width: 207px;
   font-size: 20px;
   line-height: 1.5;
@@ -1377,7 +1388,9 @@ header .container .pages .page:hover .text {
 }
 .modal-edit-vacation .modal-content #jobFormEdit .field input,
 .modal-edit-vacation .modal-content #jobFormEdit .field textarea {
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
+  min-width: 500px;
   font-size: 20px;
   line-height: 1.5;
   color: #434A54;
@@ -1396,16 +1409,18 @@ header .container .pages .page:hover .text {
   outline: 2px solid #1D5BBF;
 }
 .modal-edit-vacation .modal-content #jobFormEdit .field textarea {
-  min-height: 80px;
+  min-height: 98px;
+  line-height: 1.2;
 }
 .modal-edit-vacation .modal-content #jobFormEdit .btns {
   display: flex;
   margin-bottom: 4px;
 }
-.modal-edit-vacation .modal-content #jobFormEdit .btn {
+.modal-edit-vacation .modal-content #jobFormEdit .btns .btn {
+  width: 270px;
   font-weight: 600;
   display: block;
-  padding: 13px 64px;
+  padding: 13px;
   margin: 0 auto;
 }
 .modal-edit-vacation .offline-mode .btn-edit,
@@ -2735,6 +2750,71 @@ footer {
   .modal-add-vacation .modal-content #jobForm .btn {
     padding: 11.5px 50px;
   }
+  .modal-edit-vacation .modal-content {
+    padding: 20px 16px;
+    border-radius: 40px;
+  }
+  .modal-edit-vacation .modal-content .modal-close {
+    top: 12px;
+    right: 12px;
+    font-size: 26px;
+    padding: 0 8px 2px;
+  }
+  .modal-edit-vacation .modal-content .modal-close img {
+    width: 18px;
+  }
+  .modal-edit-vacation .modal-content .modal-header {
+    margin-bottom: 20px;
+  }
+  .modal-edit-vacation .modal-content .modal-header h5 {
+    margin-bottom: 6px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit {
+    padding: 1px 6px 0 0;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit::-webkit-scrollbar {
+    width: 6px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field {
+    margin-bottom: 20px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .format-buttons {
+    min-width: 398px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .format-buttons button {
+    width: 130px;
+    font-size: 16px;
+    border-radius: 15px;
+    padding: 14px 0;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .field-row .skills-list {
+    gap: 7px;
+    padding: 1px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field label,
+  .modal-edit-vacation .modal-content #jobFormEdit .field legend {
+    max-width: 83px;
+    min-width: 83px;
+    font-size: 16px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field input,
+  .modal-edit-vacation .modal-content #jobFormEdit .field textarea {
+    min-width: 380px;
+    font-size: 16px;
+    border-radius: 15px;
+    padding: 11.5px 16px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field input:focus,
+  .modal-edit-vacation .modal-content #jobFormEdit .field textarea:focus {
+    outline: 1px solid #1D5BBF;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field textarea {
+    min-height: 81px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .btns .btn {
+    width: 212px;
+    padding: 11.5px;
+  }
 }
 @media screen and (max-width: 575.9px) {
   .enter-the-site {
@@ -3231,6 +3311,7 @@ footer {
     min-width: initial;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
   }
   .modal-add-vacation .modal-content #jobForm .field .format-buttons button {
     width: 174px;
@@ -3258,10 +3339,80 @@ footer {
     padding: 10.5px;
   }
   .modal-add-vacation .modal-content #jobForm .field textarea {
-    min-height: 70px;
+    min-height: 71px;
   }
   .modal-add-vacation .modal-content #jobForm .btn {
     font-size: 16px;
+  }
+  .modal-edit-vacation .modal-content {
+    padding: 16px 12px;
+    border-radius: 30px;
+  }
+  .modal-edit-vacation .modal-content .modal-close {
+    top: 10px;
+    right: 10px;
+    font-size: 21.5px;
+    padding: 0 7px 3px;
+  }
+  .modal-edit-vacation .modal-content .modal-close img {
+    width: 15px;
+  }
+  .modal-edit-vacation .modal-content .modal-header {
+    margin-bottom: 16px;
+  }
+  .modal-edit-vacation .modal-content .modal-header h5 {
+    max-width: 242px;
+    margin: 0 auto;
+    margin-bottom: 4px;
+  }
+  .modal-edit-vacation .modal-content .modal-header p {
+    font-size: 12px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field {
+    margin-bottom: 16px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .format-buttons {
+    min-width: initial;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .format-buttons button {
+    width: 174px;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 12px 0;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .field-row {
+    gap: 6px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field .field-row .skills-list {
+    gap: 5px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field label,
+  .modal-edit-vacation .modal-content #jobFormEdit .field legend {
+    min-width: initial;
+    max-width: 72px;
+    font-size: 14px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field input,
+  .modal-edit-vacation .modal-content #jobFormEdit .field textarea {
+    min-width: initial;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 10.5px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .field textarea {
+    min-height: 71px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .btns {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .modal-edit-vacation .modal-content #jobFormEdit .btns .btn {
+    font-size: 16px;
+    width: 190px;
+    padding: 11.5px;
   }
 }
 /*# sourceMappingURL=style.css.map */

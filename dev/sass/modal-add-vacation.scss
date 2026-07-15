@@ -3,7 +3,7 @@
 .modal-add-vacation {
    background: rgba(0, 0, 0, 0.5);
    position: fixed;
-   // display: none;
+   display: none;
    z-index: 2;
    inset: 0;
 
@@ -41,6 +41,7 @@
 
       .modal-header {
          margin-bottom: 30px;
+
          h5 {
             text-align: center;
             margin-bottom: 10px;
@@ -70,7 +71,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 24px;
 
             .format-buttons {
