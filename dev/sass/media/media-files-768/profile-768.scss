@@ -6,7 +6,7 @@
 
    .section {
       border-radius: 14px;
-      padding: 16px;
+      padding: 16px 16px 8px;
       margin: 0 16px 12px;
 
       &.editing {
@@ -14,8 +14,8 @@
       }
 
       .edit-btn {
-         top: 10px;
-         right: 10px;
+         top: 8px;
+         right: 8px;
          width: 36px;
          height: 36px;
       }
@@ -163,6 +163,10 @@
                width: 150px;
                padding: 11px;
                margin: 0 12px;
+            }
+
+            .cancel-btn {
+               height: 48px;
             }
          }
       }

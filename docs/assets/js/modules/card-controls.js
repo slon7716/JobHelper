@@ -98,7 +98,7 @@ export function initCardControls(updateCountsCallback, checkServer) {
           selectedStatus = option.dataset.status;
         };
       });
-      transferModal.style.display = 'flex';
+      transferModal.style.display = 'block';
 
       // Підтвердити переміщення
       const confirmBtn = document.getElementById('confirmTransfer');

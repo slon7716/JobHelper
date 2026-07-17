@@ -21,6 +21,8 @@
                padding: 13px 37px;
 
                &.btn-secondary {
+                  margin-top: 1px;
+                  height: 54px;
                   width: 190px;
                }
             }
@@ -146,6 +148,7 @@
       .table {
          display: flex;
          justify-content: center;
+         padding: 0 12px;
          
          .part {
             text-align: center;

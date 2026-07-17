@@ -4,27 +4,11 @@
    margin: 0 8px;
 
    .logo {
-      width: 145px;
-      height: 48px;
-      border-radius: 32px;
-      padding: 8px;
-      margin: 10px;
-
-      img {
-         width: 24px;
-         height: 24px;
-         margin-right: 8px;
-      }
-
-      .name {
-         font-size: 18px;
-         padding-top: 3px;
-      }
+      margin: 20px auto;
    }
 
-   h5 {
-      font-size: 24px;
-      margin-bottom: 20px;
+   h4 {
+      margin-bottom: 24px;
    }
 
    form {
@@ -34,7 +18,7 @@
          margin-bottom: 24px;
 
          .field {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             
             .small-text {
                font-size: 16px;

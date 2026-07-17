@@ -9,12 +9,12 @@
 
    .modal-content {
       width: 95%;
-      background-color: #fff;
       max-width: 800px;
       max-height: 95vh;
-      margin: 10px auto;
-      padding: 24px;
+      background-color: #fff;
       border-radius: 60px;
+      padding: 24px;
+      margin: 10px auto;
       position: relative;
       display: flex;
       flex-direction: column; // важливо для вертикального росту контенту

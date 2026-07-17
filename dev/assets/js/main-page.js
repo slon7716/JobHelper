@@ -243,7 +243,7 @@ if (mainPage) {
       slides = slides.filter(s => s.jobId != Number(slide.dataset.slideId));
       localStorage.setItem("jobSlides", JSON.stringify(slides));
 
-      alert("Картку збережено у трекер");
+      alert("Картку успішно переміщено в трекер");
 
     } catch (err) {
       console.warn(err);
